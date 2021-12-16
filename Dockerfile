@@ -46,17 +46,16 @@ RUN apt-get update \
 # Install kobweb
 RUN apt-get update && apt-get install -y wget unzip
 
-RUN wget https://github.com/varabyte/kobweb/releases/download/v0.7.7/kobweb-0.7.7.zip \
-    && unzip kobweb-0.7.7.zip \
-    && rm -r kobweb-0.7.7.zip
-ENV PATH="/kobweb-0.7.7/bin:${PATH}"
-RUN echo $PATH
+RUN wget https://github.com/varabyte/kobweb/releases/download/v0.7.8/kobweb-0.7.8.zip \
+    && unzip kobweb-0.7.8.zip \
+    && rm -r kobweb-0.7.8.zip
+ENV PATH="/kobweb-0.7.8/bin:${PATH}"
 
 WORKDIR /app
 
-RUN ./gradlew --stop && kobweb export --mode dumb
+RUN kobweb export --mode dumb
 
-ENV PORT=8080
+RUN export PORT=$(kobweb conf server.port)
 EXPOSE $PORT
 
 # Purge all the things we don't need anymore
@@ -65,4 +64,4 @@ RUN apt-get purge --auto-remove -y curl gnupg wget unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Keep container running because `kobweb run --mode dumb` doesn't block
-CMD ./gradlew --stop && kobweb run --mode dumb --env prod && ./gradlew --stop && tail -f /dev/null
+CMD kobweb run --mode dumb --env prod && tail -f /dev/null
