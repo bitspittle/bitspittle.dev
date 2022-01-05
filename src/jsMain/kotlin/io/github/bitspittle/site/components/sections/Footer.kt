@@ -28,7 +28,7 @@ fun Footer() {
     Row(FooterStyle.toModifier(), horizontalArrangement = Arrangement.Center) {
         Text("This site is ")
         Link("https://github.com/bitspittle/bitspittle.dev", "open source")
-        Text(", written with ")
+        Text(", written using ")
         Link("https://github.com/varabyte/kobweb", "Kobweb")
         Text(".")
     }
