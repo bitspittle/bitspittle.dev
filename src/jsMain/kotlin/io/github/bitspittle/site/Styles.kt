@@ -2,10 +2,12 @@ package io.github.bitspittle.site
 
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.InitSilk
 import com.varabyte.kobweb.silk.InitSilkContext
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import kotlinx.browser.localStorage
@@ -20,8 +22,22 @@ fun initSilk(ctx: InitSilkContext) {
     ctx.config.registerBaseStyle("code") { Modifier.fontFamily("Ubuntu Mono") }
 
     ctx.theme.palettes = SilkPalettes(
-        light = ctx.theme.palettes.light.copy(color = Color.rgb(0x222222)),
-        dark = ctx.theme.palettes.dark.copy(color = Color.rgb(0xdddddd))
+        light = ctx.theme.palettes.light.copy(
+            color = Colors.CornflowerBlue.darkened(),
+            background = Colors.WhiteSmoke,
+            link = SilkPalette.Link(
+                default = Colors.DarkTurquoise,
+                visited = Colors.MediumOrchid,
+            ),
+            button = ctx.theme.palettes.light.button.copy(default = Colors.WhiteSmoke)
+        ),
+        dark = ctx.theme.palettes.dark.copy(
+            color = Colors.CornflowerBlue,
+            link = SilkPalette.Link(
+                default = Colors.Turquoise,
+                visited = Colors.Thistle,
+            )
+        )
     )
 }
 
