@@ -68,7 +68,7 @@ fun NavHeader() {
     val ctx = rememberPageContext()
     Row(NavHeaderStyle.toModifier()) {
         NavLink("/", "\$bs", LogoVariant)
-        NavLink("/about", "blog")
+        NavLink("/blog/", "blog")
         Spacer()
         IconButton(
             onClick = { ctx.router.navigateTo("https://twitter.com/bitspittle") },

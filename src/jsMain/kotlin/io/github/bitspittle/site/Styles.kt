@@ -11,6 +11,7 @@ import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import kotlinx.browser.localStorage
+import org.jetbrains.compose.web.css.*
 
 const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
 
@@ -18,8 +19,13 @@ const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
 fun initSilk(ctx: InitSilkContext) {
     ctx.config.initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
-    ctx.config.registerBaseStyle("body") { Modifier.fontFamily("Ubuntu") }
+    ctx.config.registerBaseStyle("body") { Modifier.fontFamily("Ubuntu").lineHeight(1.5) }
     ctx.config.registerBaseStyle("code") { Modifier.fontFamily("Ubuntu Mono") }
+
+    ctx.config.registerBaseStyle("p") { Modifier.margin(bottom = 1.5.cssRem) }
+    ctx.config.registerBaseStyle("h1") { Modifier.fontSize(3.cssRem) }
+    ctx.config.registerBaseStyle("h2") { Modifier.fontSize(2.5.cssRem) }
+    ctx.config.registerBaseStyle("h3") { Modifier.fontSize(2.cssRem) }
 
     ctx.theme.palettes = SilkPalettes(
         light = ctx.theme.palettes.light.copy(
