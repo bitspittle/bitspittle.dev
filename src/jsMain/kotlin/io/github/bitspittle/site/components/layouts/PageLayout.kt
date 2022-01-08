@@ -1,6 +1,7 @@
 package io.github.bitspittle.site.components.layouts
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -20,15 +21,17 @@ fun PageLayout(title: String, description: String = "", content: @Composable Col
         document.querySelector("""meta[name="description"]""")!!.setAttribute("content", description)
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        NavHeader()
-        Column(Modifier.fillMaxWidth(75.percent)) {
-            H1 { Text(title) }
-            content()
+    Box(Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier.fillMaxSize().maxWidth(800.px).align(Alignment.TopCenter),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            NavHeader()
+            Column(Modifier.fillMaxWidth(75.percent)) {
+                H1 { Text(title) }
+                content()
+            }
+            Footer()
         }
-        Footer()
     }
 }
