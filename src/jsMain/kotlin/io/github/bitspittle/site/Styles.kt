@@ -17,34 +17,38 @@ const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
 
 @InitSilk
 fun initSilk(ctx: InitSilkContext) {
-    ctx.config.initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
+    ctx.apply {
+        config.apply {
+            initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
-    ctx.config.registerBaseStyle("body") { Modifier.fontFamily("Ubuntu").lineHeight(1.5) }
-    ctx.config.registerBaseStyle("code") { Modifier.fontFamily("Ubuntu Mono") }
+            registerBaseStyle("body") { Modifier.fontFamily("Ubuntu").lineHeight(1.5) }
+            registerBaseStyle("code") { Modifier.fontFamily("Ubuntu Mono") }
 
-    ctx.config.registerBaseStyle("p") { Modifier.margin(bottom = 1.5.cssRem) }
-    ctx.config.registerBaseStyle("h1") { Modifier.fontSize(3.cssRem) }
-    ctx.config.registerBaseStyle("h2") { Modifier.fontSize(2.5.cssRem) }
-    ctx.config.registerBaseStyle("h3") { Modifier.fontSize(2.cssRem) }
+            registerBaseStyle("p") { Modifier.margin(bottom = 1.5.cssRem) }
+            registerBaseStyle("h1") { Modifier.fontSize(2.5.cssRem) }
+            registerBaseStyle("h2") { Modifier.fontSize(2.cssRem) }
+            registerBaseStyle("h3") { Modifier.fontSize(1.5.cssRem) }
+        }
 
-    ctx.theme.palettes = SilkPalettes(
-        light = ctx.theme.palettes.light.copy(
-            color = Colors.CornflowerBlue.darkened(),
-            background = Colors.WhiteSmoke,
-            link = SilkPalette.Link(
-                default = Colors.DarkTurquoise,
-                visited = Colors.MediumOrchid,
+        theme.palettes = SilkPalettes(
+            light = ctx.theme.palettes.light.copy(
+                color = Colors.CornflowerBlue.darkened(),
+                background = Colors.WhiteSmoke,
+                link = SilkPalette.Link(
+                    default = Colors.DarkTurquoise,
+                    visited = Colors.MediumOrchid,
+                ),
+                button = ctx.theme.palettes.light.button.copy(default = Colors.WhiteSmoke)
             ),
-            button = ctx.theme.palettes.light.button.copy(default = Colors.WhiteSmoke)
-        ),
-        dark = ctx.theme.palettes.dark.copy(
-            color = Colors.CornflowerBlue,
-            link = SilkPalette.Link(
-                default = Colors.Cyan,
-                visited = Colors.Thistle,
+            dark = ctx.theme.palettes.dark.copy(
+                color = Colors.CornflowerBlue,
+                link = SilkPalette.Link(
+                    default = Colors.Cyan,
+                    visited = Colors.Thistle,
+                )
             )
         )
-    )
+    }
 }
 
 
