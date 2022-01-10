@@ -40,7 +40,7 @@ fun initSilk(ctx: InitSilkContext) {
         dark = ctx.theme.palettes.dark.copy(
             color = Colors.CornflowerBlue,
             link = SilkPalette.Link(
-                default = Colors.Turquoise,
+                default = Colors.Cyan,
                 visited = Colors.Thistle,
             )
         )
