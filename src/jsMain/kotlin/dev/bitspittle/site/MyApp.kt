@@ -1,4 +1,4 @@
-package io.github.bitspittle.site
+package dev.bitspittle.site
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.ui.Modifier

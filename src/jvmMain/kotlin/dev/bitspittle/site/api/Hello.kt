@@ -1,4 +1,4 @@
-package io.github.bitspittle.site.api
+package dev.bitspittle.site.api
 
 import com.varabyte.kobweb.api.Api
 import com.varabyte.kobweb.api.ApiContext

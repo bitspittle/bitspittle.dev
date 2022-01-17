@@ -18,7 +18,7 @@ repositories {
     maven("https://us-central1-maven.pkg.dev/varabyte-repos/public")
 }
 
-group = "io.github.bitspittle.site"
+group = "dev.bitspittle.site"
 version = "1.0-SNAPSHOT"
 
 kotlin {
@@ -121,12 +121,12 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
             blogList.writeText(buildString {
                 appendLine(
                     """
-                    package io.github.bitspittle.site.pages.blog
+                    package dev.bitspittle.site.pages.blog
                     
                     import androidx.compose.runtime.*
                     import com.varabyte.kobweb.core.*
                     import com.varabyte.kobwebx.markdown.*
-                    import io.github.bitspittle.site.components.layouts.PageLayout
+                    import dev.bitspittle.site.components.layouts.PageLayout
                     
                     import org.jetbrains.compose.web.dom.H3
                     import org.jetbrains.compose.web.dom.P

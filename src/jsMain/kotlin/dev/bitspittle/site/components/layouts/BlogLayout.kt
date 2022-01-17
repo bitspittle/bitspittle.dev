@@ -1,4 +1,4 @@
-package io.github.bitspittle.site.components.layouts
+package dev.bitspittle.site.components.layouts
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.ColumnScope

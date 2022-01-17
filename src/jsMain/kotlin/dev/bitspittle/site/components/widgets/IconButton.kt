@@ -1,4 +1,4 @@
-package io.github.bitspittle.site.components.widgets
+package dev.bitspittle.site.components.widgets
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Box

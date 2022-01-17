@@ -1,4 +1,4 @@
-package io.github.bitspittle.site.components.sections
+package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Row
@@ -22,8 +22,8 @@ import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
 import com.varabyte.kobweb.silk.theme.shapes.Circle
 import com.varabyte.kobweb.silk.theme.shapes.clip
 import com.varabyte.kobweb.silk.theme.toSilkPalette
-import io.github.bitspittle.site.SitePalettes
-import io.github.bitspittle.site.components.widgets.IconButton
+import dev.bitspittle.site.SitePalettes
+import dev.bitspittle.site.components.widgets.IconButton
 import org.jetbrains.compose.web.css.*
 
 val NavHeaderStyle = ComponentStyle.base("bs-nav-header") {

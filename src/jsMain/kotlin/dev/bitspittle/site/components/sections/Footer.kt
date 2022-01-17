@@ -1,4 +1,4 @@
-package io.github.bitspittle.site.components.sections
+package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement

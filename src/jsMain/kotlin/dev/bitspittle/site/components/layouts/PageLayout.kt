@@ -1,4 +1,4 @@
-package io.github.bitspittle.site.components.layouts
+package dev.bitspittle.site.components.layouts
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -8,8 +8,8 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.text.Text
-import io.github.bitspittle.site.components.sections.Footer
-import io.github.bitspittle.site.components.sections.NavHeader
+import dev.bitspittle.site.components.sections.Footer
+import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.H1
