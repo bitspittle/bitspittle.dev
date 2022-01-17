@@ -14,10 +14,11 @@ tags:
 To make this site, I could have used TypeScript, or GitHub Pages, or some low-code or no-code site builder. But here I
 am, using Kotlin.
 
-It wasn't trivial, either -- this is the culmination of a framework that has (so far) taken six months of solid effort
-to write.
+It wasn't a trivial choice, either -- this is the culmination of a framework that has (so far) taken six months of solid
+effort to write.
 
-So why the heck did I do choose Kotlin for BitSpittle.dev? And what did I find to be the pros and cons?
+So how did I end up here?! I'll move quickly, but it all started six months ago. I quit my last job to take my first
+break in over two decades, and I found myself wanting to learn more about frontend development...
 
 ## Kotlin/JS
 
@@ -26,39 +27,39 @@ I've been using Kotlin for several years now. For me, it hits a sweet spot of ex
 But when I say that I've written Kotlin, I really mean Android, desktop, and server code. In contrast, I've honestly
 always viewed Kotlin/JS with a bit of suspicion.
 
-I mean, I'm glad it exists -- it sure seems like an audacious bet -- but I tend to feel it usually isn't the right tool
-for the job.
-
 There's a lot of friction at play just to start a Kotlin/JS project: you still need to learn html / css concepts, you
 end up mixing Gradle *and* npm, you lose access to the broader JVM ecosystem, and you start working with APIs that take
 `dynamic` arguments.
 
-Not to mention, there isn't really a Kotlin webdev community of significant size at this point. I'm *still* not sure
-if it will ever get there. I'm trying to imagine a world where startups are scrambling to hire "Kotlin frontend devs"
-and, despite my love for the language, I'm not seeing it.
+Not to mention, I'm not aware of there being a Kotlin webdev community of significant size at this point. I'm *still*
+not sure if we will ever get there. I'm trying to imagine a world where startups are scrambling to hire
+"Kotlin frontend devs" and, despite my love for the language, I'm not seeing it.
 
 ## TypeScript
 
-So, six months ago, when I found myself wanting to learn more about frontend development, I began teaching myself
-TypeScript.
+So, I began teaching myself TypeScript. I went in with high expectations but in the end felt that it was just... OK.
 
-It was... OK. I think TypeScript in a bubble would not be as loved as much as it is. Instead, I think Microsoft has done
-a terrific job seatbelting JavaScript, and people may appreciate that someone has muzzled a wailing baby, but that
-doesn't make a language great when judged on its own merits.
+I was surprised how awkward it was to enforce types when defining React functions in my code. In practice, I notice most
+users just omit types and escape hatch to JavaScript's laissez-faire attitude in several cases.
 
-I actually couldn't believe how awkward it was to enforce types when defining React functions in my code. In practice,
-I notice most users just omit them and escape hatch to JavaScript's laissez-faire attitude in those cases.
+That's crazy if you think about! React is the hot framework in the frontend world, and TypeScript the hot language in
+said same world, but the two dance very awkwardly together.
 
-That's crazy if you think about! React is the hot framework in the
-frontend world, and TypeScript the hot language, but the two dance very awkwardly together.
+Part of the pain was losing my most comfortable language *and* my most comfortable IDE at the same time.
+
+WebStorm is not free. They do have a license for open source projects, but there's a chci
+
 
 ## Next.js and Chakra UI
 
-Despite that awkwardness
+It wasn't long before I stumbled upon Next.js as a recommended framework for setting up a TypeScript / JavaScript
+project. And the experience was so good. You can go from absolutely nothing to a live-reloading project with a super
+easy mental model.
+
+In fact the experience feels so simple that it caused me to under-estimate the space quite a bit. 
 
 ## Web Compose
 
-But when I say using, I mean I've used it for 
 
 ## Advantages
 
