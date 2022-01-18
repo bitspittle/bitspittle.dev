@@ -21,6 +21,12 @@ repositories {
 group = "dev.bitspittle.site"
 version = "1.0-SNAPSHOT"
 
+kobweb {
+    index {
+        description = "A programming blog"
+    }
+}
+
 kotlin {
     jvm {
         tasks.named("jvmJar", Jar::class.java).configure {
