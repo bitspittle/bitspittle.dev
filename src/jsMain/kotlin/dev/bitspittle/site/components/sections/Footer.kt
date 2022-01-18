@@ -19,13 +19,11 @@ val FooterStyle = ComponentStyle.base("bs-footer") {
         .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].color.toCssColor())
         .padding(topBottom = .75.cssRem, leftRight = 4.cssRem)
         .transitionProperty("border-color")
-        .position(Position.Absolute)
-        .bottom(0.px)
 }
 
 @Composable
-fun Footer() {
-    Row(FooterStyle.toModifier(), horizontalArrangement = Arrangement.Center) {
+fun Footer(modifier: Modifier = Modifier) {
+    Row(FooterStyle.toModifier().then(modifier), horizontalArrangement = Arrangement.Center) {
         Text("This site is ")
         Link("https://github.com/bitspittle/bitspittle.dev", "open source")
         Text(", written using ")
