@@ -11,9 +11,18 @@ import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import kotlinx.browser.localStorage
-import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.cssRem
+import org.jetbrains.compose.web.css.em
+import org.jetbrains.compose.web.css.fontFamily
+import org.jetbrains.compose.web.css.px
 
 const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
+
+val BLOCK_MARGIN = Modifier.margin(top = 1.cssRem)
+private val HEADER_MARGIN = Modifier.margin(top = 2.em)
+
+private val TEXT_FONT = Modifier.fontFamily("Ubuntu", "Roboto", "Arial", "Helvetica", "sans-serif")
+private val CODE_FONT = Modifier.fontFamily("Ubuntu Mono", "Roboto Mono", "Lucida Console", "Courier New", "monospace")
 
 @InitSilk
 fun initSilk(ctx: InitSilkContext) {
@@ -21,13 +30,18 @@ fun initSilk(ctx: InitSilkContext) {
         config.apply {
             initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
-            registerBaseStyle("body") { Modifier.fontFamily("Ubuntu").lineHeight(1.5) }
-            registerBaseStyle("code") { Modifier.fontFamily("Ubuntu Mono") }
+            registerBaseStyle("body") { TEXT_FONT.lineHeight(1.5) }
+            registerBaseStyle("code") { CODE_FONT }
+            registerBaseStyle("canvas") { BLOCK_MARGIN }
 
-            registerBaseStyle("p") { Modifier.margin(bottom = 1.5.cssRem) }
-            registerBaseStyle("h1") { Modifier.fontSize(2.5.cssRem) }
-            registerBaseStyle("h2") { Modifier.fontSize(2.cssRem) }
-            registerBaseStyle("h3") { Modifier.fontSize(1.5.cssRem) }
+            registerBaseStyle("p") { BLOCK_MARGIN }
+            registerBaseStyle("pre") { BLOCK_MARGIN }
+            registerBaseStyle("h1") { HEADER_MARGIN.fontSize(2.5.cssRem) }
+            registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
+            registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
+
+            // Tweaks to make output from highlight.js look softer / better
+            registerBaseStyle("code.hljs") { Modifier.borderRadius(5.px) }
         }
 
         theme.palettes = SilkPalettes(

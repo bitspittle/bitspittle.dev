@@ -6,8 +6,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
-import com.varabyte.kobweb.silk.components.icons.fa.FaMoon
-import com.varabyte.kobweb.silk.components.icons.fa.FaSun
 import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
@@ -17,13 +15,12 @@ import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.components.style.link
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.style.visited
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
 import com.varabyte.kobweb.silk.theme.shapes.Circle
 import com.varabyte.kobweb.silk.theme.shapes.clip
 import com.varabyte.kobweb.silk.theme.toSilkPalette
 import dev.bitspittle.site.SitePalettes
-import dev.bitspittle.site.components.widgets.IconButton
+import dev.bitspittle.site.components.widgets.button.ColorModeButton
+import dev.bitspittle.site.components.widgets.button.IconButton
 import org.jetbrains.compose.web.css.*
 
 val NavHeaderStyle = ComponentStyle.base("bs-nav-header") {
@@ -50,7 +47,7 @@ val LogoVariant = NavLinkStyle.addVariant("logo") {
 }
 
 val NavButtonStyle = ComponentStyle.base("bs-nav-button") {
-    Modifier.margin(0.px, 10.px).clip(Circle())
+    Modifier.margin(0.px, 10.px)
 }
 
 @Composable
@@ -76,15 +73,6 @@ fun NavHeader() {
         ) {
             FaTwitter()
         }
-        var colorMode by rememberColorMode()
-        IconButton(
-            onClick = { colorMode = colorMode.opposite() },
-            NavButtonStyle.toModifier()
-        ) {
-            when (colorMode) {
-                ColorMode.LIGHT -> FaMoon()
-                ColorMode.DARK -> FaSun()
-            }
-        }
+        ColorModeButton(NavButtonStyle.toModifier())
     }
 }

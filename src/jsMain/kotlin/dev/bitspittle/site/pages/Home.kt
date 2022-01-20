@@ -1,9 +1,9 @@
 package dev.bitspittle.site.pages
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.core.Page
 import dev.bitspittle.site.components.layouts.PageLayout
-import dev.bitspittle.site.components.widgets.Paragraph
+import dev.bitspittle.site.components.widgets.text.Paragraph
 
 private val PARAGRAPHS = listOf(
     """

@@ -1,4 +1,4 @@
-package dev.bitspittle.site.components.widgets
+package dev.bitspittle.site.components.widgets.text
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.silk.components.text.Text
