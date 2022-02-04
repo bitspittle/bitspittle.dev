@@ -46,10 +46,10 @@ RUN apt-get update \
 # Install kobweb
 RUN apt-get update && apt-get install -y wget unzip
 
-RUN wget https://github.com/varabyte/kobweb/releases/download/v0.7.8/kobweb-0.7.8.zip \
-    && unzip kobweb-0.7.8.zip \
-    && rm -r kobweb-0.7.8.zip
-ENV PATH="/kobweb-0.7.8/bin:${PATH}"
+RUN wget https://github.com/varabyte/kobweb/releases/download/cli-v0.9.4/kobweb-0.9.4.zip \
+    && unzip kobweb-0.9.4.zip \
+    && rm -r kobweb-0.9.4.zip
+ENV PATH="/kobweb-0.9.4/bin:${PATH}"
 
 WORKDIR /app
 
