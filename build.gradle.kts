@@ -1,3 +1,5 @@
+import com.varabyte.kobwebx.gradle.markdown.children
+import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
 import kotlinx.html.link
 import kotlinx.html.script
 import kotlinx.html.title
@@ -5,6 +7,8 @@ import org.commonmark.ext.front.matter.YamlFrontMatterBlock
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
 import org.commonmark.node.AbstractVisitor
 import org.commonmark.node.CustomBlock
+import org.commonmark.node.Link
+import org.commonmark.node.Text
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -50,6 +54,17 @@ kobwebx {
 
             inlineCode.set { code ->
                 "$BS_WGT.code.InlineCode(\"\"\"${code.literal}\"\"\")"
+            }
+
+            val baseHeadingHandler = heading.get()
+            heading.set { heading ->
+                val result = baseHeadingHandler.invoke(this, heading)
+                val id = idGenerator.get().invoke(
+                    heading.children().filterIsInstance<Text>().map { it.literal }.joinToString("")
+                )
+                heading.appendChild(KobwebCall(".components.widgets.navigation.HoverLink(\"#$id\")"))
+
+                result
             }
         }
     }
