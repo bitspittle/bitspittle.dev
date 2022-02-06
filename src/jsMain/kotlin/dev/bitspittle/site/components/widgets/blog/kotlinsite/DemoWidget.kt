@@ -7,8 +7,11 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
+import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.silk.components.graphics.Canvas2d
 import com.varabyte.kobweb.silk.components.graphics.ONE_FRAME_MS_60_FPS
+import org.jetbrains.compose.web.css.cssRem
+import org.jetbrains.compose.web.css.px
 import org.w3c.dom.CanvasLineCap
 import org.w3c.dom.CanvasState
 import org.w3c.dom.ROUND
@@ -17,7 +20,7 @@ import kotlin.math.PI
 
 @Composable
 fun DemoWidget() {
-    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxWidth().padding(topBottom = 1.cssRem, leftRight = 0.px), contentAlignment = Alignment.Center) {
         Clock()
     }
 }

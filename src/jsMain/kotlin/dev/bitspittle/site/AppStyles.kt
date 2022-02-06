@@ -21,7 +21,7 @@ import org.jetbrains.compose.web.css.px
 const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
 
 val BLOCK_MARGIN = Modifier.margin(top = 1.cssRem)
-private val HEADER_MARGIN = Modifier.margin(top = 2.em)
+private val HEADER_MARGIN = Modifier.margin(top = 1.5.em)
 
 private val TEXT_FONT = Modifier.fontFamily("Ubuntu", "Roboto", "Arial", "Helvetica", "sans-serif")
 private val CODE_FONT = Modifier.fontFamily("Ubuntu Mono", "Roboto Mono", "Lucida Console", "Courier New", "monospace")
@@ -42,6 +42,7 @@ fun initSilk(ctx: InitSilkContext) {
             registerBaseStyle("h1") { HEADER_MARGIN.fontSize(2.5.cssRem) }
             registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
             registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
+            registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
         }
 
         theme.palettes = SilkPalettes(
