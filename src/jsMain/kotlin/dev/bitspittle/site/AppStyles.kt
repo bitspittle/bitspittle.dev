@@ -1,9 +1,11 @@
 package dev.bitspittle.site
 
+import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.InitSilk
 import com.varabyte.kobweb.silk.InitSilkContext
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
@@ -30,6 +32,7 @@ fun initSilk(ctx: InitSilkContext) {
         config.apply {
             initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
+            registerBaseStyle("html") { Modifier.scrollBehavior(ScrollBehavior.Smooth) }
             registerBaseStyle("body") { TEXT_FONT.lineHeight(1.5) }
             registerBaseStyle("code") { CODE_FONT }
             registerBaseStyle("canvas") { BLOCK_MARGIN }
