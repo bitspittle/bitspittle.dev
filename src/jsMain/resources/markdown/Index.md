@@ -1,5 +1,5 @@
 ---
-root: .components.layouts.PageLayout("Welcome to BitSpittle.dev")
+root: .components.layouts.PageLayout("Welcome to Bitspittle.dev")
 ---
 
 Hello! My name is David Herman.
