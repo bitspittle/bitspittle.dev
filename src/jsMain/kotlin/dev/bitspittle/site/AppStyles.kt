@@ -42,9 +42,6 @@ fun initSilk(ctx: InitSilkContext) {
             registerBaseStyle("h1") { HEADER_MARGIN.fontSize(2.5.cssRem) }
             registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
             registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
-
-            // Tweaks to make output from highlight.js look softer / better
-            registerBaseStyle("code.hljs") { Modifier.borderRadius(5.px) }
         }
 
         theme.palettes = SilkPalettes(
