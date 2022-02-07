@@ -3,12 +3,14 @@ package dev.bitspittle.site.components.layouts
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.foundation.layout.Row
+import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
+import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.InitSilk
 import com.varabyte.kobweb.silk.InitSilkContext
 import com.varabyte.kobweb.silk.components.icons.fa.FaDiscord
+import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
 import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.Text
@@ -17,7 +19,7 @@ import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import com.varabyte.kobwebx.markdown.markdown
 import kotlinx.browser.document
 import kotlinx.browser.window
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.P
 
 @InitSilk

@@ -155,17 +155,17 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
             rootNode.accept(visitor)
 
             val fm = visitor.frontMatter
-            val (title, desc, date) = listOf("title", "description", "date")
+            val requiredFields = listOf("title", "description", "author", "date")
+            val (title, desc, author, date) = requiredFields
                 .map { key -> fm[key]?.singleOrNull() }
                 .takeIf { values -> values.all { it != null } }
                 ?.requireNoNulls()
                 ?: run {
-                    println("Skipping $blogArticle in the listing as it is missing required frontmatter fields")
+                    println("Skipping $blogArticle in the listing as it is missing required frontmatter fields (one of $requiredFields)")
                     return@forEach
                 }
 
             val tags = fm["tags"] ?: emptyList()
-            val author = fm["author"]?.singleOrNull() ?: "David Herman"
             blogEntries.add(BlogEntry(blogArticle.relativeTo(root), author, LocalDate.parse(date), title, desc, tags))
         }
 
@@ -184,6 +184,7 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                     import com.varabyte.kobweb.silk.components.style.*
                     import com.varabyte.kobwebx.markdown.*
                     import dev.bitspittle.site.components.layouts.PageLayout                   
+                    import dev.bitspittle.site.components.widgets.blog.*                   
                     import org.jetbrains.compose.web.dom.*
                     
                     @Page
@@ -195,8 +196,7 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                 )
 
                 blogEntries.sortedByDescending { it.date }.forEach { entry ->
-                    val dateStr = entry.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
-                    appendLine("""      ArticleEntry("/blog/${entry.file.path.substringBeforeLast('.').toLowerCase()}", "${entry.author}", "$dateStr", "${entry.title.escapeQuotes()}", "${entry.desc.escapeQuotes()}"),""")
+                    appendLine("""      ArticleEntry("/blog/${entry.file.path.substringBeforeLast('.').toLowerCase()}", "${entry.author}", "${entry.date}", "${entry.title.escapeQuotes()}", "${entry.desc.escapeQuotes()}"),""")
                 }
 
                 appendLine(

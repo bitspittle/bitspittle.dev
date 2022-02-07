@@ -41,6 +41,7 @@ fun initSilk(ctx: InitSilkContext) {
                 HEADER_MARGIN
                     .fontSize(2.5.cssRem)
                     .letterSpacing((-1.5).px)
+                    .lineHeight(1.1)
             }
             registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
             registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }

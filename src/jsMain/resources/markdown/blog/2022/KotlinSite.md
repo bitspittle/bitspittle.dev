@@ -2,6 +2,7 @@
 root: .components.layouts.BlogLayout
 title: Kobweb - A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
+author: David Herman
 date: 2022-02-07
 tags:
  - kotlin/js
@@ -9,6 +10,8 @@ tags:
  - webdev
  - kobweb
 ---
+
+{{{ .components.widgets.blog.ArticleMetadata }}}
 
 I wrote a thing -- a Kotlin web framework called [Kobweb](https://github.com/varabyte/kobweb).
 
@@ -19,7 +22,7 @@ Jetpack Compose).
 And this whole site, *including this very page you are now perusing*, is Kobweb's first user.
 
 Frontend development in Kotlin is still in its early days, so it's an exciting time to explore the space. In this post,
-I'll introduce some Kobweb basics, and discuss why you might (or might not!) want to use it.
+I'll introduce some Kobweb basics, as well as discuss why you might (or might not!) want to use it.
 
 ## Kobweb
 

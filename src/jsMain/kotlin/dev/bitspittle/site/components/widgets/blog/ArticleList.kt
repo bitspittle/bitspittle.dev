@@ -1,16 +1,16 @@
-package dev.bitspittle.site.pages.blog
+package dev.bitspittle.site.components.widgets.blog
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.asAttributeBuilder
-import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.navigation.Link
+import com.varabyte.kobweb.silk.components.text.Text
 import com.varabyte.kobweb.silk.components.style.*
-import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.css.cssRem
+import dev.bitspittle.site.components.widgets.date.DateText
+import dev.bitspittle.site.components.widgets.dom.StyledDiv
+import dev.bitspittle.site.components.widgets.dom.StyledSpan
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLSpanElement
@@ -27,7 +27,7 @@ val ArticleTitleStyle = ComponentStyle.base("bs-article-title") {
     Modifier
 }
 
-val ArticleAuthorDateStyle = ComponentStyle.base("bs-article-author-date") {
+val ArticleMetaStyle = ComponentStyle.base("bs-article-meta") {
     Modifier.opacity(0.6)
 }
 
@@ -64,19 +64,18 @@ fun ArticleList(entries: List<ArticleEntry>) {
 }
 
 @Composable
-private fun StyledDiv(style: ComponentStyle, content: ContentBuilder<HTMLDivElement>) = Div(style.toModifier().asAttributeBuilder(), content)
-
-@Composable
-private fun StyledSpan(style: ComponentStyle, content: ContentBuilder<HTMLSpanElement>) = Span(style.toModifier().asAttributeBuilder(), content)
+fun AuthorDate(author: String, date: String, modifier: Modifier = Modifier) {
+    Div(attrs = ArticleMetaStyle.toModifier().then(modifier).asAttributeBuilder()) {
+        StyledSpan(ArticleDateStyle) { DateText(date) }
+        StyledSpan(ArticleAuthorStyle) { Text(author) }
+    }
+}
 
 @Composable
 private fun ArticleSummary(entry: ArticleEntry) {
     StyledDiv(ArticleSectionStyle) {
         StyledDiv(ArticleTitleStyle) { Link(entry.path, entry.title) }
-        StyledDiv(ArticleAuthorDateStyle) {
-            StyledSpan(ArticleDateStyle) { Text(entry.date) }
-            StyledSpan(ArticleAuthorStyle) { Text(entry.author) }
-        }
+        AuthorDate(entry.author, entry.date)
         StyledDiv(ArticleDescStyle) { Text(entry.desc) }
     }
 }
