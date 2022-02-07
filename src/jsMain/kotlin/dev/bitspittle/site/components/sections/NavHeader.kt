@@ -36,7 +36,7 @@ fun initNavHeaderStyles(ctx: InitSilkContext) {
     // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
     (2..6).forEach { headingLevel ->
         ctx.config.registerBaseStyle("h${headingLevel}") {
-            Modifier.scrollMarginTop(5.cssRem)
+            Modifier.scrollMargin(top = 5.cssRem)
         }
     }
 }
