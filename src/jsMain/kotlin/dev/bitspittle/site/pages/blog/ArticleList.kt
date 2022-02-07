@@ -27,8 +27,8 @@ val ArticleTitleStyle = ComponentStyle.base("bs-article-title") {
     Modifier
 }
 
-val ArticleMetaSection = ComponentStyle.base("bs-article-meta") {
-    Modifier
+val ArticleAuthorDateStyle = ComponentStyle.base("bs-article-author-date") {
+    Modifier.opacity(0.6)
 }
 
 val ArticleAuthorStyle = ComponentStyle.base("bs-article-author") {
@@ -47,7 +47,7 @@ val ArticleNameStyle = ComponentStyle.base("bs-article-name") {
 
 
 val ArticleDescStyle = ComponentStyle.base("bs-article-desc") {
-    Modifier
+    Modifier.margin(top = 0.3.cssRem)
 }
 
 class ArticleEntry(val path: String, val author: String, val date: String, val title: String, val desc: String)
@@ -73,7 +73,7 @@ private fun StyledSpan(style: ComponentStyle, content: ContentBuilder<HTMLSpanEl
 private fun ArticleSummary(entry: ArticleEntry) {
     StyledDiv(ArticleSectionStyle) {
         StyledDiv(ArticleTitleStyle) { Link(entry.path, entry.title) }
-        StyledDiv(ArticleAuthorStyle) {
+        StyledDiv(ArticleAuthorDateStyle) {
             StyledSpan(ArticleDateStyle) { Text(entry.date) }
             StyledSpan(ArticleAuthorStyle) { Text(entry.author) }
         }
