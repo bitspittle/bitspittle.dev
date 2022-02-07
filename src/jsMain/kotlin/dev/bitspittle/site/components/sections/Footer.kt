@@ -23,8 +23,12 @@ val FooterStyle = ComponentStyle.base("bs-footer") {
     Modifier
         .margin(top = 2.cssRem)
         .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].color.toCssColor())
-        .padding(topBottom = .75.cssRem, leftRight = 4.cssRem)
+        .padding(topBottom = 1.cssRem, leftRight = 4.cssRem)
         .transitionProperty("border-color")
+}
+
+val CopyrightStyle = ComponentStyle.base("bs-copyright") {
+    Modifier.opacity(0.6).fontSize(0.8.cssRem)
 }
 
 @Composable
@@ -43,11 +47,15 @@ fun Footer(modifier: Modifier = Modifier) {
             Text(".")
         }
 
-        Row(Modifier.justifyContent(JustifyContent.SpaceAround).width(12.cssRem).margin(top = 1.5.cssRem, bottom = 0.5.cssRem)) {
+        Row(Modifier.justifyContent(JustifyContent.SpaceAround).width(12.cssRem).margin(top = 1.cssRem, bottom = 1.cssRem)) {
             FooterLink("https://twitter.com/bitspittle") { FaTwitter() }
             FooterLink("https://github.com/bitspittle") { FaGithub() }
             FooterLink("https://www.linkedin.com/in/hermandave") { FaLinkedin() }
             FooterLink("mailto:bitspittle+fromblog@gmail.com") { FaEnvelope() }
+        }
+
+        Row {
+            Text("© 2022, David Herman", CopyrightStyle.toModifier())
         }
     }
 }
