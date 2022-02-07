@@ -4,8 +4,13 @@ import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
+import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.core.rememberPageContext
+import com.varabyte.kobweb.silk.InitSilk
+import com.varabyte.kobweb.silk.InitSilkContext
 import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
@@ -15,6 +20,7 @@ import com.varabyte.kobweb.silk.components.style.base
 import com.varabyte.kobweb.silk.components.style.link
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.style.visited
+import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import com.varabyte.kobweb.silk.theme.shapes.Circle
 import com.varabyte.kobweb.silk.theme.shapes.clip
 import com.varabyte.kobweb.silk.theme.toSilkPalette
@@ -23,11 +29,28 @@ import dev.bitspittle.site.components.widgets.button.ColorModeButton
 import dev.bitspittle.site.components.widgets.button.IconButton
 import org.jetbrains.compose.web.css.*
 
+@InitSilk
+fun initNavHeaderStyles(ctx: InitSilkContext) {
+    // Trick to avoid text scrolling under our floating nav header when you click on in-page fragments links like
+    // `href="#some-section`.
+    // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
+    (2..6).forEach { headingLevel ->
+        ctx.config.registerBaseStyle("h${headingLevel}") {
+            Modifier.scrollMarginTop(5.cssRem)
+        }
+    }
+}
+
 val NavHeaderStyle = ComponentStyle.base("bs-nav-header") {
     Modifier
         .fillMaxWidth()
-        .padding(left = 1.cssRem, right = 1.cssRem, top = 1.cssRem, bottom = 3.cssRem)
+        .padding(left = 1.cssRem, right = 1.cssRem, top = 1.cssRem, bottom = 1.cssRem)
         .fontSize(1.25.cssRem)
+        .position(Position.Sticky)
+        .zIndex(1)
+        .top(0.percent)
+        .backgroundColor(colorMode.toSilkPalette().background)
+        .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toSilkPalette().color.toCssColor())
 }
 
 val NavLinkStyle = ComponentStyle("bs-nav-link") {
