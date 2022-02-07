@@ -14,10 +14,7 @@ import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import kotlinx.browser.localStorage
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.fontFamily
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 
 const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
 
@@ -40,7 +37,13 @@ fun initSilk(ctx: InitSilkContext) {
 
             registerBaseStyle("p") { BLOCK_MARGIN }
             registerBaseStyle("pre") { BLOCK_MARGIN }
-            registerBaseStyle("h1") { HEADER_MARGIN.fontSize(2.5.cssRem) }
+            registerBaseStyle("h1") {
+                HEADER_MARGIN
+                    .fontSize(2.5.cssRem)
+                    .styleModifier {
+                        letterSpacing((-1.5).px)
+                    }
+            }
             registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
             registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
             registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
