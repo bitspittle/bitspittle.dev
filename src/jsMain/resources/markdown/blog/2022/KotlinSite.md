@@ -1,8 +1,8 @@
 ---
 root: .components.layouts.BlogLayout
-title: Kobweb - A framework built on Compose for Web
-description: A bit about Kobweb and writing a blog site in Kotlin
-date: 2022-02-06
+title: Kobweb - A Framework Built on Compose for Web
+description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
+date: 2022-02-07
 tags:
  - kotlin/js
  - compose for web
@@ -18,8 +18,8 @@ Jetpack Compose).
 
 And this whole site, *including this very page you are now perusing*, is Kobweb's first user.
 
-Frontend development in Kotlin is still in its early days, so it's an exciting time to explore it. In this post, I'll
-introduce some Kobweb basics, and discuss why you might (or might not!) want to use it.
+Frontend development in Kotlin is still in its early days, so it's an exciting time to explore the space. In this post,
+I'll introduce some Kobweb basics, and discuss why you might (or might not!) want to use it.
 
 ## Kobweb
 
@@ -97,8 +97,8 @@ and navigate to that page as you'd expect.
 Kobweb can be used on its own for its routing capabilities, but it also provides a UI library called Silk, a
 color-mode-aware (i.e. light and dark) collection of widgets as well as general theming and component styling support.
 
-I believe component styling will change how you will want to create widgets in Kotlin web. I demonstrate it later in its
-[own subsection ▼](#component-styling).
+I believe component styling is one of those things that once you start using it you won't want to go back. I demonstrate
+it later in its [own subsection ▼](#component-styling).
 
 ### Color mode
 
@@ -145,11 +145,11 @@ Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/tree/mai
 Among other things, Silk provides a helpful `Canvas` widget which makes it easy to register some code that will
 automatically get called for you once per frame.
 
-Plus, thanks to Silk, it was trivial to make the clock color mode aware. You can click this color mode button
+Using `Canvas`, it was trivial to make the clock color mode aware. You can click this color mode button
 ${.components.widgets.button.ColorModeButton} to observe the changes yourself.
 
 Despite being easy to use, the canvas widget is extremely powerful, and you could use it to create dynamic effects,
-backgrounds, or even games.
+full screen backgrounds, or even games.
 
 ### Modifier
 
@@ -191,12 +191,12 @@ Silk widgets take modifiers directly:
 
 ```kotlin
 Button(
-    onClick = { /* ... */ },
+    onClick = { /*...*/ },
     Modifier.fontWeight(FontWeight.Bold)
 )
 ```
 
-But for interoperability with Compose for Web widgets, it is easy to convert a `Modifier` into an `AttrsBuilder` on the
+But for interoperability with Compose for Web elements, it is easy to convert a `Modifier` into an `AttrsBuilder` on the
 fly, using the `asAttributeBuilder` method:
 
 ```kotlin
@@ -244,16 +244,16 @@ but you can still easily end up with a monolith.
 Kobweb introduces component styling, which is a fancy way of saying you can define the styles you use in smaller pieces
 next to the code that uses them.
 
-It's easy -- just instance a `ComponentStyle`, pass in a unique name, and save the result to a `val`. Choose a name that
-is simple and clear, because it might help you if you need to debug your page using browser tools later:
+It's easy -- just instantiate a `ComponentStyle`, pass in a unique name, and store the result to a `val`. Choose a name
+that is simple and clear, because it might help you if you need to debug your page using browser tools later:
 
 ```kotlin
 val SomeWidgetStyle = ComponentStyle("some-widget") {
     base { Modifier.fontSize(32.px).padding(10.px) }
     hover {
-        val highlight =
+        val highlightColor =
             if (colorMode.isDark()) Colors.Pink else Colors.Red
-        Modifier.backgroundColor(highlight)
+        Modifier.backgroundColor(highlightColor)
     }
 }
 ```
@@ -262,7 +262,7 @@ The `base` style, if defined, is special, as it will always be applied first. An
 top of the base if their condition is met.
 
 Component styles, once defined, can be converted to `Modifier`s using the `toModifier` method. This way, you can pass
-them into Silk or Compose for Web widgets:
+them into either Silk widgets *or* Compose for Web elements:
 
 ```kotlin
 val SomeWidgetStyle = ComponentStyle("some-widget") { /*...*/ }
@@ -270,9 +270,12 @@ val SomeWidgetStyle = ComponentStyle("some-widget") { /*...*/ }
 @Composable
 fun SomeWidget() {
     val widgetModifier = SomeWidgetStyle.toModifier()
-    Div(attrs = widgetModifier.asAttributeBuilder()) {
-       /*...*/
-    }
+    
+    // Silk widget:
+    Button(onClick = {}, widgetModifier) { /*...*/ }
+    
+    // Compose for Web element:
+    Div(attrs = widgetModifier.asAttributeBuilder()) { /*...*/ }
 }
 ```
 
@@ -281,8 +284,7 @@ between the code and a monolothic stylesheet in a different file.
 
 ## Markdown
 
-At the beginning of this post, I said this site was written entirely in Kotlin. This may only not be a lie based on a
-technicality.
+At the beginning of this post, I said this site was written entirely in Kotlin. This may actually be a technicality.
 
 In fact, most of this site is actually written using markdown. Relevant markdown files are transpiled to Kotlin just
 before compilation happens.
@@ -309,19 +311,24 @@ great solution for you out of the box!
 
 Let's finish off by discussing other approaches, to compare and contrast with Kobweb.
 
-### Compose for Web on canvas
+If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion ▼](#conclusion).
 
-At the moment of writing this post, Kobweb is very much *not* a multiplatform solution. It is designed for
-developers who want to create a traditional website and use Kotlin instead of, say, TypeScript, when they write it.
+### Compose for Web - Canvas API
 
-However, many users in the community are expecting to write a web app once and run it everywhere (Android, Desktop,
-*and* Web).
+Many users in the Kotlin community are excited about the promise of multiplatform, and they are expecting to write a web
+app once and run it everywhere (Android, Desktop, *and* Web).
 
-And you should know, JetBrains is actively working towards enabling this workflow. If what you really want to do is
-create a cross-platform app, it may be worth waiting for their feature to land.
+At the moment of writing this post, Kobweb is very much *not* that sort of solution. It is designed for developers who
+want to create a traditional website but use Kotlin instead of, say, TypeScript.
 
+Before committing to Kobweb, you should know that JetBrains is actively working towards enabling the multiplatform
+workflow via a new API where you give it an HTML canvas and it renders your app to it opaquely. If what you really want
+to do is write a cross-platform app which just happens to also work in your browser, it may be worth waiting for this
+feature to land.
+
+There's no one-size fits all solution, however, and Kobweb may still be the right choice if you're creating a website.
 I write about this a bit more in [Kobweb's README](https://github.com/varabyte/kobweb#what-about-multiplatform-widgets),
-in case you wanted to learn more about the different approaches and their limitations.
+in case you wanted to learn more about the different approaches.
 
 ### Custom server
 
@@ -331,14 +338,14 @@ I didn't go over it in this post, but you can easily implement both your client 
 This can be a very powerful foundation if you're starting up a new project from scratch.
 
 However, your team may already have existing backend infrastructure, or you know in advance you want to control the
-backend entirely yourself. While this is definitely do-able with Kobweb, it's not officially supported yet and will
-require some manual effort.
+backend entirely yourself because of a workflow you're used to. While this is definitely do-able with Kobweb, it's not
+officially supported yet and will require some manual effort.
 
 For people in this situation, it's quite possible that Kobweb is too early to use with their project.
 
 You can read more about Kobweb's approach to defining server API routes in
 [the README](https://github.com/varabyte/kobweb#define-api-routes) and/or check
-[this issue](https://github.com/varabyte/kobweb/issues/22) in our tracker to see the state of external server
+[this issue](https://github.com/varabyte/kobweb/issues/22) in our tracker to see the current state of external server
 support in Kobweb.
 
 ### Vanilla Compose for Web
@@ -375,12 +382,13 @@ web app), you probably want to at least give Kobweb a try.
 
 ### JavaScript / TypeScript
 
-Kotlin/JS may not be for everyone. Most of webdev community is amassed around JavaScript / TypeScript and frameworks like
-React.
+Kotlin/JS may not be for everyone. Most of webdev community is amassed around JavaScript / TypeScript and frameworks
+like React.
 
 There are a lot of advantages to sticking with the crowd in this case. And not just because they have a huge headstart.
-Compile times tend to be a lot faster, you can experiment with JavaScript in live environments, you'll benefit from a
-ton of community support and resources, and there's no shortage of interesting projects out there to learn from.
+Compile times tend to be a lot faster, you can experiment with JavaScript by typing commands directly in your browser,
+you'll benefit from a ton of community support and resources, and there's no shortage of interesting projects out there
+to learn from.
 
 I have talked to many TypeScript programmers who vouch for it and say they enjoy writing code in the language. Microsoft
 has really done a great job adding seatbelts, helmets, and full body cushions to JavaScript (which itself is still
@@ -402,10 +410,10 @@ has pushed at least one other person over the fence.
 
 ### Trying Kobweb
 
-If Kobweb looks like something you'd want to play with, you can start by
+If Kobweb looks like something you'd want to play with, the easiest way to start is by
 [installing the Kobweb binary]( https://github.com/varabyte/kobweb#install-the-kobweb-binary).
 
-Once you've done that, you can run:
+Once installed, you can run:
 
 ```bash
 $ kobweb create site
@@ -414,15 +422,19 @@ $ cd site
 $ kobweb run
 ```
 
-If this post made you curious about Compose for Web in general but not yet ready to commit to Kobweb, that's fine -- you
-can start with the [official tutorial](https://github.com/JetBrains/compose-jb/tree/master/tutorials/Web/Getting_Started)
-but have Kobweb set it up for you in a few seconds:
+If this post made you curious about Compose for Web in general and you simply wanted to learn more, you can start with
+the [official tutorial](https://github.com/JetBrains/compose-jb/tree/master/tutorials/Web/Getting_Started) but have
+Kobweb set it up for you in a few seconds:
 
 ```bash
 $ kobweb create examples/jb/counter
 $ cd counter
 $ kobweb run
 ```
+
+And finally, if you are thinking about using Kobweb or you have decided to start using it(!), consider jumping into our
+[Discord server](https://discord.gg/5NZ2GKV5Cs), where I'd be happy to answer questions about Kobweb or even Kotlin
+development in general.
 
 ### The future
 
