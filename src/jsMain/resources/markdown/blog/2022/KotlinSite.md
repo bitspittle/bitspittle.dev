@@ -148,8 +148,8 @@ Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/tree/mai
 Among other things, Silk provides a helpful `Canvas` widget which makes it easy to register some code that will
 automatically get called for you once per frame.
 
-Using `Canvas`, it was trivial to make the clock color mode aware. You can click this color mode button
-${.components.widgets.button.ColorModeButton} to observe the changes yourself.
+Using `Canvas`, it was trivial to make the clock color mode aware as the current color mode was into the callback.
+You can click this color mode button ${.components.widgets.button.ColorModeButton} to observe the results yourself.
 
 Despite being easy to use, the canvas widget is extremely powerful, and you could use it to create dynamic effects,
 full screen backgrounds, or even games.
