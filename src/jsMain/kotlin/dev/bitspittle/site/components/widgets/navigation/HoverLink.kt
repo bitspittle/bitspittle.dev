@@ -3,7 +3,7 @@ package dev.bitspittle.site.components.widgets.navigation
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.dom.clearFocus
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.asAttributeBuilder
+import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.icons.fa.FaLink
 import com.varabyte.kobweb.silk.components.navigation.Link

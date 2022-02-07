@@ -2,7 +2,7 @@ package dev.bitspittle.site.components.widgets.code
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.asAttributeBuilder
+import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.modifiers.backgroundColor
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
 import com.varabyte.kobweb.compose.ui.modifiers.padding
@@ -21,7 +21,7 @@ val InlineCodeStyle = ComponentStyle.base("bs-code") {
 
 @Composable
 fun InlineCode(text: String, modifier: Modifier = Modifier) {
-    Code(attrs = InlineCodeStyle.toModifier().then(modifier).asAttributeBuilder()) {
+    Code(attrs = InlineCodeStyle.toModifier().then(modifier).asAttributesBuilder()) {
         Text(text)
     }
 }

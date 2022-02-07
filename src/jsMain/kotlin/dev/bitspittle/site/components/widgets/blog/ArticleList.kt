@@ -2,7 +2,7 @@ package dev.bitspittle.site.components.widgets.blog
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.asAttributeBuilder
+import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.Text
@@ -54,7 +54,7 @@ class ArticleEntry(val path: String, val author: String, val date: String, val t
 
 @Composable
 fun ArticleList(entries: List<ArticleEntry>) {
-    Ul(ArticleListStyle.toModifier().asAttributeBuilder()) {
+    Ul(ArticleListStyle.toModifier().asAttributesBuilder()) {
         entries.forEach { entry ->
             Li {
                 ArticleSummary(entry)
@@ -65,7 +65,7 @@ fun ArticleList(entries: List<ArticleEntry>) {
 
 @Composable
 fun AuthorDate(author: String, date: String, modifier: Modifier = Modifier) {
-    Div(attrs = ArticleMetaStyle.toModifier().then(modifier).asAttributeBuilder()) {
+    Div(attrs = ArticleMetaStyle.toModifier().then(modifier).asAttributesBuilder()) {
         StyledSpan(ArticleDateStyle) { DateText(date) }
         StyledSpan(ArticleAuthorStyle) { Text(author) }
     }

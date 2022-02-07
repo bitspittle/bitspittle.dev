@@ -200,7 +200,7 @@ Button(
 ```
 
 But for interoperability with Compose for Web elements, it is easy to convert a `Modifier` into an `AttrsBuilder` on the
-fly, using the `asAttributeBuilder` method:
+fly, using the `asAttributesBuilder` method:
 
 ```kotlin
 private val EXAMPLE_MODIFIER = Modifier
@@ -208,7 +208,7 @@ private val EXAMPLE_MODIFIER = Modifier
     .width(50.px).height(25.px)
     .backgroundColor(Colors.Black)
 
-Div(attrs = EXAMPLE_MODIFIER.asAttributeBuilder())
+Div(attrs = EXAMPLE_MODIFIER.asAttributesBuilder())
 ```
 
 With `Modifier`s, chaining is easy using the `then` method:
@@ -278,7 +278,7 @@ fun SomeWidget() {
     Button(onClick = {}, widgetModifier) { /*...*/ }
     
     // Compose for Web element:
-    Div(attrs = widgetModifier.asAttributeBuilder()) { /*...*/ }
+    Div(attrs = widgetModifier.asAttributesBuilder()) { /*...*/ }
 }
 ```
 
