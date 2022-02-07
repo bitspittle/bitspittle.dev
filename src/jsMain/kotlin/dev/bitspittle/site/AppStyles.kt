@@ -4,6 +4,7 @@ import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
+import com.varabyte.kobweb.compose.ui.graphics.lightened
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.InitSilk
@@ -47,20 +48,11 @@ fun initSilk(ctx: InitSilkContext) {
 
         theme.palettes = SilkPalettes(
             light = ctx.theme.palettes.light.copy(
-                color = Colors.CornflowerBlue.darkened(),
+                color = Colors.Black.lightened(0.2f),
                 background = Colors.WhiteSmoke,
-                link = SilkPalette.Link(
-                    default = Colors.DarkTurquoise,
-                    visited = Colors.MediumOrchid,
-                ),
-                button = ctx.theme.palettes.light.button.copy(default = Colors.WhiteSmoke)
             ),
             dark = ctx.theme.palettes.dark.copy(
-                color = Colors.CornflowerBlue,
-                link = SilkPalette.Link(
-                    default = Colors.Cyan,
-                    visited = Colors.Thistle,
-                )
+                color = Colors.White.darkened(0.1f)
             )
         )
     }

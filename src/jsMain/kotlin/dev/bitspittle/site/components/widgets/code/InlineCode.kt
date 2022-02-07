@@ -16,7 +16,7 @@ import org.jetbrains.compose.web.dom.Code
 import org.jetbrains.compose.web.dom.Text
 
 val InlineCodeStyle = ComponentStyle.base("bs-code") {
-    Modifier.backgroundColor(colorMode.toSilkPalette().background.shifted(colorMode, 0.2f)).padding(topBottom = 3.px, leftRight = 5.px).borderRadius(5.px)
+    Modifier.backgroundColor(colorMode.toSilkPalette().button.default).padding(topBottom = 3.px, leftRight = 5.px).borderRadius(5.px)
 }
 
 @Composable

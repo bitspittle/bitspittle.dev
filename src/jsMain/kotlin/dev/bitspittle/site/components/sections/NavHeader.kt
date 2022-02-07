@@ -70,7 +70,7 @@ val LogoVariant = NavLinkStyle.addVariant("logo") {
 }
 
 val NavButtonStyle = ComponentStyle.base("bs-nav-button") {
-    Modifier.margin(0.px, 10.px)
+    Modifier.margin(0.px, 10.px).backgroundColor(colorMode.toSilkPalette().background)
 }
 
 @Composable
