@@ -16,8 +16,8 @@ tags:
 I wrote a thing -- a Kotlin web framework called [Kobweb](https://github.com/varabyte/kobweb).
 
 It is built on top of [Compose for Web](https://compose-web.ui.pages.jetbrains.team/), an official, and fairly recent,
-reactive web framework created by JetBrains (in close collaboration with Google, and in turn built on *their* framework,
-Jetpack Compose).
+reactive web framework created by JetBrains (in close collaboration with Google, and in turn built upon *their*
+framework, Jetpack Compose).
 
 And this whole site, *including this very page you are now perusing*, is Kobweb's first user.
 
@@ -143,7 +143,7 @@ that was originally written in JavaScript.
 
 {{{ .components.widgets.blog.kotlinsite.DemoWidget }}}
 
-Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/tree/main/src/jsMain/kotlin/dev/bitspittle/site/components/widgets/blog/kotlinsite/DemoWidget).
+Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/tree/main/src/jsMain/kotlin/dev/bitspittle/site/components/widgets/blog/kotlinsite/DemoWidget.kt).
 
 Among other things, Silk provides a helpful `Canvas` widget which makes it easy to register some code that will
 automatically get called for you once per frame.
@@ -289,8 +289,8 @@ between the code and a monolothic stylesheet in a different file.
 
 At the beginning of this post, I said this site was written entirely in Kotlin. This may actually be a technicality.
 
-In fact, most of this site is actually written using markdown. Relevant markdown files are transpiled to Kotlin just
-before compilation happens.
+In fact, most of this site is written using markdown. Relevant markdown files are transpiled to Kotlin just before
+compilation happens.
 
 Kobweb extends markdown with some custom support for nesting code inside it which is how I embedded the color buttons
 and clock widget above. You can inline code with a Kotlin-y `${'$'}{...}` syntax or put a larger widget on its own line
@@ -428,7 +428,7 @@ $ cd site
 $ kobweb run
 ```
 
-If this post made you curious to play around with Compose for Web, you can start with the
+Or if this post just made you curious about Compose for Web, you can start with the
 [official tutorial](https://github.com/JetBrains/compose-jb/tree/master/tutorials/Web/Getting_Started) but have Kobweb
 set it up for you in a few seconds:
 
@@ -438,9 +438,8 @@ $ cd counter
 $ kobweb run
 ```
 
-And finally, if you are thinking about using Kobweb or you have decided to start using it(!), consider jumping into our
-[Discord server](https://discord.gg/5NZ2GKV5Cs), where I'd be happy to answer questions about Kobweb or even Kotlin
-development in general.
+And finally, if after reading this you are thinking about using Kobweb, consider jumping into our
+[Discord server](https://discord.gg/5NZ2GKV5Cs), where I'd be happy to answer questions about Kobweb when I'm around.
 
 ### The future
 
