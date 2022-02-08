@@ -10,6 +10,8 @@ import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.padding
 import com.varabyte.kobweb.silk.components.graphics.Canvas2d
 import com.varabyte.kobweb.silk.components.graphics.ONE_FRAME_MS_60_FPS
+import com.varabyte.kobweb.silk.theme.colors.shifted
+import com.varabyte.kobweb.silk.theme.toSilkPalette
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.px
 import org.w3c.dom.CanvasLineCap
@@ -40,12 +42,13 @@ private fun Clock() {
         val date = Date()
         val r = 150.0
 
-        // Just choose various colors from the palette for quick color-mode aware visual difference
+        // Let's be a little lazy and use some colors from the palette which is already color mode aware
+        val palette = colorMode.toSilkPalette()
         val colorBorder = palette.button.pressed
         val colorTicks = palette.color
         val colorHourHand = palette.link.default
-        val colorMinuteHand = palette.link.default
-        val colorSecondHand = palette.link.visited
+        val colorMinuteHand = palette.link.default.shifted(colorMode, byPercent = 0.4f)
+        val colorSecondHand = if (colorMode.isDark()) Colors.HotPink else Colors.Red
 
         ctx.save {
             ctx.strokeStyle = colorTicks.toCssColor()

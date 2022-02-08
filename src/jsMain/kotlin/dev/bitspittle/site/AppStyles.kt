@@ -48,13 +48,24 @@ fun initSilk(ctx: InitSilkContext) {
             registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
         }
 
+        // The "link visited" color looks a little garish in dark mode. Disable "visited" colors for now by just setting
+        // them to the same value as the default color. We might revisit this later.
+        val linkDark = Color.rgb(0x1a85ff)
         theme.palettes = SilkPalettes(
             light = ctx.theme.palettes.light.copy(
                 color = Colors.Black.lightened(0.2f),
                 background = Colors.WhiteSmoke,
+                link = ctx.theme.palettes.light.link.copy(
+                    visited = ctx.theme.palettes.light.link.default
+                )
             ),
             dark = ctx.theme.palettes.dark.copy(
-                color = Colors.White.darkened(0.1f)
+                color = Colors.White.darkened(0.1f),
+                background = Color.rgb(15, 15, 25),
+                link = SilkPalette.Link(
+                    default = linkDark,
+                    visited = linkDark,
+                )
             )
         )
     }
