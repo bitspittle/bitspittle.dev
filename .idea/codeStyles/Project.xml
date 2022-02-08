@@ -1,0 +1,22 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <JetCodeStyleSettings>
+      <option name="PACKAGES_TO_USE_STAR_IMPORTS">
+        <value>
+          <package name="java.util" alias="false" withSubpackages="false" />
+          <package name="androidx.compose.runtime" alias="false" withSubpackages="false" />
+          <package name="org.jetbrains.compose.web.css" alias="false" withSubpackages="false" />
+          <package name="org.jetbrains.compose.web.dom" alias="false" withSubpackages="false" />
+          <package name="com.varabyte.kobweb.compose.ui.modifiers" alias="false" withSubpackages="false" />
+          <package name="com.varabyte.kobweb.silk.components.style" alias="false" withSubpackages="false" />
+          <package name="kotlinx.android.synthetic" alias="false" withSubpackages="true" />
+          <package name="io.ktor" alias="false" withSubpackages="true" />
+        </value>
+      </option>
+      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+    </JetCodeStyleSettings>
+    <codeStyleSettings language="kotlin">
+      <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>

@@ -8,12 +8,20 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
+import com.varabyte.kobweb.silk.components.style.ComponentStyle
+import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.Text
 import dev.bitspittle.site.components.sections.Footer
 import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.H1
+
+val CenterColumnStyle = ComponentStyle("bs-center-column") {
+    base { Modifier.fillMaxWidth(90.percent) }
+    Breakpoint.MD { Modifier.fillMaxWidth(80.percent) }
+}
 
 @Composable
 fun PageLayout(title: String, description: String = "", content: @Composable ColumnScope.() -> Unit) {
@@ -33,7 +41,7 @@ fun PageLayout(title: String, description: String = "", content: @Composable Col
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             NavHeader()
-            Column(Modifier.fillMaxWidth(75.percent)) {
+            Column(CenterColumnStyle.toModifier()) {
                 H1 { Text(title) }
                 content()
             }

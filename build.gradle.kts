@@ -1,8 +1,11 @@
+import com.varabyte.kobwebx.gradle.markdown.children
+import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
+import kotlinx.html.script
 import org.commonmark.ext.front.matter.YamlFrontMatterBlock
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
 import org.commonmark.node.AbstractVisitor
 import org.commonmark.node.CustomBlock
-import java.time.LocalDate
+import org.commonmark.node.Text
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -23,7 +26,41 @@ version = "1.0-SNAPSHOT"
 
 kobweb {
     index {
-        description = "A programming blog"
+        description.set("A site about programming and advice extracted from a 20-year career")
+
+        head.add {
+            script {
+                // Needed by components/layouts/BlogLayout.kt
+                src = "/highlight.js/highlight.min.js"
+            }
+        }
+    }
+}
+
+kobwebx {
+    markdown {
+        components {
+            val BS_WGT = "dev.bitspittle.site.components.widgets"
+
+            code.set { code ->
+                "$BS_WGT.code.CodeBlock(\"\"\"${code.literal}\"\"\", lang = ${code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" } })"
+            }
+
+            inlineCode.set { code ->
+                "$BS_WGT.code.InlineCode(\"\"\"${code.literal}\"\"\")"
+            }
+
+            val baseHeadingHandler = heading.get()
+            heading.set { heading ->
+                val result = baseHeadingHandler.invoke(this, heading)
+                val id = idGenerator.get().invoke(
+                    heading.children().filterIsInstance<Text>().map { it.literal }.joinToString("")
+                )
+                heading.appendChild(KobwebCall(".components.widgets.navigation.HoverLink(\"#$id\")"))
+
+                result
+            }
+        }
     }
 }
 
@@ -81,16 +118,19 @@ class MarkdownVisitor : AbstractVisitor() {
 
 data class BlogEntry(
     val file: File,
-    val date: LocalDate,
+    val author: String,
+    val date: String,
     val title: String,
     val desc: String,
     val tags: List<String>
 )
 
+fun String.escapeQuotes() = this.replace("\"", "\\\"")
+
 val generateBlogListingTask = task("bsGenerateBlogListing") {
     group = "bitspittle"
     val BLOG_INPUT_DIR = "src/jsMain/resources/markdown/blog"
-    val BLOG_LIST_OUTPUT_FILE = "generated/kobweb/src/jsMain/kotlin/io/github/bitspittle/site/pages/blog/Index.kt"
+    val BLOG_LIST_OUTPUT_FILE = "generated/kobweb/src/jsMain/kotlin/dev/bitspittle/site/pages/blog/Index.kt"
 
     inputs.files(fileTree(BLOG_INPUT_DIR))
         .withPropertyName("blogArticles")
@@ -109,17 +149,18 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
             rootNode.accept(visitor)
 
             val fm = visitor.frontMatter
-            val (title, desc, date) = listOf("title", "description", "date")
+            val requiredFields = listOf("title", "description", "author", "date")
+            val (title, desc, author, date) = requiredFields
                 .map { key -> fm[key]?.singleOrNull() }
                 .takeIf { values -> values.all { it != null } }
                 ?.requireNoNulls()
                 ?: run {
-                    println("Skipping $blogArticle in the listing as it is missing required frontmatter fields")
+                    println("Skipping $blogArticle in the listing as it is missing required frontmatter fields (one of $requiredFields)")
                     return@forEach
                 }
 
             val tags = fm["tags"] ?: emptyList()
-            blogEntries.add(BlogEntry(blogArticle.relativeTo(root), LocalDate.parse(date), title, desc, tags))
+            blogEntries.add(BlogEntry(blogArticle.relativeTo(root), author, date, title, desc, tags))
         }
 
         project.layout.buildDirectory.file(BLOG_LIST_OUTPUT_FILE).map { it.asFile }.get().let { blogList ->
@@ -130,37 +171,32 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                     package dev.bitspittle.site.pages.blog
                     
                     import androidx.compose.runtime.*
+                    import com.varabyte.kobweb.compose.ui.*
                     import com.varabyte.kobweb.core.*
-                    import com.varabyte.kobwebx.markdown.*
-                    import dev.bitspittle.site.components.layouts.PageLayout
-                    
-                    import org.jetbrains.compose.web.dom.H3
-                    import org.jetbrains.compose.web.dom.P
                     import com.varabyte.kobweb.silk.components.navigation.Link
                     import com.varabyte.kobweb.silk.components.text.Text
+                    import com.varabyte.kobweb.silk.components.style.*
+                    import com.varabyte.kobwebx.markdown.*
+                    import dev.bitspittle.site.components.layouts.PageLayout                   
+                    import dev.bitspittle.site.components.widgets.blog.*                   
+                    import org.jetbrains.compose.web.dom.*
                     
                     @Page
                     @Composable
                     fun BlogListingsPage() {
                       PageLayout("Blog Posts") {
+                        val entries = listOf(
                     """.trimIndent()
                 )
 
                 blogEntries.sortedByDescending { it.date }.forEach { entry ->
-                    appendLine(
-                        """
-                        |    H3 {
-                        |       Link("/blog/${entry.file.path.substringBeforeLast('.').toLowerCase()}", "${entry.title}")
-                        |    }
-                        |    P {
-                        |      Text("${entry.desc}")
-                        |    }
-                        """.trimMargin()
-                    )
+                    appendLine("""      ArticleEntry("/blog/${entry.file.path.substringBeforeLast('.').toLowerCase()}", "${entry.author}", "${entry.date}", "${entry.title.escapeQuotes()}", "${entry.desc.escapeQuotes()}"),""")
                 }
 
                 appendLine(
                     """
+                        )
+                        ArticleList(entries)
                       }
                     }
                     """.trimIndent()
