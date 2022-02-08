@@ -309,9 +309,9 @@ Step: ${'$'}{.components.widgets.astar.StepButton}
 ```
 
 Code references that start with `.` will automatically be prefixed by your project's base package, so for example the
-demo line above may generate a line like `com.example.components.widgets.astar.Demo()`.
+demo block above may generate final code that looks like `com.example.components.widgets.astar.Demo()`.
 
-Ultimately, Markdown support out of the box means that if you love Kotlin *and* you were thinking of starting a blog,
+Ultimately, Markdown support out-of-the-box means that if you love Kotlin *and* you were thinking of starting a blog,
 Kobweb might be a great solution for you.
 
 ## Other approaches
