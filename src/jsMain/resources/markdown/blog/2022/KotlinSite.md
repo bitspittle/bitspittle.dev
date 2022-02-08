@@ -308,8 +308,9 @@ Play: ${'$'}{.components.widgets.astar.PlayButton}
 Step: ${'$'}{.components.widgets.astar.StepButton}
 ```
 
-Code references that start with `.` will automatically be prefixed by your project's base package, so for example the
-demo block above may generate final code that looks like `com.example.components.widgets.astar.Demo()`.
+Code references that start with `.` will automatically be prefixed by your project's base package, so for example all
+the code references above would generate final code prefixed with something like `com.example` (but whatever is used by
+your project).
 
 Ultimately, Markdown support out-of-the-box means that if you love Kotlin *and* you were thinking of starting a blog,
 Kobweb might be a great solution for you.
