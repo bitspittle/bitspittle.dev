@@ -1,17 +1,11 @@
 import com.varabyte.kobwebx.gradle.markdown.children
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
-import kotlinx.html.link
 import kotlinx.html.script
-import kotlinx.html.title
 import org.commonmark.ext.front.matter.YamlFrontMatterBlock
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
 import org.commonmark.node.AbstractVisitor
 import org.commonmark.node.CustomBlock
-import org.commonmark.node.Link
 import org.commonmark.node.Text
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -125,7 +119,7 @@ class MarkdownVisitor : AbstractVisitor() {
 data class BlogEntry(
     val file: File,
     val author: String,
-    val date: LocalDate,
+    val date: String,
     val title: String,
     val desc: String,
     val tags: List<String>
@@ -166,7 +160,7 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                 }
 
             val tags = fm["tags"] ?: emptyList()
-            blogEntries.add(BlogEntry(blogArticle.relativeTo(root), author, LocalDate.parse(date), title, desc, tags))
+            blogEntries.add(BlogEntry(blogArticle.relativeTo(root), author, date, title, desc, tags))
         }
 
         project.layout.buildDirectory.file(BLOG_LIST_OUTPUT_FILE).map { it.asFile }.get().let { blogList ->

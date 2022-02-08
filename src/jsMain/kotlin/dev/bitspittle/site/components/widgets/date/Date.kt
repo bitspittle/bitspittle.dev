@@ -12,6 +12,10 @@ fun DateText(dateStr: String, modifier: Modifier = Modifier) {
         month = "short"
         day = "numeric"
         year = "numeric"
+        // Incoming date timezone is assumed to be UTC, so set it explicitly here to prevent toLocalString from using
+        // the local timezone (which could cause off-by-one day errors).
+        // See also: https://stackoverflow.com/questions/32877278/tolocaledatestring-is-subtracting-a-day/32877402
+        timeZone = "UTC"
     }
 
     Text(date.toLocaleString("en-US", options), modifier)
