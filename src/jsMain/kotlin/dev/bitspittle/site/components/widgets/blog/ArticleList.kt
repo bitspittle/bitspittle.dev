@@ -16,7 +16,9 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLSpanElement
 
 val ArticleListStyle = ComponentStyle.base("bs-article-list") {
-    Modifier.listStyle("none")
+    // Remove list indentation
+    // See also: https://stackoverflow.com/a/13939142/17966710
+    Modifier.listStyle("none").padding(left = 0.px)
 }
 
 val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {
