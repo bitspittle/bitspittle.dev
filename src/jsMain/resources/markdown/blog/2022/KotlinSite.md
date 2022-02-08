@@ -1,6 +1,6 @@
 ---
 root: .components.layouts.BlogLayout
-title: Kobweb - A Framework Built on Compose for Web
+title: Kobweb: A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
@@ -307,8 +307,11 @@ Play: ${'$'}{.components.widgets.astar.PlayButton}
 Step: ${'$'}{.components.widgets.astar.StepButton}
 ```
 
-Ultimately, Markdown support means that if you love Kotlin *and* you were thinking of starting a blog, Kobweb might be a
-great solution for you out of the box!
+Code references that start with `.` will automatically be prefixed by your project's base package, so for example the
+demo line above may generate a line like `com.example.components.widgets.astar.Demo()`.
+
+Ultimately, Markdown support out of the box means that if you love Kotlin *and* you were thinking of starting a blog,
+Kobweb might be a great solution for you.
 
 ## Other approaches
 
@@ -425,9 +428,9 @@ $ cd site
 $ kobweb run
 ```
 
-If this post made you curious about Compose for Web in general and you simply wanted to learn more, you can start with
-the [official tutorial](https://github.com/JetBrains/compose-jb/tree/master/tutorials/Web/Getting_Started) but have
-Kobweb set it up for you in a few seconds:
+If this post made you curious to play around with Compose for Web, you can start with the
+[official tutorial](https://github.com/JetBrains/compose-jb/tree/master/tutorials/Web/Getting_Started) but have Kobweb
+set it up for you in a few seconds:
 
 ```bash
 $ kobweb create examples/jb/counter
