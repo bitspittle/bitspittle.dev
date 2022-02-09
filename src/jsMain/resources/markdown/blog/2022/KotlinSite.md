@@ -321,7 +321,7 @@ Let's finish off by discussing other approaches, to compare and contrast with Ko
 
 If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion ▼](#conclusion).
 
-### Compose for Web - Canvas API
+### Multiplatform Web Apps
 
 Many users in the Kotlin community are excited about the promise of multiplatform, and they are expecting to write a web
 app once and run it everywhere (Android, Desktop, *and* Web).
