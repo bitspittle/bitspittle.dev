@@ -46,12 +46,17 @@ RUN apt-get update \
 # Install kobweb
 RUN apt-get update && apt-get install -y wget unzip
 
-RUN wget https://github.com/varabyte/kobweb/releases/download/cli-v0.9.4/kobweb-0.9.4.zip \
-    && unzip kobweb-0.9.4.zip \
-    && rm -r kobweb-0.9.4.zip
-ENV PATH="/kobweb-0.9.4/bin:${PATH}"
+RUN wget https://github.com/varabyte/kobweb/releases/download/cli-v0.9.5/kobweb-0.9.5.zip \
+    && unzip kobweb-0.9.5.zip \
+    && rm -r kobweb-0.9.5.zip
+ENV PATH="/kobweb-0.9.5/bin:${PATH}"
 
 WORKDIR /app
+
+# Decrease memory usage to avoid OOM situations in
+# tight environments
+RUN echo "" >> gradle.properties # add a newline
+RUN echo "org.gradle.jvmargs=-Xmx256m" >> gradle.properties
 
 RUN kobweb export --mode dumb
 
