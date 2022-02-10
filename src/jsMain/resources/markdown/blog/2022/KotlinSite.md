@@ -4,7 +4,7 @@ title: Kobweb: A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2022-02-09
+updated: 2022-02-10
 tags:
  - kotlin/js
  - compose for web
@@ -149,7 +149,7 @@ Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/tree/mai
 Among other things, Silk provides a helpful `Canvas` widget which makes it easy to register some code that will
 automatically get called for you once per frame.
 
-Using `Canvas`, it was trivial to make the clock color mode aware as the current color mode is available within the
+Using `Canvas`, it was trivial to make the clock color mode aware as the current color mode is made available within the
 callback. You can click this color mode button ${.components.widgets.button.ColorModeButton} to observe the results
 yourself.
 
@@ -192,12 +192,21 @@ sharable variable. Plus, its API doesn't support chaining.
 To solve this, Silk provides its own `Modifier` class which is *inspired* by Jetpack Compose's version but isn't exactly
 the same one. Still, it should look familiar enough to people who write Jetpack Compose code.
 
+The above Compose for Web `AttrsBuilder` would be represented by the following `Modifier`:
+
+```kotlin
+private val EXAMPLE_MODIFIER = Modifier
+    .id("example")
+    .width(50.px).height(25.px)
+    .backgroundColor(Colors.Black)
+```
+
 Silk widgets take modifiers directly:
 
 ```kotlin
 Button(
     onClick = { /*...*/ },
-    Modifier.fontWeight(FontWeight.Bold)
+    modifier = EXAMPLE_MODIFIER
 )
 ```
 
@@ -205,11 +214,6 @@ But for interoperability with Compose for Web elements, it is easy to convert a 
 fly, using the `asAttributesBuilder` method:
 
 ```kotlin
-private val EXAMPLE_MODIFIER = Modifier
-    .id("example")
-    .width(50.px).height(25.px)
-    .backgroundColor(Colors.Black)
-
 Div(attrs = EXAMPLE_MODIFIER.asAttributesBuilder())
 ```
 
@@ -233,7 +237,7 @@ Most frontend projects have a single, giant, terrifying stylesheet (or, worse, s
 driving the look and feel of their site.
 
 ***Aside:** If you don't know what a stylesheet is, it's a collection of CSS rules that target various elements on your
-page using a declarative format.*
+page, specifying their style using a declarative format.*
 
 For example, at one point while working on Kobweb, I used a todo app to learn from, and at least half of the time I
 spent was crawling over
@@ -373,7 +377,7 @@ web app), you probably want to at least give Kobweb a try.
 
 ### JavaScript / TypeScript
 
-Kotlin/JS may not be for everyone. Most of webdev community is amassed around JavaScript / TypeScript and frameworks
+Kotlin/JS may not be for everyone. Most of the webdev community is amassed around JavaScript / TypeScript and libraries
 like React.
 
 There are a lot of advantages to sticking with the crowd in this case. And not just because they have a huge headstart.
@@ -390,9 +394,9 @@ new programmer came up to me today saying they wanted to write a website from sc
 developing skills that will turn into a frontend career, then I would send them to JavaScript / TypeScript tutorials at
 this point.
 
-If you like what I'm doing with Kobweb but think it makes more sense to use JavaScript / TypeScript for your project,
-check out [Next.js](https://nextjs.org/) paired with [Chakra UI](https://chakra-ui.com/), as both of these solutions
-were huge inspirations for me.
+If you like what I'm doing with Kobweb but think at this time it makes more sense to use JavaScript / TypeScript for
+your project, check out [Next.js](https://nextjs.org/) paired with [Chakra UI](https://chakra-ui.com/), as both of these
+solutions were huge inspirations for me.
 
 ## Conclusion
 
