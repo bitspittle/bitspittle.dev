@@ -338,24 +338,6 @@ There's no one-size fits all solution, however, and Kobweb may still be the righ
 I write about this a bit more in [Kobweb's README](https://github.com/varabyte/kobweb#what-about-multiplatform-widgets),
 in case you wanted to learn more about the different approaches.
 
-### Custom server
-
-This is planned to change later, but for Kobweb's first release, it owns the full stack.
-
-I didn't go over it in this post, but you can easily implement both your client and server logic in a single project.
-This can be a very powerful foundation if you're starting up a new project from scratch.
-
-However, your team may already have existing backend infrastructure, or you know in advance you want to control the
-backend entirely yourself because of a workflow you're used to. While this is definitely do-able with Kobweb, it's not
-officially supported yet and will require some manual effort.
-
-For people in this situation, it's quite possible that Kobweb is too early to use with their project.
-
-You can read more about Kobweb's approach to defining server API routes in
-[the README](https://github.com/varabyte/kobweb#define-api-routes) and/or check
-[this issue](https://github.com/varabyte/kobweb/issues/22) in our tracker to see the current state of external server
-support in Kobweb.
-
 ### Vanilla Compose for Web
 
 Perhaps you've been burned by frameworks before. "Yeah buddy, Kobweb is nice, but I'm just going to stick with Compose
