@@ -378,7 +378,7 @@ list of features we provide, since if you go it alone, you may need to implement
 * markdown support
 * composables for all free Font Awesome icons
 * parsing and handling query parameters (e.g. `/posts?userId=...&postId=...`)
-* parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}`"` )
+* parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}` )
 * handling responsive layouts (mobile vs. desktop)
 * an experience built from the ground up around live reloading
 
