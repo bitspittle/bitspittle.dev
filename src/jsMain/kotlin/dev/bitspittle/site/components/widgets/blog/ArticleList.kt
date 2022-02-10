@@ -1,6 +1,7 @@
 package dev.bitspittle.site.components.widgets.blog
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -47,6 +48,9 @@ val ArticleNameStyle = ComponentStyle.base("bs-article-name") {
     Modifier
 }
 
+val ArticleUpdatedStyle = ComponentStyle.base("bs-article-updated") {
+    Modifier.fontStyle(FontStyle.Italic)
+}
 
 val ArticleDescStyle = ComponentStyle.base("bs-article-desc") {
     Modifier.margin(top = 0.3.cssRem)
@@ -66,10 +70,19 @@ fun ArticleList(entries: List<ArticleEntry>) {
 }
 
 @Composable
-fun AuthorDate(author: String, date: String, modifier: Modifier = Modifier) {
+fun AuthorDate(author: String, date: String, updated: String? = null, modifier: Modifier = Modifier) {
     Div(attrs = ArticleMetaStyle.toModifier().then(modifier).asAttributesBuilder()) {
-        StyledSpan(ArticleDateStyle) { DateText(date) }
+        StyledSpan(ArticleDateStyle) {
+            DateText(date)
+        }
         StyledSpan(ArticleAuthorStyle) { Text(author) }
+        if (updated != null) {
+            StyledSpan(ArticleUpdatedStyle) {
+                Br()
+                Text("Updated ")
+                DateText(updated)
+            }
+        }
     }
 }
 
