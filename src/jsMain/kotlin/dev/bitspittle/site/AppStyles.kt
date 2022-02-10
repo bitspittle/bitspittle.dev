@@ -1,5 +1,6 @@
 package dev.bitspittle.site
 
+import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
@@ -30,7 +31,13 @@ fun initSilk(ctx: InitSilkContext) {
         config.apply {
             initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
 
-            registerBaseStyle("html") { Modifier.scrollBehavior(ScrollBehavior.Smooth) }
+            registerBaseStyle("html") {
+                // Always show a vertical scroller, or else our page content shifts when switching from one page that
+                // can scroll to one that can't
+                Modifier
+                    .scrollBehavior(ScrollBehavior.Smooth)
+                    .overflowY(Overflow.Scroll)
+            }
             registerBaseStyle("body") { TEXT_FONT.lineHeight(1.5) }
             registerBaseStyle("code") { CODE_FONT }
             registerBaseStyle("canvas") { BLOCK_MARGIN }
