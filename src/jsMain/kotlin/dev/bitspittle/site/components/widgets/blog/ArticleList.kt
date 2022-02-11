@@ -2,12 +2,15 @@ package dev.bitspittle.site.components.widgets.blog
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.css.FontStyle
+import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.asAttributesBuilder
+import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.Text
 import com.varabyte.kobweb.silk.components.style.*
+import com.varabyte.kobweb.silk.theme.toSilkPalette
 import dev.bitspittle.site.components.widgets.date.DateText
 import dev.bitspittle.site.components.widgets.dom.StyledDiv
 import dev.bitspittle.site.components.widgets.dom.StyledSpan
@@ -23,11 +26,16 @@ val ArticleListStyle = ComponentStyle.base("bs-article-list") {
 }
 
 val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {
-    Modifier.fillMaxWidth()
+    Modifier
+        .fillMaxWidth()
+        .margin(top = 1.5.cssRem)
+        .padding(0.5.cssRem)
+        .border(1.px, LineStyle.Solid, colorMode.toSilkPalette().border.toCssColor())
+        .borderRadius(5.px)
 }
 
 val ArticleTitleStyle = ComponentStyle.base("bs-article-title") {
-    Modifier
+    Modifier.fontWeight(FontWeight.Bold)
 }
 
 val ArticleMetaStyle = ComponentStyle.base("bs-article-meta") {
