@@ -14,8 +14,8 @@ tags:
 I wrote a thing -- a Kotlin web framework called [Kobweb](https://github.com/varabyte/kobweb).
 
 It is built on top of [Compose for Web](https://compose-web.ui.pages.jetbrains.team/), an official, and fairly recent,
-reactive web framework created by JetBrains (in close collaboration with Google, and in turn built upon *their*
-framework, Jetpack Compose).
+reactive web UI framework created by JetBrains (in close collaboration with Google, and in turn built upon
+Android's Jetpack Compose).
 
 And this whole site, *including this very page you are now perusing*, is Kobweb's first user.
 
