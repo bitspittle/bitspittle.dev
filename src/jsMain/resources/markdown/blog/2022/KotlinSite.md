@@ -267,8 +267,8 @@ val SomeWidgetStyle = ComponentStyle("some-widget") {
 The `base` style, if defined, is special, as it will always be applied first. Any additional declarations are layered on
 top of the base if their condition is met.
 
-Component styles, once defined, can be converted to `Modifier`s using the `toModifier` method. This way, you can pass
-them into either Silk widgets *or* Compose for Web elements:
+Component styles can be converted to `Modifier`s using the `toModifier` method. This way, you can pass them into either
+Silk widgets *or* Compose for Web elements:
 
 ```kotlin
 val SomeWidgetStyle = ComponentStyle("some-widget") { /*...*/ }
@@ -362,7 +362,7 @@ list of features we provide, since if you go it alone, you may need to implement
 * markdown support
 * composables for all free Font Awesome icons
 * parsing and handling query parameters (e.g. `/posts?userId=...&postId=...`)
-* parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}` )
+* parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}`)
 * handling responsive layouts (mobile vs. desktop)
 * an experience built from the ground up around live reloading
 
