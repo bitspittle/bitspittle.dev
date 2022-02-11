@@ -1,6 +1,7 @@
 package dev.bitspittle.site.components.widgets.code
 
 import androidx.compose.runtime.Composable
+import com.varabyte.kobweb.compose.css.OverflowWrap
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -14,7 +15,9 @@ import org.jetbrains.compose.web.dom.Code
 import org.jetbrains.compose.web.dom.Text
 
 val InlineCodeStyle = ComponentStyle.base("bs-code") {
-    Modifier.color(colorMode.toSilkPalette().color.shifted(colorMode, byPercent = -0.2f))
+    Modifier
+        .color(colorMode.toSilkPalette().color.shifted(colorMode, byPercent = -0.2f))
+        .overflowWrap(OverflowWrap.BreakWord)
 }
 
 @Composable
