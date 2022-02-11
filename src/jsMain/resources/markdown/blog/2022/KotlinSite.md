@@ -99,7 +99,7 @@ Kobweb can be used on its own for its routing capabilities, but it also provides
 color-mode-aware (i.e. light and dark) collection of widgets as well as general theming and component styling support.
 
 I believe component styling is one of those things that once you start using it you won't want to go back. I demonstrate
-it later in its [own subsection ▼](#component-styling).
+it later in its [own subsection▼](#component-styling).
 
 ### Color mode
 
@@ -321,7 +321,7 @@ Kobweb might be a great solution for you.
 
 Let's finish off by discussing other approaches, to compare and contrast with Kobweb.
 
-If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion ▼](#conclusion).
+If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion▼](#conclusion).
 
 ### Multiplatform Web Apps
 
@@ -403,7 +403,7 @@ has pushed at least one other person over the fence.
 ### Trying Kobweb
 
 If Kobweb looks like something you'd want to play with, the easiest way to start is by
-[installing the Kobweb binary]( https://github.com/varabyte/kobweb#install-the-kobweb-binary).
+[installing the Kobweb binary](https://github.com/varabyte/kobweb#install-the-kobweb-binary).
 
 Once installed, you can run:
 
