@@ -6,13 +6,10 @@ author: David Herman
 date: 2022-02-07
 updated: 2022-02-10
 tags:
- - kotlin/js
  - compose for web
  - webdev
  - kobweb
 ---
-
-{{{ .components.widgets.blog.ArticleMetadata }}}
 
 I wrote a thing -- a Kotlin web framework called [Kobweb](https://github.com/varabyte/kobweb).
 

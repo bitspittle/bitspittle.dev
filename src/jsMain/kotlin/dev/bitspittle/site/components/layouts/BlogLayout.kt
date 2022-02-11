@@ -17,6 +17,7 @@ import com.varabyte.kobweb.silk.components.text.Text
 import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import com.varabyte.kobwebx.markdown.markdown
+import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.*
@@ -54,6 +55,7 @@ fun BlogLayout(content: @Composable ColumnScope.() -> Unit) {
             js("hljs.highlightAll()")
         }
 
+        ArticleMetadata()
         content()
     }
 }
