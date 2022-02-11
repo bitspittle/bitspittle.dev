@@ -24,7 +24,7 @@ import org.jetbrains.compose.web.css.*
 val FooterStyle = ComponentStyle.base("bs-footer") {
     Modifier
         .margin(top = 2.cssRem)
-        .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].color.toCssColor())
+        .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].border.toCssColor())
         .padding(topBottom = 1.cssRem, leftRight = 4.cssRem)
         .transitionProperty("border-color")
 }
