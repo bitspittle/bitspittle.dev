@@ -43,6 +43,10 @@ kobwebx {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
             val JB_DOM = "org.jetbrains.compose.web.dom"
 
+            hr.set { hr ->
+                "$BS_WGT.dom.Hr"
+            }
+
             code.set { code ->
                 "$BS_WGT.code.CodeBlock(\"\"\"${code.literal}\"\"\", lang = ${code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" } })"
             }
