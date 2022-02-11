@@ -6,19 +6,16 @@ author: David Herman
 date: 2022-02-07
 updated: 2022-02-10
 tags:
- - kotlin/js
  - compose for web
  - webdev
  - kobweb
 ---
 
-{{{ .components.widgets.blog.ArticleMetadata }}}
-
 I wrote a thing -- a Kotlin web framework called [Kobweb](https://github.com/varabyte/kobweb).
 
 It is built on top of [Compose for Web](https://compose-web.ui.pages.jetbrains.team/), an official, and fairly recent,
-reactive web framework created by JetBrains (in close collaboration with Google, and in turn built upon *their*
-framework, Jetpack Compose).
+reactive web UI framework created by JetBrains (in close collaboration with Google, and in turn built upon
+Android's Jetpack Compose).
 
 And this whole site, *including this very page you are now perusing*, is Kobweb's first user.
 
@@ -102,7 +99,7 @@ Kobweb can be used on its own for its routing capabilities, but it also provides
 color-mode-aware (i.e. light and dark) collection of widgets as well as general theming and component styling support.
 
 I believe component styling is one of those things that once you start using it you won't want to go back. I demonstrate
-it later in its [own subsection ▼](#component-styling).
+it later in its [own subsection▼](#component-styling).
 
 ### Color mode
 
@@ -270,8 +267,8 @@ val SomeWidgetStyle = ComponentStyle("some-widget") {
 The `base` style, if defined, is special, as it will always be applied first. Any additional declarations are layered on
 top of the base if their condition is met.
 
-Component styles, once defined, can be converted to `Modifier`s using the `toModifier` method. This way, you can pass
-them into either Silk widgets *or* Compose for Web elements:
+Component styles can be converted to `Modifier`s using the `toModifier` method. This way, you can pass them into either
+Silk widgets *or* Compose for Web elements:
 
 ```kotlin
 val SomeWidgetStyle = ComponentStyle("some-widget") { /*...*/ }
@@ -324,7 +321,7 @@ Kobweb might be a great solution for you.
 
 Let's finish off by discussing other approaches, to compare and contrast with Kobweb.
 
-If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion ▼](#conclusion).
+If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion▼](#conclusion).
 
 ### Multiplatform Web Apps
 
@@ -365,7 +362,7 @@ list of features we provide, since if you go it alone, you may need to implement
 * markdown support
 * composables for all free Font Awesome icons
 * parsing and handling query parameters (e.g. `/posts?userId=...&postId=...`)
-* parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}` )
+* parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}`)
 * handling responsive layouts (mobile vs. desktop)
 * an experience built from the ground up around live reloading
 
@@ -406,7 +403,7 @@ has pushed at least one other person over the fence.
 ### Trying Kobweb
 
 If Kobweb looks like something you'd want to play with, the easiest way to start is by
-[installing the Kobweb binary]( https://github.com/varabyte/kobweb#install-the-kobweb-binary).
+[installing the Kobweb binary](https://github.com/varabyte/kobweb#install-the-kobweb-binary).
 
 Once installed, you can run:
 

@@ -50,7 +50,7 @@ val NavHeaderStyle = ComponentStyle.base("bs-nav-header") {
         .zIndex(1)
         .top(0.percent)
         .backgroundColor(colorMode.toSilkPalette().background)
-        .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toSilkPalette().color.toCssColor())
+        .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toSilkPalette().border.toCssColor())
 }
 
 val NavLinkStyle = ComponentStyle("bs-nav-link") {

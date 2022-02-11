@@ -14,6 +14,8 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
+import com.varabyte.kobweb.silk.theme.shapes.Rect
+import com.varabyte.kobweb.silk.theme.shapes.clip
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.*
 
@@ -53,6 +55,15 @@ fun initSilk(ctx: InitSilkContext) {
             registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
             registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
             registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
+
+            registerBaseStyle("img") {
+                Modifier
+                    .styleModifier {
+                        property("width", 100.percent)
+                        property("object-fit", "scale-down")
+                    }
+                    .clip(Rect(5.px))
+            }
         }
 
         // The "link visited" color looks a little garish in dark mode. Disable "visited" colors for now by just setting
@@ -62,13 +73,15 @@ fun initSilk(ctx: InitSilkContext) {
             light = ctx.theme.palettes.light.copy(
                 color = Colors.Black.lightened(0.2f),
                 background = Colors.WhiteSmoke,
+                border = Colors.DarkSlateGray,
                 link = ctx.theme.palettes.light.link.copy(
                     visited = ctx.theme.palettes.light.link.default
-                )
+                ),
             ),
             dark = ctx.theme.palettes.dark.copy(
                 color = Colors.White.darkened(0.1f),
                 background = Color.rgb(15, 15, 25),
+                border = Colors.LightSlateGray,
                 link = SilkPalette.Link(
                     default = linkDark,
                     visited = linkDark,

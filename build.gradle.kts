@@ -41,6 +41,11 @@ kobwebx {
     markdown {
         components {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
+            val JB_DOM = "org.jetbrains.compose.web.dom"
+
+            hr.set { hr ->
+                "$BS_WGT.dom.Hr"
+            }
 
             code.set { code ->
                 "$BS_WGT.code.CodeBlock(\"\"\"${code.literal}\"\"\", lang = ${code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" } })"
@@ -59,6 +64,13 @@ kobwebx {
                 heading.appendChild(KobwebCall(".components.widgets.navigation.HoverLink(\"#$id\")"))
 
                 result
+            }
+
+            // TODO: Remove this after Kobweb fixes this in 0.9.7
+            img.set { img ->
+                val altText = img.children().filterIsInstance<Text>().map { it.literal }.joinToString("")
+                this.childrenOverride = emptyList()
+                """$JB_DOM.Img("${img.destination}", "$altText")"""
             }
         }
     }
