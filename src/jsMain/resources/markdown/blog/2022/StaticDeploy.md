@@ -72,10 +72,15 @@ snapshots.
 
 ## How to export a static website
 
-For this article, we'll use a very popular (and, more importantly, free!) provider: **Netlify**.
+For this article, we'll discuss two options, for two very popular (and, more importantly, free!) providers: **Netlify**
+and **GitHub Pages**.
 
-***Note:** I am not affiliated with or sponsored by Netlify. Its inclusion here is because it is what users in my
-[Discord server](https://discord.gg/5NZ2GKV5Cs) mentioned they were familiar with.*
+***Note:** I am not affiliated with or sponsored by Netlify or GitHub in any way. Their inclusion here is because they
+are what users in my [Discord server](https://discord.gg/5NZ2GKV5Cs) mentioned they were familiar with.*
+
+We'll start with steps common to both approaches. 
+
+### Common steps
 
 **Requirements**
 
@@ -83,7 +88,7 @@ For this article, we'll use a very popular (and, more importantly, free!) provid
 * A GitHub account / familiarity with GitHub
 * The `kobweb` binary ([installation instructions](https://github.com/varabyte/kobweb#install-the-kobweb-binary))
 
-### Create a project
+#### Create a project
 
 If you already have a project, you can skip this step.
 
@@ -102,9 +107,11 @@ $ git init -b main
 $ git add . && git commit -m "Initial commit"
 ```
 
-### Create a new GitHub repository
+#### Create a new GitHub repository
 
 [Follow the official instructions to create a new GitHub repository](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line#adding-a-project-to-github-without-github-cli).
+You can choose whatever name you want. I used `kobweb-ghp-demo`.
+
 When given an opportunity to populate this repo with a `README` and `.gitignore`, **don't**! Since Kobweb already
 creates them for you.
 
@@ -118,14 +125,18 @@ $ git pull origin main
 $ git push --set-upstream origin main
 ```
 
-### Sign up for a Netlify account
+### Netlify
+
+***Note:** If you wanted to use GitHub Pages instead, [skip to that section▼](#github-pages).*
 
 Netlify is becoming a popular solution for developers who want to create static websites that get served *fast*. They
 detect changes to your GitHub repository and publish your site in seconds.
 
+#### Sign up for a Netlify account
+
 It's free. [Sign up here](https://app.netlify.com/signup)!
 
-### Integrate Netlify with your repo
+#### Integrate Netlify with your repo
 
 * Go to your dashboard on your Netlify page
 * Click on the `Add new site` button
@@ -139,7 +150,7 @@ Eventually, you will reach a page that asks you to provide build settings. Leave
 
 ![Netlify Build settings](/images/blog/2022/staticdeploy/netlify-build-settings.png)
 
-### Allow `.kobweb/site` in gitignore
+#### Allow `.kobweb/site` in gitignore
 
 By default, Kobweb is set up so that you don't check your exported site into source control.
 
@@ -158,7 +169,7 @@ Open up the `.gitignore` file in your project's root and add the line `!.kobweb/
 !.kobweb/site
 ```
 
-### Export your site
+#### Export your site
 
 ```bash
 $ kobweb export --layout static
@@ -175,14 +186,14 @@ to verify that new files are now ready to be added.
 If not, double-check your `.gitignore` changes from the last step and also make sure that files were actually written to
 your `.kobweb/site` folder.
 
-### Push your site
+#### Push your site
 
 ```bash
 $ git add . && git commit -m "Exported site"
 $ git push
 ```
 
-### Finished!
+#### Netlify: Finished!
 
 If everything went well, you should have a page that is either deployed or well on its way! It only takes a few seconds
 once Netlify is aware of the pushed changes.
@@ -199,9 +210,84 @@ If you click on the link, you should see a site that looks [like this](https://p
 
 If so, congratulations! You're done. 🎉
 
+### GitHub Pages
+
+***Note:** If you wanted to use Netlify instead, [go back to that section▲](#netlify).*
+
+There are a few options for configuring GitHub Pages, and discussing them all is out of scope for this post. Instead,
+we'll go with the easiest -- using a `docs/` root within your project.
+
+#### GitHub repo settings
+
+* Go to your repo's project on GitHub and click on the `Settings` tab
+* In the `Code and automation` section of the sidebar, click `Pages`
+* In the `Source` section, set `Branch` to `main` and the folder to `/docs`
+* Click `Save`
+
+![GitHub Pages source](/images/blog/2022/staticdeploy/ghp-source.png)
+
+#### Configure Kobweb
+
+As you can see, we don't have a lot of control over GitHub Pages. Since we can't tell it to look where Kobweb usually
+puts its files, we have to configure Kobweb instead.
+
+Because GitHub Pages requires you to put your files under `docs/`, and also because GitHub Pages serves your site
+under a subfolder instead of the root, we need to modify two values in your `.kobweb/conf.yaml`.
+
+```yaml
+site:
+  title: "..."
+  routePrefix: "<repo-project-name>"
+  # i.e. the name you chose for your repo.
+  # In my case: "kobweb-ghp-demo"
+  # but your name is probably different...
+
+server:
+  files:
+    dev:
+      contentRoot: "..."
+      script: "..."
+      api: "..."
+    prod:
+      siteRoot: "docs"
+```
+
+#### Export your site
+
+```bash
+$ kobweb export --layout static
+```
+
+This will run for a little while. When finished, run
+
+```bash
+$ git status
+```
+
+to verify that new files are now ready to be added.
+
+#### Push your site
+
+```bash
+$ git add . && git commit -m "Exported site"
+$ git push
+```
+
+#### GitHub Pages: Finished!
+
+If everything went well, you should have a page that is either deployed or well on its way! It takes less than a minute
+once GitHub is aware of the pushed changes.
+
+Once it's ready, you can visit your GitHub Pages site, which uses a URL with a format like
+`https://<user>.github.io/<project>`.
+
+For example, my site is at https://bitspittle.github.io/kobweb-ghp-demo/.
+
+Are you seeing something similar at your link? If so, congratulations! You're done. 🥳
+
 ## Conclusion
 
-As you can see, static website hosting is cheap, fast, and easy. There are a lot of options you can use besides the one
+As you can see, static website hosting is cheap, fast, and easy. There are a lot of options you can use besides the two
 listed here, including powerhouses such as
 [Google Cloud Storage](https://cloud.google.com/storage/docs/hosting-static-website) and
 [AWS](https://aws.amazon.com/getting-started/hands-on/host-static-website/).
