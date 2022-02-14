@@ -1,9 +1,10 @@
 ---
 root: .components.layouts.BlogLayout
-title: Static Site Deployment with Kobweb
+title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose for Web site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
+updated: 2022-02-14
 tags:
  - compose for web
  - kobweb
@@ -210,6 +211,9 @@ If you click on the link, you should see a site that looks [like this](https://p
 
 If so, congratulations! You're done. 🎉
 
+If you're still having issues, feel free to compare your project
+[with mine](https://github.com/bitspittle/kobweb-netlify-demo).
+
 ### GitHub Pages
 
 ***Note:** If you wanted to use Netlify instead, [go back to that section▲](#netlify).*
@@ -228,18 +232,23 @@ we'll go with the easiest -- using a `docs/` root within your project.
 
 #### Configure Kobweb
 
-As you can see, we don't have a lot of control over GitHub Pages. Since we can't tell it to look where Kobweb usually
-puts its files, we have to configure Kobweb instead.
+As you can see, we don't have a lot of control over GitHub Pages. Since we can't change GitHub, we must change ourselves
+instead.
+
+An additional wrinkle is that GitHub Pages deploys your site to a subfolder. It will look something like
+`https://<user>.github.io/<project/`. This means that if you try to navigate to the root in your Kobweb site
+(i.e. `Link("/")`), or reference resources from the resource root (e.g. `/images/example.png`), the browser will think
+you're asking to search against `https://<user>.github.io` instead of the subdirectory!
 
 Because GitHub Pages requires you to put your files under `docs/`, and also because GitHub Pages serves your site
-under a subfolder instead of the root, we need to modify two values in your `.kobweb/conf.yaml`.
+under a subfolder instead of the root, you need to modify two values in your `.kobweb/conf.yaml`:
 
 ```yaml
 site:
   title: "..."
   routePrefix: "<repo-project-name>"
   # i.e. the name you chose for your repo.
-  # In my case: "kobweb-ghp-demo"
+  # In my case, the value: "kobweb-ghp-demo"
   # but your name is probably different...
 
 server:
@@ -284,6 +293,9 @@ Once it's ready, you can visit your GitHub Pages site, which uses a URL with a f
 For example, my site is at https://bitspittle.github.io/kobweb-ghp-demo/.
 
 Are you seeing something similar at your link? If so, congratulations! You're done. 🥳
+
+If you're still having issues, feel free to compare your project
+[with mine](https://github.com/bitspittle/kobweb-ghp-demo).
 
 ## Conclusion
 
