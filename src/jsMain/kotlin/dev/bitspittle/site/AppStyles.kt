@@ -10,11 +10,14 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.InitSilk
 import com.varabyte.kobweb.silk.InitSilkContext
+import com.varabyte.kobweb.silk.components.graphics.ImageStyle
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
+import com.varabyte.kobweb.silk.theme.replaceComponentStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
+import com.varabyte.kobweb.silk.theme.shapes.Shape
 import com.varabyte.kobweb.silk.theme.shapes.clip
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.*
@@ -55,15 +58,15 @@ fun initSilk(ctx: InitSilkContext) {
             registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
             registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
             registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
+        }
 
-            registerBaseStyle("img") {
-                Modifier
-                    .styleModifier {
-                        property("width", 100.percent)
-                        property("object-fit", "scale-down")
-                    }
-                    .clip(Rect(5.px))
-            }
+        theme.replaceComponentStyleBase(ImageStyle) {
+            Modifier
+                .clip(Rect(8.px))
+                .styleModifier {
+                    property("width", 100.percent)
+                    property("object-fit", "scale-down")
+                }
         }
 
         // The "link visited" color looks a little garish in dark mode. Disable "visited" colors for now by just setting
