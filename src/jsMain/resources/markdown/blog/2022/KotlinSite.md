@@ -114,8 +114,8 @@ It's trivial to query your site's color mode. Silk exposes a `rememberColorMode`
 @Composable
 fun SomeWidget() {
     val colorMode by rememberColorMode()
-    val widgetColor = if (colorMode.isDark()) Colors.Pink else Colors.Red
-    /*...*/
+    val widgetColor =
+        if (colorMode.isDark()) Colors.Pink else Colors.Red
 }
 ```
 
