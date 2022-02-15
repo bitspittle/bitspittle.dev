@@ -137,7 +137,7 @@ detect changes to your GitHub repository and publish your site in seconds.
 
 #### Sign up for a Netlify account
 
-It's free. [Sign up here](https://app.netlify.com/signup)!
+It's free! [Sign up here](https://app.netlify.com/signup).
 
 #### Integrate Netlify with your repo
 
@@ -243,7 +243,8 @@ An additional wrinkle is that GitHub Pages deploys your site to a subfolder. Thi
 you're asking to search against `https://<user>.github.io` instead of the subdirectory!
 
 Because GitHub Pages requires you to put your files under `docs/`, and also because it serves your site under a
-subfolder instead of the root, you will need to modify two values in your `.kobweb/conf.yaml`:
+subfolder instead of the root, you will need to modify two values in your `.kobweb/conf.yaml`, "routePrefix" and
+"siteRoot":
 
 ```yaml
 site:
