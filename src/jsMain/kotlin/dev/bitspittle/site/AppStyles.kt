@@ -6,11 +6,13 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.lightened
+import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.InitSilk
 import com.varabyte.kobweb.silk.InitSilkContext
 import com.varabyte.kobweb.silk.components.graphics.ImageStyle
+import com.varabyte.kobweb.silk.components.layout.DividerStyle
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
@@ -19,15 +21,16 @@ import com.varabyte.kobweb.silk.theme.replaceComponentStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
 import com.varabyte.kobweb.silk.theme.shapes.Shape
 import com.varabyte.kobweb.silk.theme.shapes.clip
+import com.varabyte.kobweb.silk.theme.toSilkPalette
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.*
 
 const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
 
 val BLOCK_MARGIN = Modifier.margin(top = 1.cssRem)
-private val HEADER_MARGIN = Modifier.margin(top = 1.5.em)
+private val HEADER_MARGIN = Modifier.margin(top = 1.2.em)
 
-private val TEXT_FONT = Modifier.fontFamily("Ubuntu", "Roboto", "Arial", "Helvetica", "sans-serif")
+private val TEXT_FONT = Modifier.fontFamily("Ubuntu", "Roboto", "Arial", "Helvetica", "sans-serif").fontSize(18.px)
 private val CODE_FONT = Modifier.fontFamily("Ubuntu Mono", "Roboto Mono", "Lucida Console", "Courier New", "monospace")
 
 @InitSilk
@@ -60,15 +63,6 @@ fun initSilk(ctx: InitSilkContext) {
             registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
         }
 
-        theme.replaceComponentStyleBase(ImageStyle) {
-            Modifier
-                .clip(Rect(8.px))
-                .styleModifier {
-                    property("width", 100.percent)
-                    property("object-fit", "scale-down")
-                }
-        }
-
         // The "link visited" color looks a little garish in dark mode. Disable "visited" colors for now by just setting
         // them to the same value as the default color. We might revisit this later.
         val linkDark = Color.rgb(0x1a85ff)
@@ -91,6 +85,22 @@ fun initSilk(ctx: InitSilkContext) {
                 )
             )
         )
+
+        theme.replaceComponentStyleBase(ImageStyle) {
+            Modifier
+                .clip(Rect(8.px))
+                .width(100.percent)
+                .styleModifier {
+                    property("object-fit", "scale-down")
+                }
+        }
+
+        theme.replaceComponentStyleBase(DividerStyle) {
+            Modifier
+                .margin(top = 1.5.cssRem, bottom = 0.5.cssRem)
+                .borderTop(1.px, LineStyle.Solid, colorMode.toSilkPalette().border.toCssColor())
+                .fillMaxWidth(90.percent)
+        }
     }
 }
 

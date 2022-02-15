@@ -1,11 +1,10 @@
-import com.varabyte.kobwebx.gradle.markdown.children
+import com.varabyte.kobwebx.gradle.markdown.MarkdownComponents.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
 import kotlinx.html.script
 import org.commonmark.ext.front.matter.YamlFrontMatterBlock
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
 import org.commonmark.node.AbstractVisitor
 import org.commonmark.node.CustomBlock
-import org.commonmark.node.Text
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -42,10 +41,6 @@ kobwebx {
         components {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
 
-            hr.set { hr ->
-                "$BS_WGT.dom.Hr"
-            }
-
             code.set { code ->
                 "$BS_WGT.code.CodeBlock(\"\"\"${code.literal}\"\"\", lang = ${code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" } })"
             }
@@ -57,9 +52,8 @@ kobwebx {
             val baseHeadingHandler = heading.get()
             heading.set { heading ->
                 val result = baseHeadingHandler.invoke(this, heading)
-                val id = idGenerator.get().invoke(
-                    heading.children().filterIsInstance<Text>().map { it.literal }.joinToString("")
-                )
+                // ID guaranteed to be created as side effect of base handler
+                val id = data.getValue(HeadingIdsKey).getValue(heading)
                 heading.appendChild(KobwebCall(".components.widgets.navigation.HoverLink(\"#$id\")"))
 
                 result

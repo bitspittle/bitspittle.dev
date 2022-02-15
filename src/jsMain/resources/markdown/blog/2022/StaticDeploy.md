@@ -14,6 +14,8 @@ tags:
 [Compose for Web](https://compose-web.ui.pages.jetbrains.team/), which itself is a reactive web UI framework from
 JetBrains that allows you to create web apps in Kotlin using a powerful API.
 
+You can also read more about Kobweb [in a previous post](kotlinsite).
+
 In this post, we'll talk about how to use Kobweb to export your Compose for Web project into a format that can be
 consumed by various static website hosting providers. This means you can get fast and cheap (often free!) hosting
 for your Kotlin website.
@@ -23,7 +25,7 @@ for your Kotlin website.
 These background sections are provided for people new to the world of frontend development and/or who are curious about
 Kobweb.
 
-However, if you're ready to get your hands dirty, [feel free to skip over them▼](#how-to-export-a-static-website).
+However, if you're ready to get your hands dirty, [feel free to skip over them▼](#how-to-deploy-a-static-website).
 
 ### Compose for Web / SPAs
 
@@ -47,7 +49,7 @@ new screen associated with that name (so, maybe `mysite.pages.blog.StaticPage()`
 essentially a giant switch statement acting on a string value.
 
 The above is fine as long as your server understands that this is happening! In other words, if I make a request to a
-server asking for a resources associated with `/blog/static`, it should just send me the default `index.html` page and
+server asking for resources associated with `/blog/static`, it should just send me the default `index.html` page and
 its JavaScript.
 
 But static website host providers are simple. They blindly serve static files.
@@ -71,7 +73,7 @@ When you ask Kobweb to export your site, it will spin up a local Kobweb server, 
 save out its state to an html file. In this way, Kobweb can turn your dynamic Compose for Web pages into static
 snapshots.
 
-## How to export a static website
+## How to deploy a static website
 
 For this article, we'll discuss two options, for two very popular (and, more importantly, free!) providers: **Netlify**
 and **GitHub Pages**.
@@ -128,7 +130,7 @@ $ git push --set-upstream origin main
 
 ### Netlify
 
-***Note:** If you wanted to use GitHub Pages instead, [skip to that section▼](#github-pages).*
+***Note:** If you want to use GitHub Pages instead, [skip to that section▼](#github-pages).*
 
 Netlify is becoming a popular solution for developers who want to create static websites that get served *fast*. They
 detect changes to your GitHub repository and publish your site in seconds.
@@ -216,7 +218,7 @@ If you're still having issues, feel free to compare your project
 
 ### GitHub Pages
 
-***Note:** If you wanted to use Netlify instead, [go back to that section▲](#netlify).*
+***Note:** If you want to use Netlify instead, [go back to that section▲](#netlify).*
 
 There are a few options for configuring GitHub Pages, and discussing them all is out of scope for this post. Instead,
 we'll go with the easiest -- using a `docs/` root within your project.
@@ -235,13 +237,13 @@ we'll go with the easiest -- using a `docs/` root within your project.
 As you can see, we don't have a lot of control over GitHub Pages. Since we can't change GitHub, we must change ourselves
 instead.
 
-An additional wrinkle is that GitHub Pages deploys your site to a subfolder. It will look something like
-`https://<user>.github.io/<project/`. This means that if you try to navigate to the root in your Kobweb site
+An additional wrinkle is that GitHub Pages deploys your site to a subfolder. This will look something like
+`https://<user>.github.io/<project>/`. This means that if you try to navigate to the root in your Kobweb site
 (i.e. `Link("/")`), or reference resources from the resource root (e.g. `/images/example.png`), the browser will think
 you're asking to search against `https://<user>.github.io` instead of the subdirectory!
 
-Because GitHub Pages requires you to put your files under `docs/`, and also because GitHub Pages serves your site
-under a subfolder instead of the root, you need to modify two values in your `.kobweb/conf.yaml`:
+Because GitHub Pages requires you to put your files under `docs/`, and also because it serves your site under a
+subfolder instead of the root, you will need to modify two values in your `.kobweb/conf.yaml`:
 
 ```yaml
 site:
@@ -299,8 +301,8 @@ If you're still having issues, feel free to compare your project
 
 ## Conclusion
 
-As you can see, static website hosting is cheap, fast, and easy. There are a lot of options you can use besides the two
-listed here, including powerhouses such as
+As you can see, static website hosting is cheap, fast, and easy to set up. There are a lot of options you can use
+besides the two listed here, including powerhouses such as
 [Google Cloud Storage](https://cloud.google.com/storage/docs/hosting-static-website) and
 [AWS](https://aws.amazon.com/getting-started/hands-on/host-static-website/).
 
