@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose for Web site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2022-02-14
+updated: 2022-02-15
 tags:
  - compose for web
  - kobweb
@@ -14,7 +14,7 @@ tags:
 [Compose for Web](https://compose-web.ui.pages.jetbrains.team/), which itself is a reactive web UI framework from
 JetBrains that allows you to create web apps in Kotlin using a powerful API.
 
-You can also read more about Kobweb [in a previous post](kotlinsite).
+*You can also read more about Kobweb [from this earlier post](kotlinsite).*
 
 In this post, we'll talk about how to use Kobweb to export your Compose for Web project into a format that can be
 consumed by various static website hosting providers. This means you can get fast and cheap (often free!) hosting
