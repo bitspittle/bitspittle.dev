@@ -1,7 +1,6 @@
 package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
-import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
@@ -9,16 +8,16 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.core.rememberPageContext
-import com.varabyte.kobweb.silk.components.icons.fa.*
+import com.varabyte.kobweb.navigation.OpenLinkStrategy
+import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
+import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
+import com.varabyte.kobweb.silk.components.icons.fa.FaLinkedin
+import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
-import com.varabyte.kobweb.silk.components.style.ComponentStyle
-import com.varabyte.kobweb.silk.components.style.base
-import com.varabyte.kobweb.silk.components.style.toModifier
+import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.text.Text
 import com.varabyte.kobweb.silk.theme.SilkTheme
-import com.varabyte.kobwebx.markdown.markdown
 import org.jetbrains.compose.web.css.*
 
 val FooterStyle = ComponentStyle.base("bs-footer") {
@@ -35,7 +34,7 @@ val CopyrightStyle = ComponentStyle.base("bs-copyright") {
 
 @Composable
 private fun FooterLink(href: String, content: @Composable () -> Unit) {
-    Link(href, variant = UncoloredLinkVariant, content = content)
+    Link(href, variant = UncoloredLinkVariant, openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB_FOREGROUND, content = content)
 }
 
 @Composable

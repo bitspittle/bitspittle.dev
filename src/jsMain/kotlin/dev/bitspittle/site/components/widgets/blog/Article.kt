@@ -14,6 +14,6 @@ fun ArticleMetadata() {
         mdCtx.frontMatter.getValue("author").single(),
         mdCtx.frontMatter.getValue("date").single(),
         mdCtx.frontMatter["updated"]?.singleOrNull(),
-        Modifier.margin(top = 0.8.cssRem)
+        Modifier.margin(top = 0.8.cssRem, bottom = 1.cssRem)
     )
 }
