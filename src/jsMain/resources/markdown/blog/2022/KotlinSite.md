@@ -167,7 +167,10 @@ called an `AttrsBuilder`.
 As a concrete example, this HTML document tag:
 
 ```html
-<div id="example" style="width:50px;height:25px;background-color:black">
+<div
+   id="example"
+   style="width:50px;height:25px;background-color:black"
+>
 ```
 
 would be written with the following Compose for Web code:
