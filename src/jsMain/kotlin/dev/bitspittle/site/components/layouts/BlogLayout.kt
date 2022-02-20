@@ -2,26 +2,19 @@ package dev.bitspittle.site.components.layouts
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
-import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.InitSilk
 import com.varabyte.kobweb.silk.InitSilkContext
-import com.varabyte.kobweb.silk.components.icons.fa.FaDiscord
-import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
-import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
-import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.text.Text
 import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
 import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
+import dev.bitspittle.site.components.widgets.blog.Toc
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.P
 
 @InitSilk
 fun initHighlightJs(ctx: InitSilkContext) {
@@ -56,6 +49,10 @@ fun BlogLayout(content: @Composable ColumnScope.() -> Unit) {
         }
 
         ArticleMetadata()
+        Toc(
+            minHeaderLevel = mdCtx.frontMatter["toc-min"]?.singleOrNull()?.toIntOrNull() ?: 2,
+            maxHeaderLevel = mdCtx.frontMatter["toc-max"]?.singleOrNull()?.toIntOrNull() ?: 3,
+        )
         content()
     }
 }
