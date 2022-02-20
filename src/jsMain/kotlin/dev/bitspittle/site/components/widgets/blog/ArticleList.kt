@@ -12,6 +12,7 @@ import com.varabyte.kobweb.silk.components.text.Text
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.theme.toSilkPalette
 import dev.bitspittle.site.components.widgets.date.DateText
+import dev.bitspittle.site.components.widgets.dom.NoListIndentationModifier
 import dev.bitspittle.site.components.widgets.dom.StyledDiv
 import dev.bitspittle.site.components.widgets.dom.StyledSpan
 import org.jetbrains.compose.web.css.*
@@ -20,9 +21,7 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLSpanElement
 
 val ArticleListStyle = ComponentStyle.base("bs-article-list") {
-    // Remove list indentation
-    // See also: https://stackoverflow.com/a/13939142/17966710
-    Modifier.listStyle("none").padding(left = 0.px)
+    NoListIndentationModifier
 }
 
 val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {

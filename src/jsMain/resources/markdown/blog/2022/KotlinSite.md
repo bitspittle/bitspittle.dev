@@ -5,6 +5,7 @@ description: An intro to Kobweb, a Kotlin web framework I wrote and used to buil
 author: David Herman
 date: 2022-02-07
 updated: 2022-02-10
+toc-max: 2
 tags:
  - compose for web
  - webdev
