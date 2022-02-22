@@ -28,7 +28,7 @@ val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {
     Modifier
         .fillMaxWidth()
         .margin(top = 1.5.cssRem)
-        .padding(0.5.cssRem)
+        .padding(1.cssRem)
         .border(1.px, LineStyle.Solid, colorMode.toSilkPalette().border.toCssColor())
         .borderRadius(5.px)
 }
