@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "site": "bitspittle-site",
+    "public": ".kobweb/site",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "cleanUrls": true
+  }
+}
