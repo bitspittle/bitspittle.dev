@@ -303,7 +303,7 @@ If you're still having issues, feel free to compare your project
 ## Conclusion
 
 As you can see, static website hosting is cheap, fast, and easy to set up. There are a lot of options you can use
-besides the two listed here, including powerhouses such as
+besides the two listed here, including other popular features such as
 [Firebase Hosting](https://firebase.google.com/docs/hosting) and
 [AWS](https://aws.amazon.com/getting-started/hands-on/host-static-website/).
 
