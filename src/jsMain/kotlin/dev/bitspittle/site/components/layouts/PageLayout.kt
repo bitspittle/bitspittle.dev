@@ -24,7 +24,7 @@ val CenterColumnStyle = ComponentStyle("bs-center-column") {
 }
 
 @Composable
-fun PageLayout(title: String, description: String = "", content: @Composable ColumnScope.() -> Unit) {
+fun PageLayout(title: String, description: String = "Tech chatter, tutorials, and career advice", content: @Composable ColumnScope.() -> Unit) {
     LaunchedEffect(title) {
         document.title = "$title - Bitspittle.dev"
         document.querySelector("""meta[name="description"]""")!!.setAttribute("content", description)

@@ -25,7 +25,7 @@ version = "1.0-SNAPSHOT"
 
 kobweb {
     index {
-        description.set("A site about programming and advice extracted from a 20-year career")
+        description.set("Tech chatter, tutorials, and career advice")
 
         head.add {
             script {
