@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose for Web site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2022-02-15
+updated: 2022-02-22
 tags:
  - compose for web
  - kobweb
@@ -304,7 +304,7 @@ If you're still having issues, feel free to compare your project
 
 As you can see, static website hosting is cheap, fast, and easy to set up. There are a lot of options you can use
 besides the two listed here, including powerhouses such as
-[Google Cloud Storage](https://cloud.google.com/storage/docs/hosting-static-website) and
+[Firebase Hosting](https://firebase.google.com/docs/hosting) and
 [AWS](https://aws.amazon.com/getting-started/hands-on/host-static-website/).
 
 Compose for Web is an amazing API. And static website hosting is an amazing service. If you use Kobweb, you won't have
