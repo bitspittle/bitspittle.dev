@@ -113,7 +113,7 @@ $ git add . && git commit -m "Initial commit"
 #### Create a new GitHub repository
 
 [Follow the official instructions to create a new GitHub repository](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line#adding-a-project-to-github-without-github-cli).
-You can choose whatever name you want. I used `kobweb-ghp-demo`.
+You can choose whatever name you want. I used `kobweb-netlify-demo` for Netlify and `kobweb-ghp-demo` for GitHub Pages.
 
 When given an opportunity to populate this repo with a `README` and `.gitignore`, **don't**! Since Kobweb already
 creates them for you.
