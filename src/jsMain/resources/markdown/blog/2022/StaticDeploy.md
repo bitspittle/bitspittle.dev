@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose for Web site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2022-02-22
+updated: 2022-02-23
 tags:
  - compose for web
  - kobweb
@@ -130,7 +130,7 @@ $ git push --set-upstream origin main
 
 ### Netlify
 
-***Note:** If you want to use GitHub Pages instead, [skip to that section▼](#github-pages).*
+***Note:** You should have finished the [common steps▲](#common-steps) first. If you want to use GitHub Pages instead, [skip to that section▼](#github-pages).*
 
 Netlify is becoming a popular solution for developers who want to create static websites that get served *fast*. They
 detect changes to your GitHub repository and publish your site in seconds.
@@ -218,7 +218,8 @@ If you're still having issues, feel free to compare your project
 
 ### GitHub Pages
 
-***Note:** If you want to use Netlify instead, [go back to that section▲](#netlify).*
+***Note:** You should have finished the [common steps▲](#common-steps) first. If you want to use Netlify instead,
+[go back to that section▲](#netlify).*
 
 There are a few options for configuring GitHub Pages, and discussing them all is out of scope for this post. Instead,
 we'll go with the easiest -- using a `docs/` root within your project.
