@@ -11,7 +11,7 @@ import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
-import com.varabyte.kobweb.silk.components.text.Text
+import com.varabyte.kobweb.silk.components.text.SpanText
 import dev.bitspittle.site.components.sections.Footer
 import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
@@ -43,7 +43,7 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
         ) {
             NavHeader()
             Column(CenterColumnStyle.toModifier()) {
-                H1 { Text(title) }
+                H1 { SpanText(title) }
                 content()
             }
         }

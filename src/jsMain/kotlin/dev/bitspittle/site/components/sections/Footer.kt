@@ -16,7 +16,7 @@ import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
 import com.varabyte.kobweb.silk.components.style.*
-import com.varabyte.kobweb.silk.components.text.Text
+import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.SilkTheme
 import org.jetbrains.compose.web.css.*
 
@@ -41,11 +41,11 @@ private fun FooterLink(href: String, content: @Composable () -> Unit) {
 fun Footer(modifier: Modifier = Modifier) {
     Column(FooterStyle.toModifier().then(modifier), horizontalAlignment = Alignment.CenterHorizontally) {
         Row(horizontalArrangement = Arrangement.Center) {
-            Text("This site is ")
+            SpanText("This site is ")
             Link("https://github.com/bitspittle/bitspittle.dev", "open source")
-            Text(" written using ")
+            SpanText(" written using ")
             Link("https://github.com/varabyte/kobweb", "Kobweb")
-            Text(".")
+            SpanText(".")
         }
 
         Row(Modifier.justifyContent(JustifyContent.SpaceAround).width(12.cssRem).margin(top = 1.cssRem, bottom = 1.cssRem)) {
@@ -56,7 +56,7 @@ fun Footer(modifier: Modifier = Modifier) {
         }
 
         Row {
-            Text("© 2022, David Herman", CopyrightStyle.toModifier())
+            SpanText("© 2022, David Herman", CopyrightStyle.toModifier())
         }
     }
 }

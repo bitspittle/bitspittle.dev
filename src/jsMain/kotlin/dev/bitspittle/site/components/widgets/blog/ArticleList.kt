@@ -8,8 +8,8 @@ import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.text.Text
 import com.varabyte.kobweb.silk.components.style.*
+import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.toSilkPalette
 import dev.bitspittle.site.components.widgets.date.DateText
 import dev.bitspittle.site.components.widgets.dom.NoListIndentationModifier
@@ -82,11 +82,11 @@ fun AuthorDate(author: String, date: String, updated: String? = null, modifier: 
         StyledSpan(ArticleDateStyle) {
             DateText(date)
         }
-        StyledSpan(ArticleAuthorStyle) { Text(author) }
+        StyledSpan(ArticleAuthorStyle) { SpanText(author) }
         if (updated != null) {
             StyledSpan(ArticleUpdatedStyle) {
                 Br()
-                Text("Updated ")
+                SpanText("Updated ")
                 DateText(updated)
             }
         }
@@ -98,6 +98,6 @@ private fun ArticleSummary(entry: ArticleEntry) {
     StyledDiv(ArticleSectionStyle) {
         StyledDiv(ArticleTitleStyle) { Link(entry.path, entry.title) }
         AuthorDate(entry.author, entry.date)
-        StyledDiv(ArticleDescStyle) { Text(entry.desc) }
+        StyledDiv(ArticleDescStyle) { SpanText(entry.desc) }
     }
 }
