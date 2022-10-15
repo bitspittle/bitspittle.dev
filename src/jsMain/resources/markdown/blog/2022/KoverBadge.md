@@ -28,7 +28,7 @@ into a badge that you can add into your GitHub README:
 
 Accomplishing this is what we'll cover in this post.
 
-## Roadmap
+## The big picture
 
 Before we jump in, let's take a bird's eye view of what we're going to do:
 
@@ -213,7 +213,8 @@ fairly straightforward.
 
 ## Running the task
 
-To run a Gradle task where only your output is shown, pass in the `-q` (or `--quiet`) command line argument.
+To run a Gradle task where it hides its own logs so only your output is shown, pass in the `-q` (or `--quiet`) command
+line argument.
 
 In other words, in a terminal, you can run:
 
@@ -375,4 +376,4 @@ Honestly, this process was more involved than I would have expected. But having 
 README page is totally worth it.
 
 And finally, you don't have to stop here! By combining Gradle tasks, Dynamic Badges, and GitHub Actions workflows, you
-can probably create some amazing custom badges.
+can definitely create some amazing custom badges.
