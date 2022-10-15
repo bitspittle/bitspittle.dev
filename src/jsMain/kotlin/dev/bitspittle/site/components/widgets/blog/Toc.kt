@@ -1,12 +1,10 @@
 package dev.bitspittle.site.components.widgets.blog
 
 import androidx.compose.runtime.*
-import com.varabyte.kobweb.compose.ui.AttrsModifier
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.silk.components.navigation.LinkStyle
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
 import com.varabyte.kobweb.silk.theme.toSilkPalette
@@ -49,7 +47,9 @@ fun Toc(modifier: Modifier = Modifier, minHeaderLevel: Int = 2, maxHeaderLevel: 
     val colorMode by rememberColorMode()
 
     Ul(TocStyle.toModifier().then(modifier).asAttributesBuilder()) {
-        DisposableRefEffect(colorMode) { element ->
+        DisposableEffect(colorMode) {
+            val element = scopeElement
+
             document.body!!.children.walk { child ->
                 if (child is HTMLHeadingElement
                     && child.id.isNotBlank()
