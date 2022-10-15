@@ -42,11 +42,11 @@ kobwebx {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
 
             code.set { code ->
-                "$BS_WGT.code.CodeBlock(\"\"\"${code.literal}\"\"\", lang = ${code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" } })"
+                "$BS_WGT.code.CodeBlock(\"\"\"${code.literal.escapeTripleQuotedText()}\"\"\", lang = ${code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" } })"
             }
 
             inlineCode.set { code ->
-                "$BS_WGT.code.InlineCode(\"\"\"${code.literal}\"\"\")"
+                "$BS_WGT.code.InlineCode(\"\"\"${code.literal.escapeTripleQuotedText()}\"\"\")"
             }
 
             val baseHeadingHandler = heading.get()

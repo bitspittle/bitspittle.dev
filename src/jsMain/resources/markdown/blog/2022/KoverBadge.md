@@ -175,7 +175,7 @@ tasks.register("printLineCoverage") {
     group = "verification" // Put into the same group as the `kover` tasks
     dependsOn("koverXmlReport")
     doLast {
-        val report = file("${'$'}buildDir/reports/kover/xml/report.xml")
+        val report = file("$buildDir/reports/kover/xml/report.xml")
 
         val doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(report)
         val rootNode = doc.firstChild
@@ -258,17 +258,17 @@ jobs:
 
       - name: Generate coverage output
         run: |
-          echo "COVERAGE=$(${'$'}{{github.workspace}}/gradlew -q printLineCoverage)" >> ${'$'}GITHUB_ENV
+          echo "COVERAGE=$(${{github.workspace}}/gradlew -q printLineCoverage)" >> $GITHUB_ENV
 
       - name: Update dynamic badge gist
         uses: schneegans/dynamic-badges-action@v1.5.0
         with:
-          auth: ${'$'}{{secrets.GIST_SECRET}}
+          auth: ${{secrets.GIST_SECRET}}
           gistID: d6b5fcf2e961f94780a3dbbc11be023c # !! CHANGE THIS !!
           filename: myproject-coverage-badge.json  # !! CHANGE THIS !!
           label: coverage
-          message: ${'$'}{{env.COVERAGE}}%
-          valColorRange: ${'$'}{{env.COVERAGE}}
+          message: ${{env.COVERAGE}}%
+          valColorRange: ${{env.COVERAGE}}
           minColorRange: 0
           maxColorRange: 100
 ```
