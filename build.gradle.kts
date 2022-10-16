@@ -205,4 +205,4 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
         }
     }
 }
-tasks.named("kobwebGenSite") { dependsOn(generateBlogListingTask) }
+tasks.named("kobwebGenSiteSource") { dependsOn(generateBlogListingTask) }
