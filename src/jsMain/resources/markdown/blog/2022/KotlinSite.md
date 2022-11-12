@@ -4,7 +4,7 @@ title: Kobweb: A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2022-02-10
+updated: 2022-11-11
 tags:
  - compose for web
  - webdev
@@ -141,12 +141,21 @@ that was originally written in JavaScript.
 
 {{{ .components.widgets.blog.kotlinsite.DemoWidget }}}
 
-Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/tree/main/src/jsMain/kotlin/dev/bitspittle/site/components/widgets/blog/kotlinsite/DemoWidget.kt).
+Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/blob/b5ce2d5a53e2017a6bd89b55dd6e855634587d51/src/jsMain/kotlin/dev/bitspittle/site/components/widgets/blog/kotlinsite/DemoWidget.kt#L39).
 
-Among other things, Silk provides a helpful `Canvas` widget which makes it easy to register some code that will
+Among other things, Silk provides a helpful `Canvas2d` widget which makes it easy to register some code that will
 automatically get called for you once per frame.
 
-Using `Canvas`, it was trivial to make the clock color mode aware as the current color mode is made available within the
+```kotlin
+@Composable
+private fun Clock() {
+  Canvas2d(300, 300, minDeltaMs = ONE_FRAME_MS_60_FPS) {
+    /* This callback handles one frame of canvas rendering. */
+  }
+}
+```
+
+Using `Canvas2d`, it was trivial to make the clock color mode aware as the current color mode is made available within the
 callback. You can click this color mode button ${.components.widgets.button.ColorModeButton} to observe the results
 yourself.
 
@@ -161,7 +170,7 @@ Compose as the `@Composable` annotation is.
 However, it isn't! Compose for Web actually does not have a `Modifier` class.
 
 Instead, it uses an approach where all HTML tags are converted to `@Composable` function calls that take in something
-called an `AttrsBuilder`.
+called an `AttrsScope`.
 
 As a concrete example, this HTML document tag:
 
@@ -176,7 +185,7 @@ would be written with the following Compose for Web code:
 
 ```kotlin
 Div(attrs = {
-    assert(this is AttrsBuilder)
+    assert(this is AttrsScope)
     id("example")
     style {
         width(50.px)
@@ -186,13 +195,13 @@ Div(attrs = {
 })
 ```
 
-I think this approach is pretty neat, but as `AttrsBuilder` is a mutable class, that makes it dangerous to store in a
-sharable variable. Plus, its API doesn't support chaining.
+I think this approach is pretty neat, but as `AttrsScope` is a mutable class, that makes it dangerous to store in a
+shared variable. Plus, its API doesn't support chaining.
 
 To solve this, Silk provides its own `Modifier` class which is *inspired* by Jetpack Compose's version but isn't exactly
 the same one. Still, it should look familiar enough to people who write Jetpack Compose code.
 
-The above Compose for Web `AttrsBuilder` would be represented by the following `Modifier`:
+The above Compose for Web `AttrsScope` would be represented by the following `Modifier`:
 
 ```kotlin
 private val EXAMPLE_MODIFIER = Modifier
@@ -210,7 +219,7 @@ Button(
 )
 ```
 
-But for interoperability with Compose for Web elements, it is easy to convert a `Modifier` into an `AttrsBuilder` on the
+But for interoperability with Compose for Web elements, it is easy to convert a `Modifier` into an `AttrsScope` on the
 fly, using the `asAttributesBuilder` method:
 
 ```kotlin
@@ -299,7 +308,7 @@ In fact, most of this site is written using markdown. Relevant markdown files ar
 compilation happens.
 
 Kobweb extends markdown with some custom support for nesting code inside it which is how I embedded the color buttons
-and clock widget above. You can inline code with a Kotlin-y `${'$'}{...}` syntax or put a larger widget on its own line
+and clock widget above. You can inline code with a Kotlin-y `${...}` syntax or put a larger widget on its own line
 with triple curly-brace syntax:
 
 ```markdown
@@ -309,8 +318,8 @@ Here is a demonstration of A-star pathfinding
 
 {{{ .components.widgets.astar.Demo }}}
 
-Play: ${'$'}{.components.widgets.astar.PlayButton}
-Step: ${'$'}{.components.widgets.astar.StepButton}
+Play: ${.components.widgets.astar.PlayButton}
+Step: ${.components.widgets.astar.StepButton}
 ```
 
 Code references that start with `.` will automatically be prefixed by your project's base package, so for example all
