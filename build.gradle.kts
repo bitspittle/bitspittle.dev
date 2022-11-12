@@ -5,6 +5,7 @@ import org.commonmark.ext.front.matter.YamlFrontMatterBlock
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
 import org.commonmark.node.AbstractVisitor
 import org.commonmark.node.CustomBlock
+import org.gradle.internal.impldep.org.bouncycastle.its.asn1.EndEntityType.app
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -24,19 +25,19 @@ group = "dev.bitspittle.site"
 version = "1.0-SNAPSHOT"
 
 kobweb {
-    index {
-        description.set("Tech chatter, tutorials, and career advice")
+    app {
+        index {
+            description.set("Tech chatter, tutorials, and career advice")
 
-        head.add {
-            script {
-                // Needed by components/layouts/BlogLayout.kt
-                src = "/highlight.js/highlight.min.js"
+            head.add {
+                script {
+                    // Needed by components/layouts/BlogLayout.kt
+                    src = "/highlight.js/highlight.min.js"
+                }
             }
         }
     }
-}
 
-kobwebx {
     markdown {
         components {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
@@ -137,7 +138,7 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
         .withPropertyName("blogListing")
 
     doLast {
-        val parser = kobwebx.markdown.features.createParser()
+        val parser = kobweb.markdown.features.createParser()
         val blogEntries = mutableListOf<BlogEntry>()
         val root = file(BLOG_INPUT_DIR)
         fileTree(root).forEach { blogArticle ->
@@ -205,4 +206,4 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
         }
     }
 }
-tasks.named("kobwebGenSiteSource") { dependsOn(generateBlogListingTask) }
+tasks.named("kobwebGenFrontendMetadata") { dependsOn(generateBlogListingTask) }

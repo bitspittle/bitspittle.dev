@@ -16,8 +16,6 @@ import dev.bitspittle.site.components.widgets.dom.StyledDiv
 import dev.bitspittle.site.components.widgets.dom.StyledSpan
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
-import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLSpanElement
 
 val ArticleListStyle = ComponentStyle.base("bs-article-list") {
     NoListIndentationModifier
