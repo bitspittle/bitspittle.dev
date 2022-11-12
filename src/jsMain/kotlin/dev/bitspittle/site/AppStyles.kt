@@ -6,7 +6,6 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.lightened
-import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.InitSilk
@@ -98,7 +97,7 @@ fun initSilk(ctx: InitSilkContext) {
         theme.replaceComponentStyleBase(DividerStyle) {
             Modifier
                 .margin(top = 1.5.cssRem, bottom = 0.5.cssRem)
-                .borderTop(1.px, LineStyle.Solid, colorMode.toSilkPalette().border.toCssColor())
+                .borderTop(1.px, LineStyle.Solid, colorMode.toSilkPalette().border)
                 .fillMaxWidth(90.percent)
         }
     }

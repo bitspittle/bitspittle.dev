@@ -5,7 +5,6 @@ import com.varabyte.kobweb.compose.css.FontStyle
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.asAttributesBuilder
-import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.style.*
@@ -29,7 +28,7 @@ val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {
         .fillMaxWidth()
         .margin(top = 1.5.cssRem)
         .padding(1.cssRem)
-        .border(1.px, LineStyle.Solid, colorMode.toSilkPalette().border.toCssColor())
+        .border(1.px, LineStyle.Solid, colorMode.toSilkPalette().border)
         .borderRadius(5.px)
 }
 
@@ -47,7 +46,7 @@ val ArticleAuthorStyle = ComponentStyle.base("bs-article-author") {
 
 val ArticleDateStyle = ComponentStyle("bs-article-date") {
     after {
-        Modifier.content("\" • \"")
+        Modifier.content(" • ")
     }
 }
 

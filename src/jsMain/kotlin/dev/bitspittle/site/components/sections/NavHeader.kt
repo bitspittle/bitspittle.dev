@@ -5,7 +5,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.core.rememberPageContext
@@ -50,7 +49,7 @@ val NavHeaderStyle = ComponentStyle.base("bs-nav-header") {
         .zIndex(1)
         .top(0.percent)
         .backgroundColor(colorMode.toSilkPalette().background)
-        .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toSilkPalette().border.toCssColor())
+        .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toSilkPalette().border)
 }
 
 val NavLinkStyle = ComponentStyle("bs-nav-link") {

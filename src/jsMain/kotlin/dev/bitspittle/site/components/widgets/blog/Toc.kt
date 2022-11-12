@@ -3,7 +3,6 @@ package dev.bitspittle.site.components.widgets.blog
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.asAttributesBuilder
-import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
@@ -19,7 +18,7 @@ val TocStyle = ComponentStyle.base("bs-toc") {
     NoListIndentationModifier
         .fillMaxWidth()
         .borderRadius(5.px)
-        .border(1.px, LineStyle.Solid, colorMode.toSilkPalette().border.toCssColor())
+        .border(1.px, LineStyle.Solid, colorMode.toSilkPalette().border)
         .padding(1.cssRem)
 }
 

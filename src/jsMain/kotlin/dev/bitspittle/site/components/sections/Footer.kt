@@ -6,7 +6,6 @@ import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.graphics.toCssColor
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
@@ -23,7 +22,7 @@ import org.jetbrains.compose.web.css.*
 val FooterStyle = ComponentStyle.base("bs-footer") {
     Modifier
         .margin(top = 2.cssRem)
-        .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].border.toCssColor())
+        .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].border)
         .padding(topBottom = 1.cssRem, leftRight = 4.cssRem)
         .transitionProperty("border-color")
 }
