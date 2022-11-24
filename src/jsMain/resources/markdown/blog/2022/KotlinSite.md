@@ -4,7 +4,7 @@ title: Kobweb: A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2022-11-11
+updated: 2022-11-24
 tags:
  - compose for web
  - webdev
@@ -220,10 +220,10 @@ Button(
 ```
 
 But for interoperability with Compose for Web elements, it is easy to convert a `Modifier` into an `AttrsScope` on the
-fly, using the `asAttributesBuilder` method:
+fly, using the `toAttrs` method:
 
 ```kotlin
-Div(attrs = EXAMPLE_MODIFIER.asAttributesBuilder())
+Div(attrs = EXAMPLE_MODIFIER.toAttrs())
 ```
 
 With `Modifier`s, chaining is easy using the `then` method:
@@ -293,7 +293,7 @@ fun SomeWidget() {
     Button(onClick = {}, widgetModifier) { /*...*/ }
     
     // Compose for Web element:
-    Div(attrs = widgetModifier.asAttributesBuilder()) { /*...*/ }
+    Div(attrs = widgetModifier.toAttrs()) { /*...*/ }
 }
 ```
 

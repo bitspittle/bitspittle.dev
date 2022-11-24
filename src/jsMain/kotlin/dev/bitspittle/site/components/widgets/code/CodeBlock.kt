@@ -2,9 +2,9 @@ package dev.bitspittle.site.components.widgets.code
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.asAttributesBuilder
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.maxWidth
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
@@ -24,7 +24,7 @@ val CodeBlockStyle = ComponentStyle("bs-code-block") {
 
 @Composable
 fun CodeBlock(text: String, modifier: Modifier = Modifier, lang: String? = null) {
-    Pre(CodeBlockStyle.toModifier().then(modifier).asAttributesBuilder()) {
+    Pre(CodeBlockStyle.toModifier().then(modifier).toAttrs()) {
         Code(attrs = {
             classes(lang?.let { "language-$it" } ?: "nohighlight")
         }) {
