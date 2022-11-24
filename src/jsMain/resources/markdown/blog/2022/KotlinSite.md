@@ -81,9 +81,7 @@ package com.example.pages
 @Composable
 fun HelloPage() {
     Text("Hello, World!")
-    Link("/goodbye") {
-        Text("Say goodbye...")
-    }
+    Link("/goodbye", "Say goodbye...")
 }
 ```
 
