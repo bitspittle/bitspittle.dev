@@ -96,8 +96,8 @@ and navigate to that page as you'd expect.
 Kobweb can be used on its own for its routing capabilities, but it also provides a UI library called Silk, a
 color-mode-aware (i.e. light and dark) collection of widgets as well as general theming and component styling support.
 
-I believe component styling is one of those things that once you start using it you won't want to go back. I demonstrate
-it later in its [own subsection▼](#component-styling).
+I believe component styling is one of those features that once you start using it you won't want to go back. I
+demonstrate it later in its [own subsection▼](#component-styling).
 
 ### Color mode
 
@@ -114,6 +114,7 @@ fun SomeWidget() {
     val colorMode by rememberColorMode()
     val widgetColor =
         if (colorMode.isDark()) Colors.Pink else Colors.Red
+    /* ... code that uses widgetColor ... */
 }
 ```
 
@@ -305,7 +306,7 @@ At the beginning of this post, I said this site was written entirely in Kotlin. 
 In fact, most of this site is written using markdown. Relevant markdown files are transpiled to Kotlin just before
 compilation happens.
 
-Kobweb extends markdown with some custom support for nesting code inside it which is how I embedded the color buttons
+Kobweb extends Markdown with some custom support for nesting code inside it which is how I embedded the color buttons
 and clock widget above. You can inline code with a Kotlin-y `${...}` syntax or put a larger widget on its own line
 with triple curly-brace syntax:
 
@@ -333,7 +334,7 @@ Let's finish off by discussing other approaches, to compare and contrast with Ko
 
 If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion▼](#conclusion).
 
-### Multiplatform Web Apps
+### Multiplatform apps
 
 Many users in the Kotlin community are excited about the promise of multiplatform, and they are expecting to write a web
 app once and run it everywhere (Android, Desktop, *and* Web).
@@ -369,7 +370,7 @@ list of features we provide, since if you go it alone, you may need to implement
 * introduction of the `Modifier` concept, useful for chaining styles
 * implementations for `Box`, `Column`, and `Row` on top of html / css
 * shape clipping
-* markdown support
+* Markdown support
 * composables for all free Font Awesome icons
 * parsing and handling query parameters (e.g. `/posts?userId=...&postId=...`)
 * parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}`)
