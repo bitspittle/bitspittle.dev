@@ -11,7 +11,7 @@ import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
 import com.varabyte.kobweb.silk.components.icons.fa.FaLinkedin
-import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
+import com.varabyte.kobweb.silk.components.icons.fa.FaMastodon
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
 import com.varabyte.kobweb.silk.components.style.*
@@ -48,7 +48,7 @@ fun Footer(modifier: Modifier = Modifier) {
         }
 
         Row(Modifier.justifyContent(JustifyContent.SpaceAround).width(12.cssRem).margin(top = 1.cssRem, bottom = 1.cssRem)) {
-            FooterLink("https://twitter.com/bitspittle") { FaTwitter() }
+            FooterLink("https://fosstodon.org/@bitspittle") { FaMastodon() }
             FooterLink("https://github.com/bitspittle") { FaGithub() }
             FooterLink("https://www.linkedin.com/in/hermandave") { FaLinkedin() }
             FooterLink("mailto:bitspittle+fromblog@gmail.com") { FaEnvelope() }

@@ -8,7 +8,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.InitSilk
 import com.varabyte.kobweb.silk.InitSilkContext
-import com.varabyte.kobweb.silk.components.icons.fa.FaTwitter
+import com.varabyte.kobweb.silk.components.icons.fa.FaMastodon
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
 import com.varabyte.kobweb.silk.components.style.*
@@ -81,10 +81,10 @@ fun NavHeader() {
         NavLink("/blog/", "blog")
         Spacer()
         IconButton(
-            onClick = { ctx.router.navigateTo("https://twitter.com/bitspittle") },
+            onClick = { ctx.router.navigateTo("https://fosstodon.org/@bitspittle") },
             NavButtonStyle.toModifier()
         ) {
-            FaTwitter()
+            FaMastodon()
         }
         ColorModeButton(NavButtonStyle.toModifier())
     }
