@@ -1,3 +1,5 @@
+import com.varabyte.kobweb.gradle.application.notifyKobwebAboutCodeGeneratingTask
+import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.MarkdownComponents.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
 import kotlinx.html.script
@@ -64,20 +66,8 @@ kobweb {
 }
 
 kotlin {
-    jvm {
-        tasks.named("jvmJar", Jar::class.java).configure {
-            archiveFileName.set("bitspittledev.jar")
-        }
-    }
-    js(IR) {
-        moduleName = "bitspittledev"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "bitspittledev.js"
-            }
-        }
-        binaries.executable()
-    }
+    configAsKobwebApplication("bitspittledev")
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -91,12 +81,6 @@ kotlin {
                 implementation(libs.kobweb.silk.core)
                 implementation(libs.kobweb.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
-             }
-        }
-
-        val jvmMain by getting {
-            dependencies {
-                implementation(libs.kobweb.api)
              }
         }
     }
@@ -205,5 +189,4 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
             println("Generated ${blogList.absolutePath}")
         }
     }
-}
-tasks.named("kobwebGenFrontendMetadata") { dependsOn(generateBlogListingTask) }
+}.also { notifyKobwebAboutCodeGeneratingTask(it) }
