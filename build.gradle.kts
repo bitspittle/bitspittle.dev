@@ -1,4 +1,4 @@
-import com.varabyte.kobweb.gradle.application.notifyKobwebAboutCodeGeneratingTask
+import com.varabyte.kobweb.gradle.application.notifyKobwebAboutFrontendCodeGeneratingTask
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.MarkdownComponents.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
@@ -7,7 +7,6 @@ import org.commonmark.ext.front.matter.YamlFrontMatterBlock
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
 import org.commonmark.node.AbstractVisitor
 import org.commonmark.node.CustomBlock
-import org.gradle.internal.impldep.org.bouncycastle.its.asn1.EndEntityType.app
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -189,4 +188,5 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
             println("Generated ${blogList.absolutePath}")
         }
     }
-}.also { notifyKobwebAboutCodeGeneratingTask(it) }
+}.also { notifyKobwebAboutFrontendCodeGeneratingTask(it) }
+
