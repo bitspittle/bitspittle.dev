@@ -12,7 +12,7 @@ import org.jetbrains.compose.web.css.*
 
 @Composable
 fun IconButton(onClick: () -> Unit, modifier: Modifier = Modifier, icon: @Composable BoxScope.() -> Unit) {
-    Button(onClick, modifier.clip(Circle())) {
+    Button(onClick, modifier.padding(0.px).clip(Circle())) {
         Box(Modifier.padding(8.px), content = icon)
     }
 }
