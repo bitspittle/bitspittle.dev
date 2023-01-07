@@ -4,9 +4,6 @@ build
 out
 kotlin-js-store
 
-# Firebase
-.firebase
-
 # IntelliJ ignores
 *.iml
 /*.ipr
@@ -27,8 +24,3 @@ kotlin-js-store
 
 # Gradle ignores
 .gradle
-
-# Kobweb ignores
-.kobweb/*
-!.kobweb/conf.yaml
-!.kobweb/template.yaml

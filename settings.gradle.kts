@@ -8,3 +8,5 @@ pluginManagement {
 
 rootProject.name = "bitspittledev"
 
+include(":site")
+include(":firebase")

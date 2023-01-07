@@ -1,11 +1,11 @@
 site:
-  title: "BitSpittle"
+  title: "BitSpittle.Dev"
 
 server:
   files:
     dev:
       contentRoot: "build/processedResources/js/main/public"
-      script: "build/js/packages/bitspittledev/kotlin/bitspittledev.js"
+      script: "../build/js/packages/bitspittledev/kotlin/bitspittledev.js"
       api: "build/libs/bitspittledev.jar"
     prod:
       script: "build/distributions/bitspittledev.js"
