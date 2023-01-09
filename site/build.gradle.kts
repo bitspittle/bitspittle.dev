@@ -17,7 +17,6 @@ plugins {
 
 repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    maven("https://us-central1-maven.pkg.dev/varabyte-repos/public")
 }
 
 group = "dev.bitspittle.site"
@@ -79,8 +78,8 @@ kotlin {
                 implementation(libs.kobweb.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
 
-                implementation(project(":firebase"))
-             }
+                implementation(project(":firebase:bindings"))
+            }
         }
     }
 }

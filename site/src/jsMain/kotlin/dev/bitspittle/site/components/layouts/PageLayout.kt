@@ -8,26 +8,56 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
+import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
+import dev.bitspittle.firebase.bindings.*
+import dev.bitspittle.firebase.bindings.Firebase.App.FirebaseOptions
 import dev.bitspittle.site.components.sections.Footer
 import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.H1
+import kotlin.js.json
 
 val CenterColumnStyle = ComponentStyle("bs-center-column") {
     base { Modifier.fillMaxWidth(90.percent) }
     Breakpoint.MD { Modifier.fillMaxWidth(80.percent) }
 }
 
+external fun encodeURIComponent(uri: String): String
+
 @Composable
 fun PageLayout(title: String, description: String = "Tech chatter, tutorials, and career advice", content: @Composable ColumnScope.() -> Unit) {
+    val app = remember {
+        Firebase.App.initializeApp(
+            FirebaseOptions(
+                apiKey = "AIzaSyBxcyLIO6QhZWGdAKoOEpqHytpXpVCc1Tc",
+                authDomain = "bitspittle-site.firebaseapp.com",
+                databaseURL = "https://bitspittle-site-default-rtdb.firebaseio.com",
+                projectId = "bitspittle-site",
+                storageBucket = "bitspittle-site.appspot.com",
+                messagingSenderId = "554672278802",
+                appId = "1:554672278802:web:4f39bc1bfd7b15b19337cb",
+                measurementId = "G-MEKV58Q308",
+            ),
+        )
+    }
+    val db = remember { app.getDatabase() }
+
     LaunchedEffect(title) {
         document.title = "$title - Bitspittle.dev"
         document.querySelector("""meta[name="description"]""")!!.setAttribute("content", description)
+    }
+
+    val context = rememberPageContext()
+    LaunchedEffect(context) {
+        val ref = db.ref("/analytics/slugs")
+        ref.child(context.slug.replace('/', '\\')).update(
+            json("visits" to Firebase.Database.increment(1))
+        )
     }
 
     Box(Modifier.fillMaxWidth().minHeight(100.percent).styleModifier {
