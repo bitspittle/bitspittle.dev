@@ -17,6 +17,7 @@ plugins {
 
 repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    mavenLocal()
 }
 
 group = "dev.bitspittle.site"
@@ -77,8 +78,7 @@ kotlin {
                 implementation(libs.kobweb.silk.core)
                 implementation(libs.kobweb.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
-
-                implementation(project(":firebase:bindings"))
+                implementation(libs.firebase.kotlin.bindings)
             }
         }
     }

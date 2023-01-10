@@ -1,5 +1,6 @@
 [versions]
-firebase = "9.15.0" # from https://www.npmjs.com/package/firebase
+firebase-web = "9.15.0" # from https://www.npmjs.com/package/firebase
+firebase-bindings = "+" # TODO: lock down a real version when this library gets more mature
 jetbrains-compose = "1.2.2"
 kobweb = "0.11.6-SNAPSHOT"
 kotlin = "1.7.20"
@@ -7,6 +8,7 @@ kotlinx-coroutines = "1.6.0"
 kotlinx-html = "0.7.3"
 
 [libraries]
+firebase-kotlin-bindings = { module = "dev.bitspittle:firebase-kotlin-bindings", version.ref = "firebase-bindings" }
 kobweb-api = { module = "com.varabyte.kobweb:kobweb-api", version.ref = "kobweb" }
 kobweb-core = { module = "com.varabyte.kobweb:kobweb-core ", version.ref = "kobweb" }
 kobweb-silk-core = { module = "com.varabyte.kobweb:kobweb-silk", version.ref = "kobweb" }
