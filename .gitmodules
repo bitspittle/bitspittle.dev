@@ -1,0 +1,3 @@
+[submodule "firebase-kotlin-bindings"]
+	path = firebase-kotlin-bindings
+	url = https://github.com/bitspittle/firebase-kotlin-bindings
