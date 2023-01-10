@@ -1,12 +1,14 @@
 package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.css.WhiteSpace
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
@@ -18,6 +20,7 @@ import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.theme.SilkTheme
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.dom.*
 
 val FooterStyle = ComponentStyle.base("bs-footer") {
     Modifier
@@ -39,12 +42,12 @@ private fun FooterLink(href: String, content: @Composable () -> Unit) {
 @Composable
 fun Footer(modifier: Modifier = Modifier) {
     Column(FooterStyle.toModifier().then(modifier), horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(horizontalArrangement = Arrangement.Center) {
-            SpanText("This site is ")
+        Span(Modifier.whiteSpace(WhiteSpace.PreWrap).toAttrs()) {
+            Text("This site is ")
             Link("https://github.com/bitspittle/bitspittle.dev", "open source")
-            SpanText(" written using ")
+            Text(" written using ")
             Link("https://github.com/varabyte/kobweb", "Kobweb")
-            SpanText(".")
+            Text(".")
         }
 
         Row(Modifier.justifyContent(JustifyContent.SpaceAround).width(12.cssRem).margin(top = 1.cssRem, bottom = 1.cssRem)) {
