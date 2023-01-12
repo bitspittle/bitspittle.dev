@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose for Web site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2022-02-23
+updated: 2023-01-12
 tags:
  - compose for web
  - kobweb
@@ -98,9 +98,9 @@ If you already have a project, you can skip this step.
 Otherwise, run the following command, so you'll have something concrete to work with for the rest of this article:
 
 ```bash
-$ kobweb create site
+$ kobweb create app
 # Kobweb asks a bunch of questions, but defaults should be fine
-$ cd site
+$ cd app
 ```
 
 and initialize it with `git`:

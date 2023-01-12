@@ -4,7 +4,7 @@ title: Kobweb: A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2022-12-17
+updated: 2023-01-12
 tags:
  - compose for web
  - webdev
@@ -419,9 +419,9 @@ If Kobweb looks like something you'd want to play with, the easiest way to start
 Once installed, you can run:
 
 ```bash
-$ kobweb create site
+$ kobweb create app
 # answer a bunch of questions about your project
-$ cd site
+$ cd app
 $ kobweb run
 ```
 
