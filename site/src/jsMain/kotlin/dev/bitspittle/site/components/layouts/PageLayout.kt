@@ -13,8 +13,8 @@ import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
-import dev.bitspittle.firebase.bindings.*
-import dev.bitspittle.firebase.bindings.Firebase.App.FirebaseOptions
+import dev.bitspittle.firebase.*
+import dev.bitspittle.firebase.Firebase.App.FirebaseOptions
 import dev.bitspittle.site.components.sections.Footer
 import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
