@@ -14,6 +14,7 @@ import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
+import dev.bitspittle.firebase.analytics.Analytics
 import dev.bitspittle.firebase.app.FirebaseApp
 import dev.bitspittle.firebase.app.FirebaseOptions
 import dev.bitspittle.firebase.database.ServerValue
@@ -45,7 +46,7 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
             ),
         )
     }
-    val db = remember { app.getDatabase() }
+    val analytics = remember { app.getAnalytics() }
 
     LaunchedEffect(title) {
         document.title = "$title - Bitspittle.dev"
@@ -54,11 +55,8 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
 
     if (window.location.hostname != "localhost") {
         val context = rememberPageContext()
-        LaunchedEffect(context) {
-            val ref = db.ref("/analytics/slugs")
-            ref.child(context.slug.replace('/', '\\')).update(
-                "visits" to ServerValue.increment(1)
-            )
+        LaunchedEffect(context) { // Context changing means we definitely visited a new page
+            analytics.log(Analytics.Event.PageView())
         }
     }
 
