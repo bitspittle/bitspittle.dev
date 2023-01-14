@@ -13,26 +13,24 @@ import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
-import dev.bitspittle.firebase.*
-import dev.bitspittle.firebase.Firebase.App.FirebaseOptions
+import dev.bitspittle.firebase.app.FirebaseApp
+import dev.bitspittle.firebase.app.FirebaseOptions
+import dev.bitspittle.firebase.database.ServerValue
 import dev.bitspittle.site.components.sections.Footer
 import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.H1
-import kotlin.js.json
 
 val CenterColumnStyle = ComponentStyle("bs-center-column") {
     base { Modifier.fillMaxWidth(90.percent) }
     Breakpoint.MD { Modifier.fillMaxWidth(80.percent) }
 }
 
-external fun encodeURIComponent(uri: String): String
-
 @Composable
 fun PageLayout(title: String, description: String = "Tech chatter, tutorials, and career advice", content: @Composable ColumnScope.() -> Unit) {
     val app = remember {
-        Firebase.App.initializeApp(
+        FirebaseApp.initialize(
             FirebaseOptions(
                 apiKey = "AIzaSyBxcyLIO6QhZWGdAKoOEpqHytpXpVCc1Tc",
                 authDomain = "bitspittle-site.firebaseapp.com",
@@ -56,7 +54,7 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
     LaunchedEffect(context) {
         val ref = db.ref("/analytics/slugs")
         ref.child(context.slug.replace('/', '\\')).update(
-            json("visits" to Firebase.Database.increment(1))
+            "visits" to ServerValue.increment(1)
         )
     }
 
