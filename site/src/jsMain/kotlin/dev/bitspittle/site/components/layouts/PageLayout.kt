@@ -8,6 +8,7 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
+import com.varabyte.kobweb.core.isExporting
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.style.ComponentStyle
 import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
@@ -51,11 +52,13 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
     }
 
     val context = rememberPageContext()
-    LaunchedEffect(context) {
-        val ref = db.ref("/analytics/slugs")
-        ref.child(context.slug.replace('/', '\\')).update(
-            "visits" to ServerValue.increment(1)
-        )
+    if (!context.isExporting) {
+        LaunchedEffect(context) {
+            val ref = db.ref("/analytics/slugs")
+            ref.child(context.slug.replace('/', '\\')).update(
+                "visits" to ServerValue.increment(1)
+            )
+        }
     }
 
     Box(Modifier.fillMaxWidth().minHeight(100.percent).styleModifier {
