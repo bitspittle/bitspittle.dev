@@ -20,6 +20,7 @@ import dev.bitspittle.firebase.database.ServerValue
 import dev.bitspittle.site.components.sections.Footer
 import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
+import kotlinx.browser.window
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.H1
 
@@ -51,8 +52,8 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
         document.querySelector("""meta[name="description"]""")!!.setAttribute("content", description)
     }
 
-    val context = rememberPageContext()
-    if (!context.isExporting) {
+    if (window.location.hostname != "localhost") {
+        val context = rememberPageContext()
         LaunchedEffect(context) {
             val ref = db.ref("/analytics/slugs")
             ref.child(context.slug.replace('/', '\\')).update(
