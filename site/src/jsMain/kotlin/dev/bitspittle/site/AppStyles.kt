@@ -8,14 +8,14 @@ import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.lightened
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
-import com.varabyte.kobweb.silk.InitSilk
-import com.varabyte.kobweb.silk.InitSilkContext
 import com.varabyte.kobweb.silk.components.graphics.ImageStyle
 import com.varabyte.kobweb.silk.components.layout.DividerStyle
+import com.varabyte.kobweb.silk.init.InitSilk
+import com.varabyte.kobweb.silk.init.InitSilkContext
+import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.SilkPalette
 import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
-import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import com.varabyte.kobweb.silk.theme.replaceComponentStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
 import com.varabyte.kobweb.silk.theme.shapes.clip
@@ -36,7 +36,9 @@ fun initSilk(ctx: InitSilkContext) {
     ctx.apply {
         config.apply {
             initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
+        }
 
+        stylesheet.apply {
             registerBaseStyle("html") {
                 // Always show a vertical scroller, or else our page content shifts when switching from one page that
                 // can scroll to one that can't
