@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose for Web site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2023-01-12
+updated: 2023-01-26
 tags:
  - compose for web
  - kobweb
@@ -149,7 +149,7 @@ It's free! [Sign up here](https://app.netlify.com/signup).
 * Choose your repo from the list
 
 Eventually, you will reach a page that asks you to provide build settings. Leave everything blank except for the
-`publish directory` field, which you can set to `.kobweb/site`:
+`publish directory` field, which you can set to `site/.kobweb/site`:
 
 ![Netlify Build settings](/images/blog/2022/staticdeploy/netlify-build-settings.png)
 
@@ -159,7 +159,7 @@ By default, Kobweb is set up so that you don't check your exported site into sou
 
 However, for simplicity with Netlify's workflow, we're going to commit our exported site directly into our repository.
 
-Open up the `.gitignore` file in your project's root and add the line `!.kobweb/site` to the bottom:
+Open up the `.gitignore` file in your project's `site/` folder and add the line `!.kobweb/site` to the bottom:
 
 ```text
 ...
@@ -167,14 +167,13 @@ Open up the `.gitignore` file in your project's root and add the line `!.kobweb/
 # Kobweb ignores
 .kobweb/*
 !.kobweb/conf.yaml
-!.kobweb/conf.yaml.ftl
-!.kobweb/template.yaml
 !.kobweb/site
 ```
 
 #### Export your site
 
 ```bash
+# in kobweb-netlify-demo/site/...
 $ kobweb export --layout static
 ```
 
@@ -262,12 +261,14 @@ server:
       script: "..."
       api: "..."
     prod:
-      siteRoot: "docs"
+      # Kobweb content is in a subfolder. Need to export to the root, so use ".."
+      siteRoot: "../docs"
 ```
 
 #### Export your site
 
 ```bash
+# in kobweb-ghp-demo/site/...
 $ kobweb export --layout static
 ```
 
