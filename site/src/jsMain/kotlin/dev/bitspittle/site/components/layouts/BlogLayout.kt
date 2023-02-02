@@ -5,10 +5,10 @@ import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
-import com.varabyte.kobweb.silk.InitSilk
-import com.varabyte.kobweb.silk.InitSilkContext
+import com.varabyte.kobweb.silk.init.InitSilk
+import com.varabyte.kobweb.silk.init.InitSilkContext
+import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
-import com.varabyte.kobweb.silk.theme.registerBaseStyle
 import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
 import dev.bitspittle.site.components.widgets.blog.Toc
@@ -19,7 +19,7 @@ import org.jetbrains.compose.web.css.*
 @InitSilk
 fun initHighlightJs(ctx: InitSilkContext) {
     // Tweaks to make output from highlight.js look softer / better
-    ctx.config.registerBaseStyle("code.hljs") { Modifier.borderRadius(8.px) }
+    ctx.stylesheet.registerBaseStyle("code.hljs") { Modifier.borderRadius(8.px) }
 }
 
 @Composable

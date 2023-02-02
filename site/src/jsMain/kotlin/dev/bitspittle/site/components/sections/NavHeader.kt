@@ -6,8 +6,8 @@ import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
-import com.varabyte.kobweb.silk.InitSilk
-import com.varabyte.kobweb.silk.InitSilkContext
+import com.varabyte.kobweb.silk.init.InitSilk
+import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.components.icons.fa.FaMastodon
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant

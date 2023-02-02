@@ -63,7 +63,7 @@ fun Toc(modifier: Modifier = Modifier, minHeaderLevel: Int = 2, maxHeaderLevel: 
 
                     val link = document.createElement("a") as HTMLAnchorElement
                     link.setAttribute("href", "#${child.id}")
-                    link.setAttribute("class", "silk-link silk-link-${colorMode.name.lowercase()}")
+                    link.setAttribute("class", "silk-link silk-link_${colorMode.name.lowercase()}")
                     link.appendChild(document.createTextNode(headingText))
                     li.appendChild(link)
                     element.appendChild(li)
