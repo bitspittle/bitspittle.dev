@@ -1,6 +1,7 @@
 package dev.bitspittle.site.components.widgets.navigation
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.dom.clearFocus
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
@@ -31,7 +32,13 @@ fun initHeaderLinkInteraction(ctx: InitSilkContext) {
 
 
 val HoverLinkStyle = ComponentStyle("bs-hover-link") {
-    base { Modifier.opacity(0.percent).transition("opacity .15s").fontSize(0.8.em).margin(left = 0.7.em) }
+    base {
+        Modifier
+            .opacity(0.percent)
+            .transition(CSSTransition("opacity", 0.15.s))
+            .fontSize(0.8.em)
+            .margin(left = 0.7.em)
+    }
     link { Modifier.color(colorMode.toSilkPalette().color) }
     visited { Modifier.color(colorMode.toSilkPalette().color) }
     focus { Modifier.opacity(SHOWN_LINK_OPACITY) }

@@ -27,7 +27,6 @@ val FooterStyle = ComponentStyle.base("bs-footer") {
         .margin(top = 2.cssRem)
         .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].border)
         .padding(topBottom = 1.cssRem, leftRight = 4.cssRem)
-        .transitionProperty("border-color")
 }
 
 val CopyrightStyle = ComponentStyle.base("bs-copyright") {
