@@ -420,7 +420,7 @@ Once installed, you can run:
 ```bash
 $ kobweb create app
 # answer a bunch of questions about your project
-$ cd app
+$ cd app/site
 $ kobweb run
 ```
 
