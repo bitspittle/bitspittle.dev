@@ -4,7 +4,7 @@ title: Kobweb: A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2023-01-12
+updated: 2023-02-03
 tags:
  - compose for web
  - webdev
@@ -261,11 +261,10 @@ but you can still easily end up with a monolith.
 Kobweb introduces component styling, which is a fancy way of saying you can define the styles you use in smaller pieces
 next to the code that uses them.
 
-It's easy -- just instantiate a `ComponentStyle`, pass in a unique name, and store the result to a `val`. Choose a name
-that is simple and clear, because it might help you if you need to debug your page using browser tools later:
+It's easy -- just instantiate a `ComponentStyle` (using the `by` keyword) and store the result to a `val`:
 
 ```kotlin
-val SomeWidgetStyle = ComponentStyle("some-widget") {
+val SomeWidgetStyle by ComponentStyle {
     base { Modifier.fontSize(32.px).padding(10.px) }
     hover {
         val highlightColor =
@@ -282,7 +281,7 @@ Component styles can be converted to `Modifier`s using the `toModifier` method. 
 Silk widgets *or* Compose for Web elements:
 
 ```kotlin
-val SomeWidgetStyle = ComponentStyle("some-widget") { /*...*/ }
+val SomeWidgetStyle by ComponentStyle { /*...*/ }
 
 @Composable
 fun SomeWidget() {
