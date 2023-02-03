@@ -6,13 +6,13 @@ import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
-import com.varabyte.kobweb.silk.init.InitSilk
-import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.components.icons.fa.FaMastodon
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
 import com.varabyte.kobweb.silk.components.style.*
-import com.varabyte.kobweb.silk.theme.registerBaseStyle
+import com.varabyte.kobweb.silk.init.InitSilk
+import com.varabyte.kobweb.silk.init.InitSilkContext
+import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.theme.toSilkPalette
 import dev.bitspittle.site.SitePalettes
 import dev.bitspittle.site.components.widgets.button.ColorModeButton
@@ -25,7 +25,7 @@ fun initNavHeaderStyles(ctx: InitSilkContext) {
     // `href="#some-section`.
     // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
     (2..6).forEach { headingLevel ->
-        ctx.config.registerBaseStyle("h${headingLevel}") {
+        ctx.stylesheet.registerBaseStyle("h${headingLevel}") {
             Modifier.scrollMargin(top = 5.cssRem)
         }
     }
