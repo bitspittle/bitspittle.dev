@@ -14,8 +14,6 @@ import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import com.varabyte.kobweb.silk.theme.colors.SilkPalette
-import com.varabyte.kobweb.silk.theme.colors.SilkPalettes
 import com.varabyte.kobweb.silk.theme.replaceComponentStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
 import com.varabyte.kobweb.silk.theme.shapes.clip
@@ -63,28 +61,27 @@ fun initSilk(ctx: InitSilkContext) {
             registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
         }
 
-        // The "link visited" color looks a little garish in dark mode. Disable "visited" colors for now by just setting
-        // them to the same value as the default color. We might revisit this later.
-        val linkDark = Color.rgb(0x1a85ff)
-        theme.palettes = SilkPalettes(
-            light = ctx.theme.palettes.light.copy(
-                color = Colors.Black.lightened(0.2f),
-                background = Colors.WhiteSmoke,
-                border = Colors.DarkSlateGray,
-                link = ctx.theme.palettes.light.link.copy(
-                    visited = ctx.theme.palettes.light.link.default
-                ),
-            ),
-            dark = ctx.theme.palettes.dark.copy(
-                color = Colors.White.darkened(0.1f),
-                background = Color.rgb(15, 15, 25),
-                border = Colors.LightSlateGray,
-                link = SilkPalette.Link(
-                    default = linkDark,
-                    visited = linkDark,
-                )
-            )
-        )
+        // The "link visited" color looks a little garish with this site's theme. Disable "visited" colors for now by
+        // just setting them to the same value as the default color. We might revisit this later.
+        theme.palettes.apply {
+            light.apply {
+                color = Colors.Black.lightened(0.2f)
+                background = Colors.WhiteSmoke
+                border = Colors.DarkSlateGray
+                link.visited = ctx.theme.palettes.light.link.default
+            }
+
+            dark.apply {
+                color = Colors.White.darkened(0.1f)
+                background = Color.rgb(15, 15, 25)
+                border = Colors.LightSlateGray
+                link.apply {
+                    val linkDark = Color.rgb(0x1a85ff)
+                    default = linkDark
+                    visited = linkDark
+                }
+            }
+        }
 
         theme.replaceComponentStyleBase(ImageStyle) {
             Modifier
