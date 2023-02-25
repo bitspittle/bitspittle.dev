@@ -7,10 +7,10 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.icons.fa.FaMastodon
-import com.varabyte.kobweb.silk.components.layout.SmoothColorStyle
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
 import com.varabyte.kobweb.silk.components.style.*
+import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
@@ -32,7 +32,7 @@ fun initNavHeaderStyles(ctx: InitSilkContext) {
     }
 }
 
-val NavHeaderStyle = ComponentStyle.base("bs-nav-header") {
+val NavHeaderStyle = ComponentStyle.base("bs-nav-header", extraModifiers = { SmoothColorStyle.toModifier() }) {
     Modifier
         .fillMaxWidth()
         .padding(left = 1.cssRem, right = 1.cssRem, top = 1.cssRem, bottom = 1.cssRem)
@@ -77,7 +77,7 @@ private fun NavLink(path: String, text: String, linkVariant: ComponentVariant? =
 @Composable
 fun NavHeader() {
     val ctx = rememberPageContext()
-    Row(listOf(NavHeaderStyle, SmoothColorStyle).toModifier()) {
+    Row(NavHeaderStyle.toModifier()) {
         NavLink("/", "\$bs", LogoVariant)
         NavLink("/blog/", "blog")
         Spacer()
