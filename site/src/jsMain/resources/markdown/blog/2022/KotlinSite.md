@@ -4,7 +4,7 @@ title: Kobweb: A Framework Built on Compose for Web
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2023-02-03
+updated: 2023-03-11
 tags:
  - compose for web
  - webdev
@@ -277,21 +277,19 @@ val SomeWidgetStyle by ComponentStyle {
 The `base` style, if defined, is special, as it will always be applied first. Any additional declarations are layered on
 top of the base if their condition is met.
 
-Component styles can be converted to `Modifier`s using the `toModifier` method. This way, you can pass them into either
-Silk widgets *or* Compose for Web elements:
+Component styles can be converted to `Modifier`s using the `toModifier` method and to `AttrsScope`s using the `toAttrs`
+method. This way, you can pass them into either Silk widgets *or* Compose for Web elements:
 
 ```kotlin
 val SomeWidgetStyle by ComponentStyle { /*...*/ }
 
 @Composable
 fun SomeWidget() {
-    val widgetModifier = SomeWidgetStyle.toModifier()
-    
     // Silk widget:
-    Button(onClick = {}, widgetModifier) { /*...*/ }
+    Button(onClick = {}, SomeWidgetStyle.toModifier()) { /*...*/ }
     
     // Compose for Web element:
-    Div(attrs = widgetModifier.toAttrs()) { /*...*/ }
+    Div(attrs = SomeWidgetStyle.toAttrs()) { /*...*/ }
 }
 ```
 
@@ -324,6 +322,9 @@ Code references that start with `.` will automatically be prefixed by your proje
 the code references above would generate final code prefixed with something like `com.example` (but whatever is used by
 your project).
 
+You can see [the markdown for this blog post](https://github.com/bitspittle/bitspittle.dev/blob/main/site/src/jsMain/resources/markdown/blog/2022/KotlinSite.md)
+for yourself!
+
 Ultimately, Markdown support out-of-the-box means that if you love Kotlin *and* you were thinking of starting a blog,
 Kobweb might be a great solution for you.
 
@@ -347,7 +348,7 @@ to do is write a cross-platform app which just happens to also work in your brow
 feature to land.
 
 There's no one-size fits all solution, however, and Kobweb may still be the right choice if you're creating a website.
-I write about this a bit more in [Kobweb's README](https://github.com/varabyte/kobweb#what-about-multiplatform-widgets),
+I write about this a bit more in [Kobweb's README](https://github.com/varabyte/kobweb#what-about-compose-for-web-canvas),
 in case you wanted to learn more about the different approaches.
 
 ### Vanilla Compose for Web
