@@ -4,6 +4,7 @@ title: Creating a GitHub Code Coverage Badge using Kover
 description: How to create a code coverage badge for your GitHub README using JetBrains Kover.
 author: David Herman
 date: 2022-10-12
+updated: 2023-03-16
 tags:
  - kover
  - github
@@ -125,11 +126,9 @@ Click on *Secrets* > *Actions*, then on the *New repository secret* button:
 
 Pick a name for your secret. We'll reference it later, so remember it! I used `GIST_SECRET`.
 
-Paste the token ID from your clipboard into the *Secret* textbox:
+Paste the token ID from your clipboard into the *Secret* textbox, then press the *Add secret* button:
 
 ![GitHub project create secret](/images/blog/2022/koverbadge/github-project-create-secret.png)
-
-Finally, press the *Add secret* button.
 
 That's it for now. Let's move our attention to Gradle next.
 
@@ -168,8 +167,10 @@ In a Gradle build script (one which is using the Kover plugin), paste the follow
 there:
 
 ```kotlin
-// IMPORTANT! Must be defined earlier:
-// plugins { id("org.jetbrains.kotlinx.kover") }
+import javax.xml.parsers.DocumentBuilderFactory
+
+// IMPORTANT! Must be defined in the plugins block:
+// plugins { id("org.jetbrains.kotlinx.kover") version ... }
 
 tasks.register("printLineCoverage") {
     group = "verification" // Put into the same group as the `kover` tasks
@@ -264,7 +265,7 @@ jobs:
       - name: Update dynamic badge gist
         uses: schneegans/dynamic-badges-action@v1.5.0
         with:
-          auth: ${{secrets.GIST_SECRET}}
+          auth: ${{secrets.GIST_SECRET}} # !! CONFIRM THIS !!
           gistID: d6b5fcf2e961f94780a3dbbc11be023c # !! CHANGE THIS !!
           filename: myproject-coverage-badge.json  # !! CHANGE THIS !!
           label: coverage
@@ -274,6 +275,8 @@ jobs:
           maxColorRange: 100
 ```
 
+Review the lines annotated above with `!! CONFIRM THIS !!` and `!! CHANGE THIS !!`.
+
 In my project, the main branch is called `main`, but make sure that this is true for your project as well. Legacy
 projects may use `master`, for example.
 
@@ -281,7 +284,9 @@ After that, the first steps of the script tell GitHub to fetch the latest code a
 may need to use a higher JDK version in your own project, in case you're using any JDK 12+ features or standard library
 APIs.
 
-Otherwise, just copy these statements as is.
+Finally, be sure to update `gistID` and `filename` to your specific values.
+
+You may copy the rest of the statements as is.
 
 ### Step: Generate coverage output
 
