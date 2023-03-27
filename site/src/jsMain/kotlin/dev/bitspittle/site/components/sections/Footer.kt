@@ -35,7 +35,7 @@ val CopyrightStyle = ComponentStyle.base("bs-copyright") {
 
 @Composable
 private fun FooterLink(href: String, content: @Composable () -> Unit) {
-    Link(href, variant = UncoloredLinkVariant, openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB_FOREGROUND, content = content)
+    Link(href, variant = UncoloredLinkVariant, content = content)
 }
 
 @Composable
