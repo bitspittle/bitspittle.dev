@@ -41,21 +41,33 @@ they click around on stuff.
 
 Let's use this blog as a concrete example.
 
-For a Compose for Web project, if a user entered a URL like `https://bitspittle.dev/blog/static`, the request would be
-intercepted before the browser could handle it, and its URL path would get parsed.
+For a Compose for Web project, if a user entered a URL like `https://bitspittle.dev/blog/staticdeploy`, the request
+would be intercepted before the browser could handle it, and its URL path would get parsed.
 
-Based on the result (in this case, the value `/blog/static`), your project would dynamically choose to start rendering a
-new screen associated with that name (so, maybe `mysite.pages.blog.StaticPage()`). The core of your project is
-essentially a giant switch statement acting on a string value.
+Based on the result (in this case, the value `"/blog/staticdeploy"`), your project would dynamically choose to start
+rendering a new page associated with that path (so, maybe `mysite.pages.blog.StaticDeployPage()`).
 
-The above is fine as long as your server understands that this is happening! In other words, if I make a request to a
-server asking for resources associated with `/blog/static`, it should just send me the default `index.html` page and
-its JavaScript.
+The core of your project is essentially a giant switch statement acting on a string value. You can imagine something
+like the following psuedocode:
+
+```kotlin
+// Inside your main `renderComposable`
+val path by getPath() // Path updated when browser URL changes
+when (path) {
+    "/blog/aboutme" -> mysite.pages.blog.AboutMePage()
+    "/blog/staticdeploy" -> mysite.pages.blog.StaticDeployPage()
+    // ... etc. ...
+}
+```
+
+The above approach is fine as long as your server understands that this is happening! In other words, if I make a
+request to a server asking for resources associated with `/blog/staticdeploy`, it should just send me the default
+`index.html` page and its JavaScript, knowing that the JavaScript code is what will handle understanding the URL.
 
 But static website host providers are simple. They blindly serve static files.
 
-So if a user makes a request to a static website host provider for the path `/blog/static`, then a file called
-`blog/static.html` better exist on it or else that user is getting a 404 error.
+So if a user makes a request to a static website host provider for the path `/blog/staticdeploy`, then a file called
+`blog/staticdeploy.html` better exist on it or else that user is getting a 404 error.
 
 ### Kobweb to the rescue
 
