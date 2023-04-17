@@ -1,24 +1,24 @@
 ---
 root: .components.layouts.BlogLayout
 title: Static Site Generation and Deployment with Kobweb
-description: How to use Kobweb to build a Compose for Web site that can be served by static site hosting providers for cheap (or free)!
+description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
 updated: 2023-01-26
 tags:
- - compose for web
+ - compose html
  - kobweb
 ---
 
 [Kobweb](https://github.com/varabyte/kobweb) is a framework built on 
-[Compose for Web](https://compose-web.ui.pages.jetbrains.team/), which itself is a reactive web UI framework from
+[Compose HTML](https://compose-web.ui.pages.jetbrains.team/), which itself is a reactive web UI framework from
 JetBrains that allows you to create web apps in Kotlin using a powerful API.
 
 *You can also read more about Kobweb [from this earlier post](kotlinsite).*
 
-In this post, we'll talk about how to use Kobweb to export your Compose for Web project into a format that can be
-consumed by various static website hosting providers. This means you can get fast and cheap (often free!) hosting
-for your Kotlin website.
+In this post, we'll talk about how to use Kobweb to export your Compose HTML project into a format that can be consumed
+by various static website hosting providers. This means you can get fast and cheap (often free!) hosting for your Kotlin
+website.
 
 ## Background
 
@@ -27,9 +27,9 @@ Kobweb.
 
 However, if you're ready to get your hands dirty, [feel free to skip over them▼](#how-to-deploy-a-static-website).
 
-### Compose for Web / SPAs
+### Compose HTML / SPAs
 
-Compose for Web is an excellent tool for building a
+Compose HTML is an excellent tool for building a
 [single-page application (SPA)](https://en.wikipedia.org/wiki/Single-page_application).
 
 That is, it produces a single, minimal `index.html` file plus some JavaScript and other resources that can be used to
@@ -41,8 +41,8 @@ they click around on stuff.
 
 Let's use this blog as a concrete example.
 
-For a Compose for Web project, if a user entered a URL like `https://bitspittle.dev/blog/staticdeploy`, the request
-would be intercepted before the browser could handle it, and its URL path would get parsed.
+For a Compose HTML project, if a user entered a URL like `https://bitspittle.dev/blog/staticdeploy`, the request would
+be intercepted before the browser could handle it, and its URL path would get parsed.
 
 Based on the result (in this case, the value `"/blog/staticdeploy"`), your project would dynamically choose to start
 rendering a new page associated with that path (so, maybe `mysite.pages.blog.StaticDeployPage()`).
@@ -71,9 +71,9 @@ So if a user makes a request to a static website host provider for the path `/bl
 
 ### Kobweb to the rescue
 
-Unlike Compose for Web, Kobweb can handle this problem because it sits one level above it. It is aware of all the
-pages on your site (since it is the one that generates the routing logic for you), and it comes with a binary that can
-run a bunch of useful, project-managing commands.
+Unlike Compose HTML, Kobweb can handle this problem because it sits one level above it. It is aware of all the pages on
+your site (since it is the one that generates the routing logic for you), and it comes with a binary that can run a
+bunch of useful, project-managing commands.
 
 The important command in this case:
 
@@ -82,8 +82,7 @@ $ kobweb export --layout static
 ```
 
 When you ask Kobweb to export your site, it will spin up a local Kobweb server, visit each page in turn, and
-save out its state to an html file. In this way, Kobweb can turn your dynamic Compose for Web pages into static
-snapshots.
+save out its state to an html file. In this way, Kobweb can turn your dynamic Compose HTML pages into static snapshots.
 
 ## How to deploy a static website
 
@@ -321,5 +320,5 @@ besides the two listed here, including other popular features such as
 [Firebase Hosting](https://firebase.google.com/docs/hosting) and
 [AWS](https://aws.amazon.com/getting-started/hands-on/host-static-website/).
 
-Compose for Web is an amazing API. And static website hosting is an amazing service. If you use Kobweb, you won't have
+Compose HTML is an amazing API. And static website hosting is an amazing service. If you use Kobweb, you won't have
 to choose one or the other, but you can revel in the benefits of both!

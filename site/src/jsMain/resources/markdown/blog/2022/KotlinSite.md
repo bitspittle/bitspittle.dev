@@ -1,21 +1,21 @@
 ---
 root: .components.layouts.BlogLayout
-title: Kobweb: A Framework Built on Compose for Web
+title: Kobweb: A Framework Built on Compose HTML
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2023-03-11
+updated: 2023-04-17
 tags:
- - compose for web
+ - compose html
  - webdev
  - kobweb
 ---
 
 I wrote a thing -- a Kotlin web framework called [Kobweb](https://github.com/varabyte/kobweb).
 
-It is built on top of [Compose for Web](https://compose-web.ui.pages.jetbrains.team/), an official, and fairly recent,
-reactive web UI framework created by JetBrains (in close collaboration with Google, and in turn built upon
-Android's Jetpack Compose).
+It is built on top of [Compose HTML](https://compose-web.ui.pages.jetbrains.team/), an official reactive web UI
+framework created by JetBrains (in close collaboration with Google, and in turn built upon core technologies introduced
+in Android's Jetpack Compose).
 
 And this whole site, *including this very page you are now perusing*, is Kobweb's first user.
 
@@ -24,7 +24,7 @@ I'll introduce some Kobweb basics, as well as discuss why you might (or might no
 
 ## Kobweb
 
-Compose for Web is a rich API that does an impressive amount of work wrapping underlying html / css concepts into a
+Compose HTML is a rich API that does an impressive amount of work wrapping underlying html / css concepts into a
 reactive API. However, it is ultimately a foundational layer, leaving many choices to the developer on how to
 approach the final design.
 
@@ -166,7 +166,7 @@ full screen backgrounds, or even games.
 Anyone who has dabbled with Jetpack Compose is likely familiar with the `Modifier` class. It may seem as fundamental to
 Compose as the `@Composable` annotation is.
 
-However, it isn't! Compose for Web actually does not have a `Modifier` class.
+However, it isn't! Compose HTML actually does not have a `Modifier` class.
 
 Instead, it uses an approach where all HTML tags are converted to `@Composable` function calls that take in something
 called an `AttrsScope`.
@@ -180,7 +180,7 @@ As a concrete example, this HTML document tag:
 >
 ```
 
-would be written with the following Compose for Web code:
+would be written with the following Compose HTML code:
 
 ```kotlin
 Div(attrs = {
@@ -200,7 +200,7 @@ shared variable. Plus, its API doesn't support chaining.
 To solve this, Silk provides its own `Modifier` class which is *inspired* by Jetpack Compose's version but isn't exactly
 the same one. Still, it should look familiar enough to people who write Jetpack Compose code.
 
-The above Compose for Web `AttrsScope` would be represented by the following `Modifier`:
+The above Compose HTML `AttrsScope` would be represented by the following `Modifier`:
 
 ```kotlin
 private val EXAMPLE_MODIFIER = Modifier
@@ -218,8 +218,8 @@ Button(
 )
 ```
 
-But for interoperability with Compose for Web elements, it is easy to convert a `Modifier` into an `AttrsScope` on the
-fly, using the `toAttrs` method:
+But for interoperability with Compose HTML elements, it is easy to convert a `Modifier` into an `AttrsScope` on the fly,
+using the `toAttrs` method:
 
 ```kotlin
 Div(attrs = EXAMPLE_MODIFIER.toAttrs())
@@ -252,8 +252,8 @@ spent was crawling over
 [their stylesheet](https://github.com/upstash/redis-examples/blob/master/nextjs-todo/styles/Home.module.css) to
 understand the nuances of their approach.
 
-Compose for Web allows you to
-[define this stylesheet in code](https://github.com/JetBrains/compose-jb/tree/master/tutorials/Web/Style_Dsl#stylesheet),
+Compose HTML allows you to
+[define this stylesheet in code](https://github.com/JetBrains/compose-jb/tree/master/tutorials/HTML/Style_Dsl#stylesheet),
 but you can still easily end up with a monolith.
 
 #### Component styling
@@ -278,7 +278,7 @@ The `base` style, if defined, is special, as it will always be applied first. An
 top of the base if their condition is met.
 
 Component styles can be converted to `Modifier`s using the `toModifier` method and to `AttrsScope`s using the `toAttrs`
-method. This way, you can pass them into either Silk widgets *or* Compose for Web elements:
+method. This way, you can pass them into either Silk widgets *or* Compose HTML elements:
 
 ```kotlin
 val SomeWidgetStyle by ComponentStyle { /*...*/ }
@@ -288,7 +288,7 @@ fun SomeWidget() {
     // Silk widget:
     Button(onClick = {}, SomeWidgetStyle.toModifier()) { /*...*/ }
     
-    // Compose for Web element:
+    // Compose HTML element:
     Div(attrs = SomeWidgetStyle.toAttrs()) { /*...*/ }
 }
 ```
@@ -351,7 +351,7 @@ There's no one-size fits all solution, however, and Kobweb may still be the righ
 I write about this a bit more in [Kobweb's README](https://github.com/varabyte/kobweb#what-about-compose-for-web-canvas),
 in case you wanted to learn more about the different approaches.
 
-### Vanilla Compose for Web
+### Vanilla Compose HTML
 
 Perhaps you've been burned by frameworks before. "Yeah buddy, Kobweb is nice, but I'm just going to stick with Compose
 for Web *classic*."
@@ -380,8 +380,8 @@ list of features we provide, since if you go it alone, you may need to implement
 I mention these not (just) to humblebrag, but because I myself was surprised by what was needed to create an MVP of
 Kobweb. I vastly underestimated the scope.
 
-So, sure, I'm biased, but my opinion is that if you're going to use Compose for Web to make a website (as opposed to a
-web app), you probably want to at least give Kobweb a try.
+So, sure, I'm biased, but my opinion is that if you're going to use Compose HTML to make a website (as opposed to a web
+app), you probably want to at least give Kobweb a try.
 
 ### JavaScript / TypeScript
 
@@ -408,8 +408,8 @@ solutions were huge inspirations for me.
 
 ## Conclusion
 
-I've been very excited about the Kotlin webdev space ever since Compose for Web was announced, and I hope this post
-has pushed at least one other person over the fence.
+I've been very excited about the Kotlin webdev space ever since Compose HTML was announced, and I hope this post has
+pushed at least one other person over the fence.
 
 ### Trying Kobweb
 
@@ -425,8 +425,8 @@ $ cd app/site
 $ kobweb run
 ```
 
-Or if this post just made you curious about Compose for Web, you can start with the
-[official tutorial](https://github.com/JetBrains/compose-jb/tree/master/tutorials/Web/Getting_Started) but have Kobweb
+Or if this post just made you curious about Compose HTML, you can start with the
+[official tutorial](https://github.com/JetBrains/compose-jb/tree/master/tutorials/HTML/Getting_Started) but have Kobweb
 set it up for you in a few seconds:
 
 ```bash
