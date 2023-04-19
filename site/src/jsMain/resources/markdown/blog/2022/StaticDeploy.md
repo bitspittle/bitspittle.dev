@@ -11,7 +11,7 @@ tags:
 ---
 
 [Kobweb](https://github.com/varabyte/kobweb) is a framework built on 
-[Compose HTML](https://compose-web.ui.pages.jetbrains.team/), which itself is a reactive web UI framework from
+[Compose HTML](https://github.com/JetBrains/compose-multiplatform#compose-html), which itself is a reactive web UI framework from
 JetBrains that allows you to create web apps in Kotlin using a powerful API.
 
 *You can also read more about Kobweb [from this earlier post](kotlinsite).*

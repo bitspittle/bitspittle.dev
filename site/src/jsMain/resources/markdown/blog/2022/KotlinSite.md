@@ -13,7 +13,7 @@ tags:
 
 I wrote a thing -- a Kotlin web framework called [Kobweb](https://github.com/varabyte/kobweb).
 
-It is built on top of [Compose HTML](https://compose-web.ui.pages.jetbrains.team/), an official reactive web UI
+It is built on top of [Compose HTML](https://github.com/JetBrains/compose-multiplatform#compose-html), an official reactive web UI
 framework created by JetBrains (in close collaboration with Google, and in turn built upon core technologies introduced
 in Android's Jetpack Compose).
 
