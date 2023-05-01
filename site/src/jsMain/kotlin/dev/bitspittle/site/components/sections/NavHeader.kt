@@ -1,6 +1,7 @@
 package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -9,6 +10,8 @@ import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.icons.fa.FaMastodon
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
+import com.varabyte.kobweb.silk.components.overlay.PopupPlacement
+import com.varabyte.kobweb.silk.components.overlay.Tooltip
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.init.InitSilk
@@ -87,6 +90,8 @@ fun NavHeader() {
         ) {
             FaMastodon()
         }
+        Tooltip(ElementTarget.PreviousSibling, "Mastodon", placement = PopupPlacement.Bottom)
         ColorModeButton(NavButtonStyle.toModifier())
+        Tooltip(ElementTarget.PreviousSibling, "Toggle color mode", placement = PopupPlacement.BottomRight)
     }
 }
