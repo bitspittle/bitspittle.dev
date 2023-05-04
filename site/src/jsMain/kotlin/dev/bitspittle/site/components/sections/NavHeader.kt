@@ -79,8 +79,9 @@ private fun NavLink(path: String, text: String, linkVariant: ComponentVariant? =
 
 @Composable
 fun NavHeader() {
-    val ctx = rememberPageContext()
     Row(NavHeaderStyle.toModifier()) {
+        val ctx = rememberPageContext()
+
         NavLink("/", "\$bs", LogoVariant)
         NavLink("/blog/", "blog")
         Spacer()

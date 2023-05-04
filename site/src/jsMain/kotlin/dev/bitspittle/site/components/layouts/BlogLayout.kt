@@ -8,12 +8,12 @@ import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
+import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
 import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
 import dev.bitspittle.site.components.widgets.blog.Toc
 import kotlinx.browser.document
-import kotlinx.browser.window
 import org.jetbrains.compose.web.css.*
 
 @InitSilk
@@ -43,7 +43,7 @@ fun BlogLayout(content: @Composable ColumnScope.() -> Unit) {
             styleElement.setAttribute("href", "/highlight.js/styles/a11y-${colorMode.name.lowercase()}.min.css")
         }
 
-        LaunchedEffect(window.location.href) {
+        LaunchedEffect(ctx.route) {
             // See kobweb config in build.gradle.kts which sets up highlight.js
             js("hljs.highlightAll()")
         }
