@@ -4,10 +4,11 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2023-01-26
+updated: 2023-05-07
 tags:
  - compose html
  - kobweb
+ - static site
 ---
 
 [Kobweb](https://github.com/varabyte/kobweb) is a framework built on 
@@ -114,7 +115,8 @@ $ kobweb create app
 $ cd app
 ```
 
-and initialize it with `git`:
+The above steps should have offered to initialize your project with `git`, but if you told it not to or if it didn't
+work for some reason, you can manually initialize it yourself:
 
 ```bash
 $ git init -b main
@@ -129,14 +131,13 @@ You can choose whatever name you want. I used `kobweb-netlify-demo` for Netlify 
 When given an opportunity to populate this repo with a `README` and `.gitignore`, **don't**! Since Kobweb already
 creates them for you.
 
-When finished, sync your local repo with the GitHub repo:
+When finished, sync your local project with the GitHub repo:
 
 ```bash
 # REMOTE_URL looks something like
 # https://github.com/<user>/<repo>.git
 $ git remote add origin <REMOTE_URL>
-$ git pull origin main
-$ git push --set-upstream origin main
+$ git push -u origin main
 ```
 
 ### Netlify
