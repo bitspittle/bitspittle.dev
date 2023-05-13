@@ -1,6 +1,8 @@
 package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.css.functions.blur
+import com.varabyte.kobweb.compose.css.functions.saturate
 import com.varabyte.kobweb.compose.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
@@ -14,6 +16,7 @@ import com.varabyte.kobweb.silk.components.overlay.PopupPlacement
 import com.varabyte.kobweb.silk.components.overlay.Tooltip
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
+import com.varabyte.kobweb.silk.defer.deferRender
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
@@ -40,10 +43,10 @@ val NavHeaderStyle = ComponentStyle.base("bs-nav-header", extraModifiers = { Smo
         .fillMaxWidth()
         .padding(left = 1.cssRem, right = 1.cssRem, top = 1.cssRem, bottom = 1.cssRem)
         .fontSize(1.25.cssRem)
-        .position(Position.Sticky)
-        .zIndex(1)
+        .position(Position.Fixed)
         .top(0.percent)
-        .backgroundColor(colorMode.toSilkPalette().background)
+        .backgroundColor(colorMode.toSilkPalette().background.toRgb().copyf(alpha = 0.65f))
+        .backdropFilter(saturate(180.percent), blur(5.px))
         .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toSilkPalette().border)
 }
 
@@ -79,20 +82,22 @@ private fun NavLink(path: String, text: String, linkVariant: ComponentVariant? =
 
 @Composable
 fun NavHeader() {
-    Row(NavHeaderStyle.toModifier()) {
-        val ctx = rememberPageContext()
+    deferRender {
+        Row(NavHeaderStyle.toModifier()) {
+            val ctx = rememberPageContext()
 
-        NavLink("/", "\$bs", LogoVariant)
-        NavLink("/blog/", "blog")
-        Spacer()
-        IconButton(
-            onClick = { ctx.router.navigateTo("https://fosstodon.org/@bitspittle") },
-            NavButtonStyle.toModifier()
-        ) {
-            FaMastodon()
+            NavLink("/", "\$bs", LogoVariant)
+            NavLink("/blog/", "blog")
+            Spacer()
+            IconButton(
+                onClick = { ctx.router.navigateTo("https://fosstodon.org/@bitspittle") },
+                NavButtonStyle.toModifier()
+            ) {
+                FaMastodon()
+            }
+            Tooltip(ElementTarget.PreviousSibling, "Mastodon", placement = PopupPlacement.Bottom)
+            ColorModeButton(NavButtonStyle.toModifier())
+            Tooltip(ElementTarget.PreviousSibling, "Toggle color mode", placement = PopupPlacement.BottomRight)
         }
-        Tooltip(ElementTarget.PreviousSibling, "Mastodon", placement = PopupPlacement.Bottom)
-        ColorModeButton(NavButtonStyle.toModifier())
-        Tooltip(ElementTarget.PreviousSibling, "Toggle color mode", placement = PopupPlacement.BottomRight)
     }
 }

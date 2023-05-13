@@ -68,7 +68,8 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
         gridTemplateRows("1fr auto")
     }, contentAlignment = Alignment.TopCenter) {
         Column(
-            modifier = Modifier.fillMaxSize().maxWidth(800.px).align(Alignment.TopCenter),
+            // Add some top margin to give some space for where the nav header will appear
+            modifier = Modifier.fillMaxSize().maxWidth(800.px).align(Alignment.TopCenter).margin(top = 4.cssRem),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             NavHeader()
