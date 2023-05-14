@@ -1,6 +1,7 @@
 package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.WhiteSpace
 import com.varabyte.kobweb.compose.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
@@ -44,7 +45,7 @@ private fun FooterLink(href: String, content: @Composable () -> Unit) {
 @Composable
 fun Footer(modifier: Modifier = Modifier) {
     Column(FooterStyle.toModifier().then(modifier), horizontalAlignment = Alignment.CenterHorizontally) {
-        Span(Modifier.whiteSpace(WhiteSpace.PreWrap).toAttrs()) {
+        Span(Modifier.whiteSpace(WhiteSpace.PreWrap).textAlign(TextAlign.Center).toAttrs()) {
             Text("This site is ")
             Link("https://github.com/bitspittle/bitspittle.dev", "open source")
             Text(" written using ")
