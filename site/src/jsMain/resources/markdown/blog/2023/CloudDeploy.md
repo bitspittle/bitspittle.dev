@@ -156,9 +156,9 @@ $ curl -X POST https://(yoursite.com)/api/user/add?id=123&name=Kodee
 In the POST example above, you might have noticed the line `ctx.data.getValue<Database>()` and wondered what it is and
 where it came from.
 
-The answer is that Kobweb gives you a way to populate the `data` property with any object you'd like. The framework
-includes an additional `@InitApi` annotation that you can apply to methods, which will then be called whenever the
-server starts up.
+The answer is that Kobweb gives you a way to populate the `data` property with any object you'd like. Additionally, the
+framework includes an `@InitApi` annotation that you can apply to methods which will then be called whenever the server
+starts up. These startup methods are where you can initialize `data`.
 
 Let's go ahead and implement our own init method that connects to a database, using a `Database` class of our own
 creation:
@@ -194,7 +194,7 @@ For example, for the GET method from earlier, you could query it from the client
 
 ```kotlin
 // Will fetch the API endpoint at https://(yoursite.com)/api/id
-window.api.tryGet("id").then { idBytes ->
+window.api.tryGet("id")?.then { idBytes ->
     console.log("Got id: ${String(id)}")
 }
 ```
@@ -225,7 +225,7 @@ understand the feature in more depth.
 ### A quick introduction to Render
 
 [Render](https://render.com/) is a cloud service offering a variety of useful products and features for hosting web
-applications. It's free for small projects, and gained significant popularity after Heroku started charging for their
+applications. It's free for small projects, and it gained significant popularity after Heroku started charging for their
 previously free tier. We're using Render in this post due to its free offering.
 
 Render provides several different services, including static site hosting. However, for the remainder of this article,
