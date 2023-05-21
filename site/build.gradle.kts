@@ -17,7 +17,11 @@ plugins {
 
 repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    mavenLocal()
+    mavenLocal {
+        content {
+            includeGroup("dev.bitspittle")
+        }
+    }
 }
 
 group = "dev.bitspittle.site"

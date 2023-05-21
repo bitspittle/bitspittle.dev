@@ -5,14 +5,14 @@ import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.rememberPageContext
+import com.varabyte.kobweb.silk.components.document.Toc
+import com.varabyte.kobweb.silk.components.document.TocBorderedVariant
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
-import com.varabyte.kobweb.silk.theme.breakpoint.rememberBreakpoint
 import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
 import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
-import dev.bitspittle.site.components.widgets.blog.Toc
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
 
@@ -50,6 +50,8 @@ fun BlogLayout(content: @Composable ColumnScope.() -> Unit) {
 
         ArticleMetadata()
         Toc(
+            Modifier.fillMaxWidth(),
+            variant = TocBorderedVariant,
             minHeaderLevel = mdCtx.frontMatter["toc-min"]?.singleOrNull()?.toIntOrNull() ?: 2,
             maxHeaderLevel = mdCtx.frontMatter["toc-max"]?.singleOrNull()?.toIntOrNull() ?: 3,
         )
