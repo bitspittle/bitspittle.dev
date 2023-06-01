@@ -25,7 +25,7 @@ import kotlinx.browser.window
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.H1
 
-val CenterColumnStyle = ComponentStyle("bs-center-column") {
+val CenterColumnStyle by ComponentStyle(prefix = "bs") {
     base { Modifier.fillMaxWidth(90.percent) }
     Breakpoint.MD { Modifier.fillMaxWidth(80.percent) }
 }

@@ -14,7 +14,7 @@ import org.jetbrains.compose.web.dom.Code
 import org.jetbrains.compose.web.dom.Pre
 import org.jetbrains.compose.web.dom.Text
 
-val CodeBlockStyle = ComponentStyle("bs-code-block") {
+val CodeBlockStyle by ComponentStyle(prefix = "bs") {
     // For some reason I'm not smart enough to figure out, code blocks are messing up the layout on mobile - they lay
     // themselves out too wide and break out of the central column. Here, we just constrain them to whatever the
     // view width is, until we are on desktop and the column is no longer so small as to cause an issue.
