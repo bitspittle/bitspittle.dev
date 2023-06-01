@@ -1,6 +1,6 @@
 import com.varabyte.kobweb.gradle.application.notifyKobwebAboutFrontendCodeGeneratingTask
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
-import com.varabyte.kobwebx.gradle.markdown.MarkdownComponents.Companion.HeadingIdsKey
+import com.varabyte.kobwebx.gradle.markdown.MarkdownHandlers.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
 import kotlinx.html.script
 import org.commonmark.ext.front.matter.YamlFrontMatterBlock
@@ -42,7 +42,7 @@ kobweb {
     }
 
     markdown {
-        components {
+        handlers {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
 
             code.set { code ->
