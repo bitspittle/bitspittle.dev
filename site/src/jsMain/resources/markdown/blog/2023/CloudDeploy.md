@@ -4,6 +4,7 @@ title: Deploying Kobweb into the Cloud
 description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
 author: David Herman
 date: 2023-05-07
+updated: 2023-07-04
 tags:
  - compose html
  - kobweb
@@ -381,15 +382,21 @@ server:
 Create a file called `Dockerfile` in the root of your project and populate it with the following contents:
 
 ```dockerfile
-FROM debian:stable-slim as base
+#-----------------------------------------------------------------------------
+# Declare variables shared across multiple stages (they need to be explicitly
+# opted into each stage by being declaring there too, but their values need
+# only be specified once).
+ARG KOBWEB_APP_ROOT=""
+# ^ NOTE: KOBWEB_APP_ROOT is commonly set to "site" in multimodule projects
 
 #-----------------------------------------------------------------------------
-# Create an intermediate image which builds and exports our site. In the
+# Create an intermediate stage which builds and exports our site. In the
 # final stage, we'll only extract what we need from this stage, saving a lot
 # of space.
-FROM base as export
+FROM openjdk:11-jdk as export
 
 ENV KOBWEB_CLI_VERSION=0.9.12
+ARG KOBWEB_APP_ROOT
 
 # Copy the project code to an arbitrary subdir so we can install stuff in the
 # Docker container root without worrying about clobbering project files.
@@ -399,7 +406,7 @@ COPY . /project
 # Note: Playwright is a system for running browsers, and here we use it to
 # install Chromium.
 RUN apt-get update \
-    && apt-get install -y curl gnupg unzip wget openjdk-11-jdk \
+    && apt-get install -y curl gnupg unzip wget \
     && curl -sL https://deb.nodesource.com/setup_19.x | bash - \
     && apt-get install -y nodejs \
     && npm init -y \
@@ -412,7 +419,7 @@ RUN wget https://github.com/varabyte/kobweb-cli/releases/download/v${KOBWEB_CLI_
 
 ENV PATH="/kobweb-${KOBWEB_CLI_VERSION}/bin:${PATH}"
 
-WORKDIR /project
+WORKDIR /project/${KOBWEB_APP_ROOT}
 
 # Decrease Gradle memory usage to avoid OOM situations in tight environments
 # (many free Cloud tiers only give you 512M of RAM). The following amount
@@ -423,37 +430,38 @@ RUN mkdir ~/.gradle && \
 RUN kobweb export --notty
 
 #-----------------------------------------------------------------------------
-# Create the final image, which contains just enough bits to run the Kobweb
+# Create the final stage, which contains just enough bits to run the Kobweb
 # server.
-FROM base as run
+FROM openjdk:11-jre-slim as run
 
-COPY --from=export /project/.kobweb .kobweb
+ARG KOBWEB_APP_ROOT
 
-RUN apt-get update \
-    && apt-get install -y openjdk-11-jre-headless
+COPY --from=export /project/${KOBWEB_APP_ROOT}/.kobweb .kobweb
 
 ENTRYPOINT .kobweb/server/start.sh
 ```
 
 ***NOTE #1:** At the time of writing this post, Kobweb CLI v0.9.12 is the latest version, but newer versions may be
-available when you read this (although older versions should still work).*
+available when you read this (although older versions should still work). See the "kobweb cli" badge at the top of the
+[Kobweb README](https://github.com/varabyte/kobweb) if you want to know the latest version.*
 
 ***NOTE #2:** Kobweb examples like the TODO project, for simplicity, contain a single root module, which is why the
-`WORKDIR` above is just `/project`. However, most actual projects in practice are designed around a
+`KOBWEB_APP_ROOT` above is just `""`. However, most actual projects in practice are designed around a
 [multimodule layout](https://github.com/varabyte/kobweb#multimodule), with the Kobweb application code in a `site`
 subdirectory. In that case, you would use `/project/site` as your `WORKDIR` and update the `COPY --from` line
 accordingly.*
 
-***NOTE #3:** In the final stage, we install JDK11, as it's the minimum version required by Kobweb. You can change the
+***NOTE #3:** We use Java 11 throughout our script, as it's the minimum version required by Kobweb. You can change the
 version to a newer one if desired.*
 
 This Dockerfile instructs Render to:
 
-1. Use a Debian Linux image as the base.
+1. Create an initial image, building on top of a slim image which has the JDK pre-installed.
 2. Fetch a minimal set of applications to run and export our Kobweb project.
-3. Copy only the outputs of the Kobweb export process into the final image (allowing Render to discard intermediate files,
-   saving space and potentially improving your server's startup speed).
-4. Use the `start.sh` script anytime it needs to spin up a new server.
+3. Create a final image, building on top of a slim with the JRE pre-installed.
+4. Copy only the outputs of the Kobweb export process into the final image. This allows Render to discard all the
+   intermediate files created in the first image, saving space and potentially improving your server's startup speed.
+5. Declare an entrypoint that allows Render to trigger the `start.sh` script anytime it needs to spin up a new server.
 
 ### Deploy your site
 
