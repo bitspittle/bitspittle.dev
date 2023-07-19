@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2023-05-07
+updated: 2023-07-18
 tags:
  - compose html
  - kobweb
@@ -40,35 +40,41 @@ they click around on stuff.
 
 ---
 
-Let's use this blog as a concrete example.
+Let's discuss a concrete example.
 
-For a Compose HTML project, if a user entered a URL like `https://bitspittle.dev/blog/staticdeploy`, the request would
-be intercepted before the browser could handle it, and its URL path would get parsed.
+Assume you already navigated onto a Compose HTML site, say by visiting `https://mysite.com` (which, pretend for this
+example is built with Compose HTML). Next, you click on a link that takes you to another page on the site,
+like `https://mysite.dev/blog/aboutme`. The site actually intercepts the navigation request and prevents the browser
+from handling it.
 
-Based on the result (in this case, the value `"/blog/staticdeploy"`), your project would dynamically choose to start
-rendering a new page associated with that path (so, maybe `mysite.pages.blog.StaticDeployPage()`).
+At this point, the URL path gets parsed. Based on the result (in this case, the value `"/blog/aboutme"`), the site will
+dynamically choose to start rendering a new page associated with that path (so,
+maybe `mysite.pages.blog.AboutMePage()`).
 
 The core of your project is essentially a giant switch statement acting on a string value. You can imagine something
-like the following psuedocode:
+like the following pseudocode:
 
 ```kotlin
 // Inside your main `renderComposable`
-val path by getPath() // Path updated when browser URL changes
+val path = getPath() // Path updated when browser URL changes
 when (path) {
+    "/" -> mysite.pages.HomePage()
     "/blog/aboutme" -> mysite.pages.blog.AboutMePage()
-    "/blog/staticdeploy" -> mysite.pages.blog.StaticDeployPage()
+    "/blog/kobwebtutorial" -> mysite.pages.blog.KobwebTutorialPage()
     // ... etc. ...
 }
 ```
 
-The above approach is fine as long as your server understands that this is happening! In other words, if I make a
-request to a server asking for resources associated with `/blog/staticdeploy`, it should just send me the default
-`index.html` page and its JavaScript, knowing that the JavaScript code is what will handle understanding the URL.
+Now, let's say my use-case is I want to visit `https://mysite.dev/blog/aboutme` directly. Perhaps my friend sent me that
+link on a social media post.
+
+With Compose HTML, what I really want to do is visit `https://mysite.dev` and allow it to intercept the URL value and
+re-render the page with new content.
 
 But static website host providers are simple. They blindly serve static files.
 
-So if a user makes a request to a static website host provider for the path `/blog/staticdeploy`, then a file called
-`blog/staticdeploy.html` better exist on it or else that user is getting a 404 error.
+So if a user makes a request to a static website host provider for the path `/blog/aboutme`, then a file called
+`blog/aboutme.html` better exist on it or else that user is getting a 404 error.
 
 ### Kobweb to the rescue
 
