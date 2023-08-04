@@ -2,6 +2,7 @@ import com.varabyte.kobweb.gradle.application.notifyKobwebAboutFrontendCodeGener
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.MarkdownHandlers.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
+import com.varabyte.kobwebx.gradle.markdown.yamlStringToKotlinString
 import kotlinx.html.script
 import org.commonmark.ext.front.matter.YamlFrontMatterBlock
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
@@ -101,7 +102,12 @@ class MarkdownVisitor : AbstractVisitor() {
         if (customBlock is YamlFrontMatterBlock) {
             val yamlVisitor = YamlFrontMatterVisitor()
             customBlock.accept(yamlVisitor)
-            _frontMatter.putAll(yamlVisitor.data)
+            _frontMatter.putAll(
+                yamlVisitor.data
+                    .mapValues { (_, values) ->
+                        values.map { it.yamlStringToKotlinString() }
+                    }
+            )
         }
     }
 }
