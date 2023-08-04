@@ -4,7 +4,7 @@ title: Kobweb: A Framework Built on Compose HTML
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2023-04-17
+updated: 2023-08-03
 tags:
  - compose html
  - webdev
@@ -334,27 +334,28 @@ Let's finish off by discussing other approaches, to compare and contrast with Ko
 
 If you're already sold on Kobweb, feel free to skip this section and jump straight to the [conclusion▼](#conclusion).
 
-### Multiplatform apps
+### Compose Multiplatform
 
-Many users in the Kotlin community are excited about the promise of multiplatform, and they are expecting to write a web
-app once and run it everywhere (Android, Desktop, *and* Web).
+Many users in the Kotlin community are excited about the promise of multiplatform, and they want to write an app once
+and run it everywhere (Android, iOS, Desktop, *and* Web).
 
-At the moment of writing this post, Kobweb is very much *not* that sort of solution. It is designed for developers who
-want to create a traditional website but use Kotlin instead of, say, TypeScript.
+Kobweb is very much *not* that sort of solution. It is designed for developers who want to create a traditional website
+but use Kotlin instead of, say, TypeScript.
 
-Before committing to Kobweb, you should know that JetBrains is actively working towards enabling the multiplatform
-workflow via a new API where you give it an HTML canvas and it renders your app to it opaquely. If what you really want
-to do is write a cross-platform app which just happens to also work in your browser, it may be worth waiting for this
-feature to land.
+Kobweb (and Compose HTML) interact with the DOM and let the browser handle rendering it. In contrast, Compose
+Multiplatform for Web works by creating an HTML canvas and then rendering your app to it opaquely. If what you really
+want to do is write a cross-platform app which just happens to also work in your browser, then Compose Multiplatform is
+probably the solution for you.
 
 There's no one-size fits all solution, however, and Kobweb may still be the right choice if you're creating a website.
-I write about this a bit more in [Kobweb's README](https://github.com/varabyte/kobweb#what-about-compose-for-web-canvas),
-in case you wanted to learn more about the different approaches.
+I wrote about this a bit more in [Kobweb's README](https://github.com/varabyte/kobweb#what-about-compose-for-web-canvas),
+in case you wanted to learn more about the different approaches, as well as why you might still choose a traditional
+DOM API in a multiplatform world.
 
 ### Vanilla Compose HTML
 
 Perhaps you've been burned by frameworks before. "Yeah buddy, Kobweb is nice, but I'm just going to stick with Compose
-for Web *classic*."
+HTML *classic*."
 
 That's fine with me! Just be aware, this post only scratched the surface of what Kobweb can do for you. Here's a fuller
 list of features we provide, since if you go it alone, you may need to implement some of them yourself:
@@ -369,8 +370,11 @@ list of features we provide, since if you go it alone, you may need to implement
 * a (growing) collection of color-mode aware widgets
 * introduction of the `Modifier` concept, useful for chaining styles
 * implementations for `Box`, `Column`, and `Row` on top of html / css
-* shape clipping
+* a ton of CSS properties not found in Compose HTML
+* many utility methods and classes for working with the DOM
 * Markdown support
+* WebSocket support via API streams
+* shape clipping
 * composables for all free Font Awesome *and* Material Design icons
 * parsing and handling query parameters (e.g. `/posts?userId=...&postId=...`)
 * parsing and handling dynamic routes (e.g. `/users/{userId}/posts/{postId}`)
