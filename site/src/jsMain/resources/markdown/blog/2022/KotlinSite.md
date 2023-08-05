@@ -106,25 +106,26 @@ another copy here: ${.components.widgets.button.ColorModeButton}
 
 This button encapsulates the logic for changing this site's active color mode. Try clicking on it!
 
-It's trivial to query your site's color mode. Silk exposes a `rememberColorMode` method:
+It's trivial to query your site's color mode. Silk exposes a `ColorMode.current` property:
 
 ```kotlin
 @Composable
 fun SomeWidget() {
-    val colorMode by rememberColorMode()
+    val colorMode = ColorMode.current
     val widgetColor =
-        if (colorMode.isDark()) Colors.Pink else Colors.Red
+        if (colorMode.isDark) Colors.Pink else Colors.Red
     /* ... code that uses widgetColor ... */
 }
 ```
 
-You can also use `var` instead of `val` in your code, if you want to change the color mode, not just read it:
+You can also use `var` instead of `val` with `ColorMode.currentState` in your code, if you want to change the color
+mode, not just read it:
 
 ```kotlin
 @Composable
 fun ToggleColorButton() {
-    var colorMode by rememberColorMode()
-    Button(onClick = { colorMode = colorMode.opposite() })
+    var colorMode by ColorMode.currentState
+    Button(onClick = { colorMode = colorMode.opposite })
 }
 ```
 
@@ -268,7 +269,7 @@ val SomeWidgetStyle by ComponentStyle {
     base { Modifier.fontSize(32.px).padding(10.px) }
     hover {
         val highlightColor =
-            if (colorMode.isDark()) Colors.Pink else Colors.Red
+            if (colorMode.isDark) Colors.Pink else Colors.Red
         Modifier.backgroundColor(highlightColor)
     }
 }

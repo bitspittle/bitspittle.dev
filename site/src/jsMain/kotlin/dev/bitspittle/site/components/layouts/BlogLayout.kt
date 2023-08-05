@@ -10,7 +10,7 @@ import com.varabyte.kobweb.silk.components.document.TocBorderedVariant
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
-import com.varabyte.kobweb.silk.theme.colors.rememberColorMode
+import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
 import kotlinx.browser.document
@@ -30,7 +30,7 @@ fun BlogLayout(content: @Composable ColumnScope.() -> Unit) {
     val desc = mdCtx.frontMatter["description"]?.singleOrNull() ?: error("Blog should specify description")
 
     PageLayout(title, desc) {
-        val colorMode by rememberColorMode()
+        val colorMode by ColorMode.currentState
         LaunchedEffect(colorMode) {
             var styleElement = document.querySelector("""link[title="hljs-style"]""")
             if (styleElement == null) {

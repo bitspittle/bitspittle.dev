@@ -47,7 +47,7 @@ private fun Clock() {
         val colorTicks = palette.color
         val colorHourHand = palette.link.default
         val colorMinuteHand = palette.link.default.shifted(colorMode, byPercent = 0.4f)
-        val colorSecondHand = if (colorMode.isDark()) Colors.HotPink else Colors.Red
+        val colorSecondHand = if (colorMode.isDark) Colors.HotPink else Colors.Red
 
         ctx.save {
             ctx.strokeStyle = colorTicks
