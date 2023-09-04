@@ -42,7 +42,7 @@ fun initSilk(ctx: InitSilkContext) {
                 // can scroll to one that can't
                 Modifier
                     .scrollBehavior(ScrollBehavior.Smooth)
-                    .overflowY(Overflow.Scroll)
+                    .overflow { y(Overflow.Scroll) }
             }
             registerBaseStyle("body") { TEXT_FONT.lineHeight(1.5) }
             registerBaseStyle("code") { CODE_FONT }
