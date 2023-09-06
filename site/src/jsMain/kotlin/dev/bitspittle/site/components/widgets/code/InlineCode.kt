@@ -13,7 +13,7 @@ import org.jetbrains.compose.web.dom.*
 val InlineCodeStyle = ComponentStyle.base("bs-code") {
     Modifier
         .color(colorMode.toSilkPalette().color.shifted(colorMode, byPercent = -0.2f))
-        .overflow { wrap(OverflowWrap.BreakWord) }
+        .overflowWrap(OverflowWrap.BreakWord)
 }
 
 @Composable
