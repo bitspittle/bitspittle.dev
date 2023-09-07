@@ -6,10 +6,10 @@ server:
     dev:
       contentRoot: "build/processedResources/js/main/public"
 #      script: "build/compileSync/main/developmentExecutable/kotlin/bitspittledev.js"
-      script: "build/developmentExecutable/bitspittledev.js"
+      script: "build/dist/js/developmentExecutable/bitspittledev.js"
       api: "build/libs/bitspittledev.jar"
     prod:
-      script: "build/distributions/bitspittledev.js"
+      script: "build/dist/js/productionExecutable/bitspittledev.js"
       siteRoot: ".kobweb/site"
 
   port: 8080

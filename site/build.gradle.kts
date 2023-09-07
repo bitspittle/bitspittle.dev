@@ -84,6 +84,7 @@ kotlin {
 
         val jsMain by getting {
             dependencies {
+                implementation(compose.html.core)
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk.core)
                 implementation(libs.kobweb.silk.icons.fa)
@@ -186,7 +187,7 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                 )
 
                 blogEntries.sortedByDescending { it.date }.forEach { entry ->
-                    appendLine("""      ArticleEntry("/blog/${entry.file.path.substringBeforeLast('.').toLowerCase()}", "${entry.author}", "${entry.date}", "${entry.title.escapeQuotes()}", "${entry.desc.escapeQuotes()}"),""")
+                    appendLine("""      ArticleEntry("/blog/${entry.file.path.substringBeforeLast('.').lowercase()}", "${entry.author}", "${entry.date}", "${entry.title.escapeQuotes()}", "${entry.desc.escapeQuotes()}"),""")
                 }
 
                 appendLine(
