@@ -20,8 +20,11 @@ import com.varabyte.kobweb.silk.defer.deferRender
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
-import com.varabyte.kobweb.silk.theme.toSilkPalette
-import dev.bitspittle.site.SitePalettes
+import com.varabyte.kobweb.silk.theme.colors.palette.background
+import com.varabyte.kobweb.silk.theme.colors.palette.border
+import com.varabyte.kobweb.silk.theme.colors.palette.color
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
+import dev.bitspittle.site.brand
 import dev.bitspittle.site.components.widgets.button.ColorModeButton
 import dev.bitspittle.site.components.widgets.button.IconButton
 import org.jetbrains.compose.web.css.*
@@ -45,13 +48,13 @@ val NavHeaderStyle = ComponentStyle.base("bs-nav-header", extraModifiers = { Smo
         .fontSize(1.25.cssRem)
         .position(Position.Fixed)
         .top(0.percent)
-        .backgroundColor(colorMode.toSilkPalette().background.toRgb().copyf(alpha = 0.65f))
+        .backgroundColor(colorMode.toPalette().background.toRgb().copyf(alpha = 0.65f))
         .backdropFilter(saturate(180.percent), blur(5.px))
-        .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toSilkPalette().border)
+        .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toPalette().border)
 }
 
 val NavLinkStyle by ComponentStyle(prefix = "bs") {
-    val linkColor = colorMode.toSilkPalette().color
+    val linkColor = colorMode.toPalette().color
 
     base { Modifier.margin(topBottom = 0.px, leftRight = 15.px) }
 
@@ -60,14 +63,14 @@ val NavLinkStyle by ComponentStyle(prefix = "bs") {
 }
 
 val LogoVariant = NavLinkStyle.addVariant("logo") {
-    val logoColor = SitePalettes[colorMode].brand
+    val logoColor = colorMode.toPalette().brand
 
     link { Modifier.color(logoColor) }
     visited { Modifier.color(logoColor) }
 }
 
 val NavButtonStyle = ComponentStyle.base("bs-nav-button") {
-    Modifier.margin(0.px, 10.px).backgroundColor(colorMode.toSilkPalette().background)
+    Modifier.margin(0.px, 10.px).backgroundColor(colorMode.toPalette().background)
 }
 
 @Composable

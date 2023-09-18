@@ -14,10 +14,10 @@ import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
+import com.varabyte.kobweb.silk.theme.colors.palette.*
 import com.varabyte.kobweb.silk.theme.replaceComponentStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
 import com.varabyte.kobweb.silk.theme.shapes.clip
-import com.varabyte.kobweb.silk.theme.toSilkPalette
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.*
 
@@ -69,6 +69,7 @@ fun initSilk(ctx: InitSilkContext) {
                 background = Colors.WhiteSmoke
                 border = Colors.DarkSlateGray
                 link.visited = ctx.theme.palettes.light.link.default
+                brand = Color.rgb(0x009900)
             }
 
             dark.apply {
@@ -80,6 +81,7 @@ fun initSilk(ctx: InitSilkContext) {
                     default = linkDark
                     visited = linkDark
                 }
+                brand = Color.rgb(0x04f904)
             }
         }
 
@@ -95,22 +97,14 @@ fun initSilk(ctx: InitSilkContext) {
         theme.replaceComponentStyleBase(DividerStyle) {
             Modifier
                 .margin(top = 1.5.cssRem, bottom = 0.5.cssRem)
-                .borderTop(1.px, LineStyle.Solid, colorMode.toSilkPalette().border)
+                .borderTop(1.px, LineStyle.Solid, colorMode.toPalette().border)
                 .fillMaxWidth(90.percent)
         }
     }
 }
 
-
-class SitePalette(
-    val brand: Color
-)
-
-object SitePalettes {
-    private val sitePalettes = mapOf(
-        ColorMode.LIGHT to SitePalette(brand = Color.rgb(0x009900)),
-        ColorMode.DARK to SitePalette(brand = Color.rgb(0x04f904)),
-    )
-
-    operator fun get(colorMode: ColorMode) = sitePalettes.getValue(colorMode)
-}
+private const val BRAND_KEY = "brand"
+val Palette.brand get() = (this as MutablePalette).brand
+var MutablePalette.brand: Color
+    get() = this.getValue(BRAND_KEY)
+    set(value) = this.set(BRAND_KEY, value)

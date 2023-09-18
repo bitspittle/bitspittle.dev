@@ -4,14 +4,12 @@ import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.WhiteSpace
 import com.varabyte.kobweb.compose.dom.ElementTarget
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
-import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.icons.fa.FaEnvelope
 import com.varabyte.kobweb.silk.components.icons.fa.FaGithub
 import com.varabyte.kobweb.silk.components.icons.fa.FaLinkedin
@@ -22,14 +20,15 @@ import com.varabyte.kobweb.silk.components.overlay.PopupPlacement
 import com.varabyte.kobweb.silk.components.overlay.Tooltip
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.text.SpanText
-import com.varabyte.kobweb.silk.theme.SilkTheme
+import com.varabyte.kobweb.silk.theme.colors.palette.border
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
 val FooterStyle = ComponentStyle.base("bs-footer") {
     Modifier
         .margin(top = 2.cssRem)
-        .borderTop(1.px, LineStyle.Solid, SilkTheme.palettes[colorMode].border)
+        .borderTop(1.px, LineStyle.Solid, colorMode.toPalette().border)
         .padding(topBottom = 1.cssRem, leftRight = 4.cssRem)
 }
 
