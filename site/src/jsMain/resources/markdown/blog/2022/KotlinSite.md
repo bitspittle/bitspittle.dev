@@ -141,6 +141,9 @@ that was originally written in JavaScript.
 
 {{{ .components.widgets.blog.kotlinsite.DemoWidget }}}
 
+It additionally renders differently depending on the site's color mode. You can click this color mode button
+${.components.widgets.button.ColorModeButton} to observe the results yourself.
+
 Here's the [Kotlin source](https://github.com/bitspittle/bitspittle.dev/blob/b5ce2d5a53e2017a6bd89b55dd6e855634587d51/src/jsMain/kotlin/dev/bitspittle/site/components/widgets/blog/kotlinsite/DemoWidget.kt#L39).
 
 Among other things, Silk provides a helpful `Canvas2d` widget which makes it easy to register some code that will
@@ -154,10 +157,6 @@ private fun Clock() {
   }
 }
 ```
-
-Using `Canvas2d`, it was trivial to make the clock color mode aware as the current color mode is made available within the
-callback. You can click this color mode button ${.components.widgets.button.ColorModeButton} to observe the results
-yourself.
 
 Despite being easy to use, the canvas widget is extremely powerful, and you could use it to create dynamic effects,
 full screen backgrounds, or even games.
