@@ -1,18 +1,16 @@
 package dev.bitspittle.site.components.widgets.blog.kotlinsite
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Colors
-import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
-import com.varabyte.kobweb.compose.ui.modifiers.padding
+import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.graphics.Canvas2d
 import com.varabyte.kobweb.silk.components.graphics.ONE_FRAME_MS_60_FPS
+import com.varabyte.kobweb.silk.theme.colors.palette.*
 import com.varabyte.kobweb.silk.theme.colors.shifted
-import com.varabyte.kobweb.silk.theme.toSilkPalette
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 import org.w3c.dom.CanvasLineCap
 import org.w3c.dom.CanvasState
 import org.w3c.dom.ROUND
@@ -42,7 +40,7 @@ private fun Clock() {
         val r = 150.0
 
         // Let's be a little lazy and use some colors from the palette which is already color mode aware
-        val palette = colorMode.toSilkPalette()
+        val palette = colorMode.toPalette()
         val colorBorder = palette.button.pressed
         val colorTicks = palette.color
         val colorHourHand = palette.link.default
