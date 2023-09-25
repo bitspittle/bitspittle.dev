@@ -11,7 +11,8 @@ import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.color
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
 
@@ -39,8 +40,8 @@ val HoverLinkStyle by ComponentStyle(prefix = "bs") {
             .fontSize(0.8.em)
             .margin(left = 0.7.em)
     }
-    link { Modifier.color(colorMode.toSilkPalette().color) }
-    visited { Modifier.color(colorMode.toSilkPalette().color) }
+    link { Modifier.color(colorMode.toPalette().color) }
+    visited { Modifier.color(colorMode.toPalette().color) }
     focus { Modifier.opacity(SHOWN_LINK_OPACITY) }
 }
 

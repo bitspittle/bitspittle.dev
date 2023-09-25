@@ -9,7 +9,8 @@ import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.text.SpanText
-import com.varabyte.kobweb.silk.theme.toSilkPalette
+import com.varabyte.kobweb.silk.theme.colors.palette.border
+import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import dev.bitspittle.site.components.widgets.date.DateText
 import dev.bitspittle.site.components.widgets.dom.NoListIndentationModifier
 import dev.bitspittle.site.components.widgets.dom.StyledDiv
@@ -26,7 +27,7 @@ val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {
         .fillMaxWidth()
         .margin(top = 1.5.cssRem)
         .padding(1.cssRem)
-        .border(1.px, LineStyle.Solid, colorMode.toSilkPalette().border)
+        .border(1.px, LineStyle.Solid, colorMode.toPalette().border)
         .borderRadius(5.px)
 }
 

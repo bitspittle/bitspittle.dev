@@ -2,7 +2,7 @@
 firebase-web = "9.15.0" # from https://www.npmjs.com/package/firebase
 firebase-bindings = "+" # TODO: lock down a real version when this library gets more mature
 jetbrains-compose = "1.5.1"
-kobweb = "0.14.1-SNAPSHOT"
+kobweb = "0.14.1"
 kotlin = "1.9.10"
 kotlinx-coroutines = "1.6.0"
 kotlinx-html = "0.7.3"
@@ -11,12 +11,12 @@ kotlinx-html = "0.7.3"
 firebase-kotlin-bindings = { module = "dev.bitspittle:firebase-kotlin-bindings", version.ref = "firebase-bindings" }
 kobweb-api = { module = "com.varabyte.kobweb:kobweb-api", version.ref = "kobweb" }
 kobweb-core = { module = "com.varabyte.kobweb:kobweb-core ", version.ref = "kobweb" }
-kobweb-silk-core = { module = "com.varabyte.kobweb:kobweb-silk", version.ref = "kobweb" }
-kobweb-silk-icons-fa = { module = "com.varabyte.kobweb:kobweb-silk-icons-fa", version.ref = "kobweb" }
+kobweb-silk = { module = "com.varabyte.kobweb:kobweb-silk", version.ref = "kobweb" }
 kobwebx-markdown = { module = "com.varabyte.kobwebx:kobwebx-markdown", version.ref = "kobweb" }
 kobweb-gradle-application = { module = "com.varabyte.kobweb.gradle:application", version.ref = "kobweb" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html", version.ref = "kotlinx-html" }
+silk-icons-fa = { module = "com.varabyte.kobwebx:silk-icons-fa", version.ref = "kobweb" }
 
 [plugins]
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "jetbrains-compose" }
