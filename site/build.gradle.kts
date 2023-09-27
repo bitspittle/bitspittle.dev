@@ -1,4 +1,3 @@
-import com.varabyte.kobweb.gradle.application.notifyKobwebAboutFrontendCodeGeneratingTask
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.MarkdownHandlers.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
@@ -72,29 +71,6 @@ kobweb {
     }
 }
 
-kotlin {
-    configAsKobwebApplication("bitspittledev")
-
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.runtime)
-            }
-        }
-
-        val jsMain by getting {
-            dependencies {
-                implementation(compose.html.core)
-                implementation(libs.kobweb.core)
-                implementation(libs.kobweb.silk)
-                implementation(libs.silk.icons.fa)
-                implementation(libs.kobwebx.markdown)
-                implementation(libs.firebase.kotlin.bindings)
-            }
-        }
-    }
-}
-
 class MarkdownVisitor : AbstractVisitor() {
     private val _frontMatter = mutableMapOf<String, List<String>>()
     val frontMatter: Map<String, List<String>> = _frontMatter
@@ -127,12 +103,13 @@ fun String.escapeQuotes() = this.replace("\"", "\\\"")
 val generateBlogListingTask = task("bsGenerateBlogListing") {
     group = "bitspittle"
     val BLOG_INPUT_DIR = "src/jsMain/resources/markdown/blog"
-    val BLOG_LIST_OUTPUT_FILE = "generated/kobweb/src/jsMain/kotlin/dev/bitspittle/site/pages/blog/Index.kt"
+    val BLOG_OUTPUT_DIR = "generated/kobweb/src/jsMain/kotlin"
+    val BLOG_LISTING_OUTPUT_FILE = "$BLOG_OUTPUT_DIR/dev/bitspittle/site/pages/blog/Index.kt"
 
     inputs.files(fileTree(BLOG_INPUT_DIR))
         .withPropertyName("blogArticles")
         .withPathSensitivity(PathSensitivity.RELATIVE)
-    outputs.file(layout.buildDirectory.file(BLOG_LIST_OUTPUT_FILE))
+    outputs.dir(BLOG_OUTPUT_DIR)
         .withPropertyName("blogListing")
 
     doLast {
@@ -160,7 +137,7 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
             blogEntries.add(BlogEntry(blogArticle.relativeTo(root), author, date, title, desc, tags))
         }
 
-        project.layout.buildDirectory.file(BLOG_LIST_OUTPUT_FILE).map { it.asFile }.get().let { blogList ->
+        project.layout.buildDirectory.file(BLOG_LISTING_OUTPUT_FILE).map { it.asFile }.get().let { blogList ->
             blogList.parentFile.mkdirs()
             blogList.writeText(buildString {
                 appendLine(
@@ -203,4 +180,28 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
             println("Generated ${blogList.absolutePath}")
         }
     }
-}.also { notifyKobwebAboutFrontendCodeGeneratingTask(it) }
+}
+
+kotlin {
+    configAsKobwebApplication("bitspittledev")
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+            }
+        }
+
+        val jsMain by getting {
+            kotlin.srcDir(generateBlogListingTask)
+            dependencies {
+                implementation(compose.html.core)
+                implementation(libs.kobweb.core)
+                implementation(libs.kobweb.silk)
+                implementation(libs.silk.icons.fa)
+                implementation(libs.kobwebx.markdown)
+                implementation(libs.firebase.kotlin.bindings)
+            }
+        }
+    }
+}
