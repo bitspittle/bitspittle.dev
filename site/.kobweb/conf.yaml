@@ -5,9 +5,7 @@ server:
   files:
     dev:
       contentRoot: "build/processedResources/js/main/public"
-#      script: "build/compileSync/main/developmentExecutable/kotlin/bitspittledev.js"
       script: "build/dist/js/developmentExecutable/bitspittledev.js"
-      api: "build/libs/bitspittledev.jar"
     prod:
       script: "build/dist/js/productionExecutable/bitspittledev.js"
       siteRoot: ".kobweb/site"
