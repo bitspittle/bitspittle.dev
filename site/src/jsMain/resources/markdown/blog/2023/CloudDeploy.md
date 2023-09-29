@@ -4,7 +4,7 @@ title: Deploying Kobweb into the Cloud
 description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
 author: David Herman
 date: 2023-05-07
-updated: 2023-07-04
+updated: 2023-09-29
 tags:
  - compose html
  - kobweb
@@ -383,31 +383,39 @@ Create a file called `Dockerfile` in the root of your project and populate it wi
 
 ```dockerfile
 #-----------------------------------------------------------------------------
-# Declare variables shared across multiple stages (they need to be explicitly
+# Variables are shared across multiple stages (they need to be explicitly
 # opted into each stage by being declaring there too, but their values need
 # only be specified once).
 ARG KOBWEB_APP_ROOT=""
 # ^ NOTE: KOBWEB_APP_ROOT is commonly set to "site" in multimodule projects
 
+FROM eclipse-temurin:17 as java
+
 #-----------------------------------------------------------------------------
 # Create an intermediate stage which builds and exports our site. In the
 # final stage, we'll only extract what we need from this stage, saving a lot
 # of space.
-FROM openjdk:11-jdk as export
+FROM java as export
 
-ENV KOBWEB_CLI_VERSION=0.9.12
+ENV KOBWEB_CLI_VERSION=0.9.13
 ARG KOBWEB_APP_ROOT
+
+ENV NODE_MAJOR=20
 
 # Copy the project code to an arbitrary subdir so we can install stuff in the
 # Docker container root without worrying about clobbering project files.
 COPY . /project
 
 # Update and install required OS packages to continue
+# Note: Node install instructions from: https://github.com/nodesource/distributions#installation-instructions
 # Note: Playwright is a system for running browsers, and here we use it to
 # install Chromium.
 RUN apt-get update \
-    && apt-get install -y curl gnupg unzip wget \
-    && curl -sL https://deb.nodesource.com/setup_19.x | bash - \
+    && apt-get install -y ca-certificates curl gnupg unzip wget \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+    && apt-get update \
     && apt-get install -y nodejs \
     && npm init -y \
     && npx playwright install --with-deps chromium
@@ -432,7 +440,7 @@ RUN kobweb export --notty
 #-----------------------------------------------------------------------------
 # Create the final stage, which contains just enough bits to run the Kobweb
 # server.
-FROM openjdk:11-jre-slim as run
+FROM java as run
 
 ARG KOBWEB_APP_ROOT
 
@@ -441,18 +449,20 @@ COPY --from=export /project/${KOBWEB_APP_ROOT}/.kobweb .kobweb
 ENTRYPOINT .kobweb/server/start.sh
 ```
 
-***NOTE #1:** At the time of writing this post, Kobweb CLI v0.9.12 is the latest version, but newer versions may be
+***NOTE #1:** At the time of writing this post, Kobweb CLI v0.9.13 is the latest version, but newer versions may be
 available when you read this (although older versions should still work). See the "kobweb cli" badge at the top of the
 [Kobweb README](https://github.com/varabyte/kobweb) if you want to know the latest version.*
 
 ***NOTE #2:** Kobweb examples like the TODO project, for simplicity, contain a single root module, which is why the
 `KOBWEB_APP_ROOT` above is just `""`. However, most actual projects in practice are designed around a
 [multimodule layout](https://github.com/varabyte/kobweb#multimodule), with the Kobweb application code in a `site`
-subdirectory. In that case, you would use `/project/site` as your `WORKDIR` and update the `COPY --from` line
-accordingly.*
+subdirectory.*
 
-***NOTE #3:** We use Java 11 throughout our script, as it's the minimum version required by Kobweb. You can change the
-version to a newer one if desired.*
+***NOTE #3:** Kobweb works with Java 11, but general recommendation is to use newer releases as your runtime if you can,
+as they might contain security fixes and performance improvements. We went with JDK 17 here, as that is a common choice
+at the time of writing this post, but you can use 11 or even something newer if you prefer. The `eclipse-temurin` image,
+according to its docs, was designed to be both used for running apps and also generally useful as a base foundation,
+which is perfect for our needs.*
 
 This Dockerfile instructs Render to:
 
