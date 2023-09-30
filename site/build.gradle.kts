@@ -101,23 +101,22 @@ data class BlogEntry(
 
 fun String.escapeQuotes() = this.replace("\"", "\\\"")
 
-val generateBlogListingTask = task("bsGenerateBlogListing") {
-    group = "bitspittle"
-    val BLOG_INPUT_DIR = "src/jsMain/resources/markdown/blog"
-    val BLOG_OUTPUT_DIR = "generated/kobweb/src/jsMain/kotlin"
-    val BLOG_LISTING_OUTPUT_FILE = "$BLOG_OUTPUT_DIR/dev/bitspittle/site/pages/blog/Index.kt"
+val generateBlogSourceTask = task("generateBlogSource") {
+    group = "bitspittledev"
+    val blogInputDir = layout.projectDirectory.dir("src/jsMain/resources/markdown/blog")
+    val blogGenDir = layout.buildDirectory.dir("generated/$group/src/jsMain/kotlin").get()
 
-    inputs.dir(project.layout.projectDirectory.dir(BLOG_INPUT_DIR))
+    inputs.dir(blogInputDir)
         .withPropertyName("blogArticles")
         .withPathSensitivity(PathSensitivity.RELATIVE)
-    outputs.dir(project.layout.buildDirectory.dir(BLOG_OUTPUT_DIR))
-        .withPropertyName("blogListing")
+    outputs.dir(blogGenDir)
+        .withPropertyName("blogGeneratedSource")
 
     doLast {
         val parser = kobweb.markdown.features.createParser()
         val blogEntries = mutableListOf<BlogEntry>()
-        val root = file(BLOG_INPUT_DIR)
-        fileTree(root).forEach { blogArticle ->
+
+        blogInputDir.asFileTree.forEach { blogArticle ->
             val rootNode = parser.parse(blogArticle.readText())
             val visitor = MarkdownVisitor()
 
@@ -135,16 +134,16 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                 }
 
             val tags = fm["tags"] ?: emptyList()
-            blogEntries.add(BlogEntry(blogArticle.relativeTo(root), author, date, title, desc, tags))
+            blogEntries.add(BlogEntry(blogArticle.relativeTo(blogInputDir.asFile), author, date, title, desc, tags))
         }
 
-        project.layout.buildDirectory.file(BLOG_LISTING_OUTPUT_FILE).map { it.asFile }.get().let { blogList ->
-            blogList.parentFile.mkdirs()
-            blogList.writeText(buildString {
+        blogGenDir.file("dev/bitspittle/site/pages/blog/Index.kt").asFile.apply {
+            parentFile.mkdirs()
+            writeText(buildString {
                 appendLine(
                     """
                     package dev.bitspittle.site.pages.blog
-                    
+
                     import androidx.compose.runtime.*
                     import com.varabyte.kobweb.compose.ui.*
                     import com.varabyte.kobweb.core.*
@@ -152,10 +151,10 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                     import com.varabyte.kobweb.silk.components.text.Text
                     import com.varabyte.kobweb.silk.components.style.*
                     import com.varabyte.kobwebx.markdown.*
-                    import dev.bitspittle.site.components.layouts.PageLayout                   
-                    import dev.bitspittle.site.components.widgets.blog.*                   
+                    import dev.bitspittle.site.components.layouts.PageLayout
+                    import dev.bitspittle.site.components.widgets.blog.*
                     import org.jetbrains.compose.web.dom.*
-                    
+
                     @Page
                     @Composable
                     fun BlogListingsPage() {
@@ -182,7 +181,7 @@ val generateBlogListingTask = task("bsGenerateBlogListing") {
                 )
             })
 
-            println("Generated ${blogList.absolutePath}")
+            println("Generated $absolutePath")
         }
     }
 }
@@ -198,7 +197,7 @@ kotlin {
         }
 
         val jsMain by getting {
-            kotlin.srcDir(generateBlogListingTask)
+            kotlin.srcDir(generateBlogSourceTask)
             dependencies {
                 implementation(compose.html.core)
                 implementation(libs.kobweb.core)
