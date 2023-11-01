@@ -6,6 +6,7 @@ kobweb = "0.15.0"
 kotlin = "1.9.20"
 kotlinx-coroutines = "1.6.0"
 kotlinx-html = "0.7.3"
+vite-kotlin = "0.3.3"
 
 [libraries]
 firebase-kotlin-bindings = { module = "dev.bitspittle:firebase-kotlin-bindings", version.ref = "firebase-bindings" }
@@ -24,3 +25,4 @@ kobweb-application = { id = "com.varabyte.kobweb.application", version.ref = "ko
 kobwebx-markdown = { id = "com.varabyte.kobwebx.markdown", version.ref = "kobweb" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+vite-kotlin = { id = "dev.opensavvy.vite.kotlin", version.ref = "vite-kotlin" }
