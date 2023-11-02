@@ -11,6 +11,7 @@ import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
+import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.browser.document
@@ -22,10 +23,10 @@ private val SHOWN_LINK_OPACITY = 80.percent
 fun initHeaderLinkInteraction(ctx: InitSilkContext) {
     (2..6).forEach { headingLevel ->
         // By making the header full width, it means when the user mouses over the entire line they'll see the link
-        ctx.stylesheet.registerBaseStyle("h${headingLevel}") {
+        ctx.stylesheet.registerStyleBase("h${headingLevel}") {
             Modifier.fillMaxWidth()
         }
-        ctx.stylesheet.registerBaseStyle("h${headingLevel}:hover > .bs-hover-link") {
+        ctx.stylesheet.registerStyleBase("h${headingLevel}:hover > .bs-hover-link") {
             Modifier.opacity(SHOWN_LINK_OPACITY)
         }
     }

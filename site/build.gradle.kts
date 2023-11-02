@@ -1,4 +1,4 @@
-import com.varabyte.kobweb.common.path.toUnixSeparators
+import com.varabyte.kobweb.common.path.invariantSeparatorsPath
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.MarkdownHandlers.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
@@ -142,18 +142,15 @@ val generateBlogSourceTask = task("generateBlogSource") {
             writeText(buildString {
                 appendLine(
                     """
+                    // This file is generated. Modify the build script if you need to change it.
+
                     package dev.bitspittle.site.pages.blog
 
                     import androidx.compose.runtime.*
-                    import com.varabyte.kobweb.compose.ui.*
-                    import com.varabyte.kobweb.core.*
-                    import com.varabyte.kobweb.silk.components.navigation.Link
-                    import com.varabyte.kobweb.silk.components.text.Text
-                    import com.varabyte.kobweb.silk.components.style.*
-                    import com.varabyte.kobwebx.markdown.*
+                    import com.varabyte.kobweb.core.Page
                     import dev.bitspittle.site.components.layouts.PageLayout
-                    import dev.bitspittle.site.components.widgets.blog.*
-                    import org.jetbrains.compose.web.dom.*
+                    import dev.bitspittle.site.components.widgets.blog.ArticleEntry
+                    import dev.bitspittle.site.components.widgets.blog.ArticleList
 
                     @Page
                     @Composable
@@ -166,7 +163,7 @@ val generateBlogSourceTask = task("generateBlogSource") {
                 blogEntries.sortedByDescending { it.date }.forEach { entry ->
                     appendLine(
                         """      ArticleEntry("/blog/${
-                            entry.file.path.substringBeforeLast('.').lowercase().toUnixSeparators()
+                            entry.file.path.substringBeforeLast('.').lowercase().invariantSeparatorsPath
                         }", "${entry.author}", "${entry.date}", "${entry.title.escapeQuotes()}", "${entry.desc.escapeQuotes()}"),"""
                     )
                 }

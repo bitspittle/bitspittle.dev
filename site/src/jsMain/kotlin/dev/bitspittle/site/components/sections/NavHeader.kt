@@ -20,6 +20,7 @@ import com.varabyte.kobweb.silk.defer.deferRender
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
+import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.border
 import com.varabyte.kobweb.silk.theme.colors.palette.color
@@ -35,7 +36,7 @@ fun initNavHeaderStyles(ctx: InitSilkContext) {
     // `href="#some-section`.
     // See also: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
     (2..6).forEach { headingLevel ->
-        ctx.stylesheet.registerBaseStyle("h${headingLevel}") {
+        ctx.stylesheet.registerStyleBase("h${headingLevel}") {
             Modifier.scrollMargin(top = 5.cssRem)
         }
     }

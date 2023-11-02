@@ -10,9 +10,11 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.graphics.ImageStyle
 import com.varabyte.kobweb.silk.components.layout.DividerStyle
+import com.varabyte.kobweb.silk.components.layout.HorizontalDividerStyle
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
+import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.*
 import com.varabyte.kobweb.silk.theme.replaceComponentStyleBase
@@ -37,28 +39,28 @@ fun initSilk(ctx: InitSilkContext) {
         }
 
         stylesheet.apply {
-            registerBaseStyle("html") {
+            registerStyleBase("html") {
                 // Always show a vertical scroller, or else our page content shifts when switching from one page that
                 // can scroll to one that can't
                 Modifier
                     .scrollBehavior(ScrollBehavior.Smooth)
                     .overflow { y(Overflow.Scroll) }
             }
-            registerBaseStyle("body") { TEXT_FONT.lineHeight(1.5) }
-            registerBaseStyle("code") { CODE_FONT }
-            registerBaseStyle("canvas") { BLOCK_MARGIN }
+            registerStyleBase("body") { TEXT_FONT.lineHeight(1.5) }
+            registerStyleBase("code") { CODE_FONT }
+            registerStyleBase("canvas") { BLOCK_MARGIN }
 
-            registerBaseStyle("p") { BLOCK_MARGIN }
-            registerBaseStyle("pre") { BLOCK_MARGIN }
-            registerBaseStyle("h1") {
+            registerStyleBase("p") { BLOCK_MARGIN }
+            registerStyleBase("pre") { BLOCK_MARGIN }
+            registerStyleBase("h1") {
                 HEADER_MARGIN
                     .fontSize(2.5.cssRem)
                     .letterSpacing((-1.5).px)
                     .lineHeight(1.1)
             }
-            registerBaseStyle("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
-            registerBaseStyle("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
-            registerBaseStyle("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
+            registerStyleBase("h2") { HEADER_MARGIN.fontSize(2.cssRem) }
+            registerStyleBase("h3") { HEADER_MARGIN.fontSize(1.5.cssRem) }
+            registerStyleBase("h4") { HEADER_MARGIN.fontSize(1.25.cssRem) }
         }
 
         // The "link visited" color looks a little garish with this site's theme. Disable "visited" colors for now by
@@ -94,7 +96,7 @@ fun initSilk(ctx: InitSilkContext) {
                 }
         }
 
-        theme.replaceComponentStyleBase(DividerStyle) {
+        theme.replaceComponentStyleBase(HorizontalDividerStyle) {
             Modifier
                 .margin(top = 1.5.cssRem, bottom = 0.5.cssRem)
                 .borderTop(1.px, LineStyle.Solid, colorMode.toPalette().border)

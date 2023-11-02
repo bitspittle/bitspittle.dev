@@ -10,6 +10,7 @@ import com.varabyte.kobweb.silk.components.document.TocBorderedVariant
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerBaseStyle
+import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
@@ -19,7 +20,7 @@ import org.jetbrains.compose.web.css.*
 @InitSilk
 fun initHighlightJs(ctx: InitSilkContext) {
     // Tweaks to make output from highlight.js look softer / better
-    ctx.stylesheet.registerBaseStyle("code.hljs") { Modifier.borderRadius(8.px) }
+    ctx.stylesheet.registerStyleBase("code.hljs") { Modifier.borderRadius(8.px) }
 }
 
 @Composable
