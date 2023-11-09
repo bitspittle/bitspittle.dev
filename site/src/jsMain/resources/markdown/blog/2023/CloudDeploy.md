@@ -4,7 +4,7 @@ title: Deploying Kobweb into the Cloud
 description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
 author: David Herman
 date: 2023-05-07
-updated: 2023-09-29
+updated: 2023-11-09
 tags:
  - compose html
  - kobweb
@@ -386,8 +386,9 @@ Create a file called `Dockerfile` in the root of your project and populate it wi
 # Variables are shared across multiple stages (they need to be explicitly
 # opted into each stage by being declaring there too, but their values need
 # only be specified once).
-ARG KOBWEB_APP_ROOT=""
-# ^ NOTE: KOBWEB_APP_ROOT is commonly set to "site" in multimodule projects
+ARG KOBWEB_APP_ROOT="site"
+# ^ NOTE: Kobweb apps generally live in a root "site" folder in your project,
+# but you can change this in case your project has a custom layout.
 
 FROM eclipse-temurin:17 as java
 
@@ -453,12 +454,7 @@ ENTRYPOINT .kobweb/server/start.sh
 available when you read this (although older versions should still work). See the "kobweb cli" badge at the top of the
 [Kobweb README](https://github.com/varabyte/kobweb) if you want to know the latest version.*
 
-***NOTE #2:** Kobweb examples like the TODO project, for simplicity, contain a single root module, which is why the
-`KOBWEB_APP_ROOT` above is just `""`. However, most actual projects in practice are designed around a
-[multimodule layout](https://github.com/varabyte/kobweb#multimodule), with the Kobweb application code in a `site`
-subdirectory.*
-
-***NOTE #3:** Kobweb works with Java 11, but general recommendation is to use newer releases as your runtime if you can,
+***NOTE #2:** Kobweb works with Java 11, but general recommendation is to use newer releases as your runtime if you can,
 as they might contain security fixes and performance improvements. We went with JDK 17 here, as that is a common choice
 at the time of writing this post, but you can use 11 or even something newer if you prefer. The `eclipse-temurin` image,
 according to its docs, was designed to be both used for running apps and also generally useful as a base foundation,
