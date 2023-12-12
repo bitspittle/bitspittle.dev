@@ -1,5 +1,6 @@
 package dev.bitspittle.site
 
+import com.varabyte.kobweb.compose.css.ObjectFit
 import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -89,11 +90,9 @@ fun initSilk(ctx: InitSilkContext) {
 
         theme.replaceComponentStyleBase(ImageStyle) {
             Modifier
-                .clip(Rect(8.px))
-                .width(100.percent)
-                .styleModifier {
-                    property("object-fit", "scale-down")
-                }
+                .clip(Rect(cornerRadius = 8.px))
+                .fillMaxWidth()
+                .objectFit(ObjectFit.ScaleDown)
         }
 
         theme.replaceComponentStyleBase(HorizontalDividerStyle) {
