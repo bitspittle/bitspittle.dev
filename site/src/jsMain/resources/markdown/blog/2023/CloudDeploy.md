@@ -240,22 +240,21 @@ If you're already familiar with CORS, then we empathize with the indigestion its
 now. ❤️‍🔥
 
 CORS, or *Cross-Origin Resource Sharing*, is a security feature built on the idea that a web page should not be able to
-make certain requests to a server that is not the same as the one that served the page.
+make requests for resources from a server that is not the same as the one that served the page.
 
-The underlying security mechanism that enforces this restriction is called the Same-Origin Policy (SOP). Implemented by
-all browsers, SOP prevents cross-domain server requests by default. CORS offers a way to relax this policy in a
-controlled manner by allowing specified trusted exceptions.
+The underlying security mechanism that enforces this restriction is called the *Same-Origin Policy* (SOP). SOP prevents
+malicious sites from requesting sensitive data from other sites. For example, if you visit a malicious site, it should
+not be able to make a request to your bank's website and then read the response to see your account balance.
 
-Both SOP and CORS work together to prevent malicious websites from executing scripts on your computer that could access
-sensitive information, such as email archives or bank accounts. However, incorrect configuration of CORS can also block
-legitimate interactions with your web servers.
+SOP prevents cross-domain server requests by default. CORS offers a way to relax this policy in a controlled manner by
+allowing trusted exceptions.
 
 It's important to note that not all operations are blocked by SOP. As a result, you might create a site that functions
-well without configuring CORS, only to encounter issues when you introduce a new feature that requires it.
+well without configuring CORS, only to encounter issues when you introduce a new feature later that requires it.
 
 This brief introduction should give you a basic understanding of CORS and its importance. For a deeper dive, consider
-exploring Mozilla's documentation on [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) and
-[SOP](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
+exploring Mozilla's documentation on [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+and [SOP](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
 
 ## Deploying a Kobweb server
 
