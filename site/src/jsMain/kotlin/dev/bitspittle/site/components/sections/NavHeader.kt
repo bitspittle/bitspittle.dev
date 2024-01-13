@@ -1,9 +1,9 @@
 package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.browser.dom.ElementTarget
 import com.varabyte.kobweb.compose.css.functions.blur
 import com.varabyte.kobweb.compose.css.functions.saturate
-import com.varabyte.kobweb.compose.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.foundation.layout.Spacer
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -19,7 +19,6 @@ import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.defer.deferRender
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
-import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.border

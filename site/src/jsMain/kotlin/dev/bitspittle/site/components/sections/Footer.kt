@@ -1,9 +1,9 @@
 package dev.bitspittle.site.components.sections
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.browser.dom.ElementTarget
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.WhiteSpace
-import com.varabyte.kobweb.compose.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Alignment

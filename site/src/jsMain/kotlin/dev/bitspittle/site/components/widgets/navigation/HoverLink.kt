@@ -2,7 +2,7 @@ package dev.bitspittle.site.components.widgets.navigation
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.css.CSSTransition
-import com.varabyte.kobweb.compose.dom.clearFocus
+import com.varabyte.kobweb.browser.dom.clearFocus
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.icons.fa.FaLink
@@ -10,12 +10,12 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
-import com.varabyte.kobweb.silk.init.registerBaseStyle
 import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
+import org.w3c.dom.HTMLElement
 
 private val SHOWN_LINK_OPACITY = 80.percent
 
@@ -52,7 +52,7 @@ val HoverLinkStyle by ComponentStyle(prefix = "bs") {
 @Composable
 fun HoverLink(href: String, modifier: Modifier = Modifier) {
     Link(href, HoverLinkStyle.toModifier().onClick {
-        document.activeElement?.clearFocus()
+        (document.activeElement as? HTMLElement)?.clearFocus()
     }.then(modifier)) {
         FaLink()
     }
