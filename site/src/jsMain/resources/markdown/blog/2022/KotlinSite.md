@@ -4,7 +4,7 @@ title: "Kobweb: A Framework Built on Compose HTML"
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2023-08-03
+updated: 2024-01-15
 tags:
  - compose html
  - webdev
@@ -374,6 +374,7 @@ list of features we provide, since if you go it alone, you may need to implement
 * many utility methods and classes for working with the DOM
 * Markdown support
 * WebSocket support via API streams
+* Web worker support via Kobweb Workers
 * shape clipping
 * composables for all free Font Awesome *and* Material Design icons
 * parsing and handling query parameters (e.g. `/posts?userId=...&postId=...`)
