@@ -1,13 +1,7 @@
-import com.varabyte.kobweb.common.path.invariantSeparatorsPath
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.MarkdownHandlers.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
-import com.varabyte.kobwebx.gradle.markdown.yamlStringToKotlinString
 import kotlinx.html.script
-import org.commonmark.ext.front.matter.YamlFrontMatterBlock
-import org.commonmark.ext.front.matter.YamlFrontMatterVisitor
-import org.commonmark.node.AbstractVisitor
-import org.commonmark.node.CustomBlock
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -28,6 +22,19 @@ repositories {
 group = "dev.bitspittle.site"
 version = "1.0-SNAPSHOT"
 
+private fun String.escapeQuotes() = this.replace("\"", "\\\"")
+
+class BlogEntry(
+    val route: String,
+    val author: String,
+    val date: String,
+    val title: String,
+    val desc: String,
+    val tags: List<String>
+) {
+    fun toArticleEntry() = """ArticleEntry("$route", "$author", "$date", "${title.escapeQuotes()}", "${desc.escapeQuotes()}")"""
+}
+
 kobweb {
     app {
         index {
@@ -47,7 +54,9 @@ kobweb {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
 
             code.set { code ->
-                "$BS_WGT.code.CodeBlock(\"\"\"${code.literal.escapeTripleQuotedText()}\"\"\", lang = ${code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" } })"
+                "$BS_WGT.code.CodeBlock(\"\"\"${code.literal.escapeTripleQuotedText()}\"\"\", lang = ${
+                    code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" }
+                })"
             }
 
             inlineCode.set { code ->
@@ -69,82 +78,32 @@ kobweb {
                 result
             }
         }
-    }
-}
 
-class MarkdownVisitor : AbstractVisitor() {
-    private val _frontMatter = mutableMapOf<String, List<String>>()
-    val frontMatter: Map<String, List<String>> = _frontMatter
-
-    override fun visit(customBlock: CustomBlock) {
-        if (customBlock is YamlFrontMatterBlock) {
-            val yamlVisitor = YamlFrontMatterVisitor()
-            customBlock.accept(yamlVisitor)
-            _frontMatter.putAll(
-                yamlVisitor.data
-                    .mapValues { (_, values) ->
-                        values.map { it.yamlStringToKotlinString() }
-                    }
-            )
-        }
-    }
-}
-
-data class BlogEntry(
-    val file: File,
-    val author: String,
-    val date: String,
-    val title: String,
-    val desc: String,
-    val tags: List<String>
-)
-
-fun String.escapeQuotes() = this.replace("\"", "\\\"")
-
-val generateBlogSourceTask = task("generateBlogSource") {
-    group = "bitspittledev"
-    val blogInputDir = layout.projectDirectory.dir("src/jsMain/resources/markdown/blog")
-    val blogGenDir = layout.buildDirectory.dir("generated/$group/src/jsMain/kotlin").get()
-
-    inputs.dir(blogInputDir)
-        .withPropertyName("blogArticles")
-        .withPathSensitivity(PathSensitivity.RELATIVE)
-    outputs.dir(blogGenDir)
-        .withPropertyName("blogGeneratedSource")
-
-    doLast {
-        val parser = kobweb.markdown.features.createParser()
-        val blogEntries = mutableListOf<BlogEntry>()
-
-        blogInputDir.asFileTree.forEach { blogArticle ->
-            val rootNode = parser.parse(blogArticle.readText())
-            val visitor = MarkdownVisitor()
-
-            rootNode.accept(visitor)
-
-            val fm = visitor.frontMatter
+        process.set { markdownEntries ->
             val requiredFields = listOf("title", "description", "author", "date")
-            val (title, desc, author, date) = requiredFields
-                .map { key -> fm[key]?.singleOrNull() }
-                .takeIf { values -> values.all { it != null } }
-                ?.requireNoNulls()
-                ?: run {
-                    println("Skipping $blogArticle in the listing as it is missing required frontmatter fields (one of $requiredFields)")
-                    return@forEach
-                }
+            val blogEntries = markdownEntries.mapNotNull { markdownEntry ->
+                val fm = markdownEntry.frontMatter
+                val (title, desc, author, date) = requiredFields
+                    .map { key -> fm[key]?.singleOrNull() }
+                    .takeIf { values -> values.all { it != null } }
+                    ?.requireNoNulls()
+                    ?: run {
+                        println("Not adding \"${markdownEntry.filePath}\" into the listing file as it is missing required frontmatter fields (one of $requiredFields)")
+                        return@mapNotNull null
+                    }
 
-            val tags = fm["tags"] ?: emptyList()
-            blogEntries.add(BlogEntry(blogArticle.relativeTo(blogInputDir.asFile), author, date, title, desc, tags))
-        }
+                val tags = fm["tags"] ?: emptyList()
+                BlogEntry(markdownEntry.route, author, date, title, desc, tags)
+            }
 
-        blogGenDir.file("dev/bitspittle/site/pages/blog/Index.kt").asFile.apply {
-            parentFile.mkdirs()
-            writeText(buildString {
+            val blogPackage = "dev.bitspittle.site.pages.blog"
+            val blogPath = "${blogPackage.replace('.', '/')}/Index.kt"
+            generateKotlin(blogPath, buildString {
                 appendLine(
                     """
                     // This file is generated. Modify the build script if you need to change it.
 
-                    package dev.bitspittle.site.pages.blog
+                    package $blogPackage
 
                     import androidx.compose.runtime.*
                     import com.varabyte.kobweb.core.Page
@@ -161,11 +120,7 @@ val generateBlogSourceTask = task("generateBlogSource") {
                 )
 
                 blogEntries.sortedByDescending { it.date }.forEach { entry ->
-                    appendLine(
-                        """      ArticleEntry("/blog/${
-                            entry.file.path.substringBeforeLast('.').lowercase().invariantSeparatorsPath
-                        }", "${entry.author}", "${entry.date}", "${entry.title.escapeQuotes()}", "${entry.desc.escapeQuotes()}"),"""
-                    )
+                    appendLine("      ${entry.toArticleEntry()},")
                 }
 
                 appendLine(
@@ -177,8 +132,7 @@ val generateBlogSourceTask = task("generateBlogSource") {
                     """.trimIndent()
                 )
             })
-
-            println("Generated $absolutePath")
+            println("Generated blog listing index at \"$blogPath\".")
         }
     }
 }
@@ -194,7 +148,6 @@ kotlin {
         }
 
         val jsMain by getting {
-            kotlin.srcDir(generateBlogSourceTask)
             dependencies {
                 implementation(compose.html.core)
                 implementation(libs.kobweb.core)
