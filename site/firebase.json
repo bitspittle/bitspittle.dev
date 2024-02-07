@@ -13,6 +13,23 @@
         "destination": "/index.html"
       }
     ],
+    "redirects": [ {
+      "source": "/blog/2022/kotlinsite",
+      "destination": "/blog/2022/kotlin-site",
+      "type": 301
+    }, {
+      "source": "/blog/2022/koverbadge",
+      "destination": "/blog/2022/kover-badge",
+      "type": 301
+    }, {
+      "source": "/blog/2022/staticdeploy",
+      "destination": "/blog/2022/static-deploy",
+      "type": 301
+     }, {
+      "source": "/blog/2023/clouddeploy",
+      "destination": "/blog/2023/cloud-deploy",
+      "type": 301
+     } ],
     "cleanUrls": true
   }
 }
