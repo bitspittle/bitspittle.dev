@@ -1,3 +1,4 @@
+import com.varabyte.kobweb.gradle.application.extensions.AppBlock.LegacyRouteRedirectStrategy
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.MarkdownHandlers.Companion.HeadingIdsKey
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
@@ -47,6 +48,9 @@ kobweb {
                 }
             }
         }
+
+        // We've migrated our redirects to the firebase.json file instead.
+        legacyRouteRedirectStrategy.set(LegacyRouteRedirectStrategy.DISALLOW)
     }
 
     markdown {
