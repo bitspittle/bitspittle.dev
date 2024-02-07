@@ -15,7 +15,7 @@ tags:
 [Compose HTML](https://github.com/JetBrains/compose-multiplatform#compose-html), a reactive web UI
 framework from JetBrains. It allows you to create web apps in Kotlin using a powerful API.
 
-*You can also read more about Kobweb in [this earlier post](/blog/2022/kotlinsite).*
+*You can also read more about Kobweb in [this earlier post](../2022/KotlinSite.md).*
 
 Kobweb provides a feature called API routes. Essentially, these are functions that get called when you fetch a certain
 URL on your site ([discussed in more detail below▼](#server-api-routes)). They can be incredibly useful, but to use
@@ -61,7 +61,7 @@ Despite the above warnings, there are a few reasons you might want to write a se
 * You expect your backend to act as a hub connecting multiple users (for example, a chat server).
 
 At this point, if you're still unsure, a client-only site is likely the better choice. I discuss this approach in more
-detail in [this post](/blog/2022/staticdeploy).
+detail in [this post](../2022/StaticDeploy.md).
 
 You can always start with a static site and migrate to a web server in the cloud later if the situation demands it.
 
@@ -323,15 +323,15 @@ not connected to GitHub, follow [these official instructions](https://render.com
 
 Start by visiting [Render's sign up page](https://dashboard.render.com/register) and click the "GitHub" button.
 
-![Render Sign Up](/images/blog/2023/clouddeploy/render-sign-up.png)
+![Render Sign Up](/images/blog/2023/cloud-deploy/render-sign-up.png)
 
 You'll be redirected to a GitHub page, where you'll be prompted to authorize Render with your GitHub account. Render is a trusted company, so this is a safe action. Click "Authorize Render" to proceed!
 
-![GitHub Authorize Render](/images/blog/2023/clouddeploy/github-authorize-render.png)
+![GitHub Authorize Render](/images/blog/2023/cloud-deploy/github-authorize-render.png)
 
 Confirm your email and click the "Complete Sign Up" button.
 
-![Render Verify Email](/images/blog/2023/clouddeploy/render-email-confirmation.png)
+![Render Verify Email](/images/blog/2023/cloud-deploy/render-email-confirmation.png)
 
 Check your inbox for an email from Render with a link to confirm your email address. Click it to be redirected to the
 Render dashboard.
@@ -484,7 +484,7 @@ Return to Render and open your dashboard.
 From the options available, create a new `Web Service`. This will prompt you to find your relevant GitHub repo and
 "Connect" it.
 
-![Render Connect GitHub](/images/blog/2023/clouddeploy/render-new-web-service-connect-github.png)
+![Render Connect GitHub](/images/blog/2023/cloud-deploy/render-new-web-service-connect-github.png)
 
 Afterwards, you'll be directed to a web service configuration page. You should only need to specify the service name,
 as all other defaults should work fine. I used "kobweb-todo" in my case, but you may have to specify a name that's not
@@ -492,20 +492,20 @@ already taken.
 
 When ready, press "Create Web Service".
 
-![Render Config Web Service](/images/blog/2023/clouddeploy/render-new-web-service-config.png)
+![Render Config Web Service](/images/blog/2023/cloud-deploy/render-new-web-service-config.png)
 
 Now, wait while Render follows the instructions in your Dockerfile. This process can take 10 minutes or more, so please
 be patient.
 
-![Render Deploy Screen](/images/blog/2023/clouddeploy/render-web-service-deploy.png)
+![Render Deploy Screen](/images/blog/2023/cloud-deploy/render-web-service-deploy.png)
 
 Once it's done, you should see the status switch from a grey "In progress" message to a green "Live" indicator:
 
-![Render Live Indicator](/images/blog/2023/clouddeploy/render-in-progress-to-live.png)
+![Render Live Indicator](/images/blog/2023/cloud-deploy/render-in-progress-to-live.png)
 
 Click on your web service's link to see your site in action!
 
-![Kobweb Site Deployed](/images/blog/2023/clouddeploy/kobweb-app-deployed.png)
+![Kobweb Site Deployed](/images/blog/2023/cloud-deploy/kobweb-app-deployed.png)
 
 ***NOTE:** Your site might feel slow, especially during startup. That's the trade-off with a free service!*
 

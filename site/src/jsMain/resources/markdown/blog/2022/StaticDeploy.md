@@ -15,7 +15,7 @@ tags:
 [Compose HTML](https://github.com/JetBrains/compose-multiplatform#compose-html), which itself is a reactive web UI framework from
 JetBrains that allows you to create web apps in Kotlin using a powerful API.
 
-*You can also read more about Kobweb [from this earlier post](kotlinsite).*
+*You can also read more about Kobweb [from this earlier post](KotlinSite.md).*
 
 In this post, we'll talk about how to use Kobweb to export your Compose HTML project into a format that can be consumed
 by various static website hosting providers. This means you can get fast and cheap (often free!) hosting for your Kotlin
@@ -169,7 +169,7 @@ It's free! [Sign up here](https://app.netlify.com/signup).
 Eventually, you will reach a page that asks you to provide build settings. Leave everything blank except for the
 `publish directory` field, which you can set to `site/.kobweb/site`:
 
-![Netlify Build settings](/images/blog/2022/staticdeploy/netlify-build-settings.png)
+![Netlify Build settings](/images/blog/2022/static-deploy/netlify-build-settings.png)
 
 #### Allow `.kobweb/site` in gitignore
 
@@ -220,11 +220,11 @@ once Netlify is aware of the pushed changes.
 
 Go to your Netlify dashboard. You should see an entry like the one I have here:
 
-![Netlify dashboard](/images/blog/2022/staticdeploy/netlify-dashboard.png)
+![Netlify dashboard](/images/blog/2022/static-deploy/netlify-dashboard.png)
 
 Click on it, and you should be taken to a page that has your URL in it:
 
-![Netlify overview](/images/blog/2022/staticdeploy/netlify-overview.png)
+![Netlify overview](/images/blog/2022/static-deploy/netlify-overview.png)
 
 If you click on the link, you should see a site that looks [like this](https://peaceful-hermann-be6fdf.netlify.app/).
 
@@ -248,7 +248,7 @@ we'll go with the easiest -- using a `docs/` root within your project.
 * In the `Source` section, set `Branch` to `main` and the folder to `/docs`
 * Click `Save`
 
-![GitHub Pages source](/images/blog/2022/staticdeploy/ghp-source.png)
+![GitHub Pages source](/images/blog/2022/static-deploy/ghp-source.png)
 
 #### Configure Kobweb
 

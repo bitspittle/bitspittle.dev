@@ -21,7 +21,7 @@ that you can open and browse.
 
 However, while useful, it probably won't be long before you want to convert this:
 
-![Kover example report](/images/blog/2022/koverbadge/kover-html-report-example.png)
+![Kover example report](/images/blog/2022/kover-badge/kover-html-report-example.png)
 
 into a badge that you can add into your GitHub README:
 
@@ -62,13 +62,13 @@ You can name the file anything you want (and if you change your mind, it's easy 
 get the unique ID value that GitHub generates for your gist. I might recommend `<yourproject>-coverage-badge.json` (with
 `<yourproject>` substituted with your actual project name).
 
-![GitHub create a gist](/images/blog/2022/koverbadge/github-create-secret-gist.png)
+![GitHub create a gist](/images/blog/2022/kover-badge/github-create-secret-gist.png)
 
 When ready, press the `Create Secret Gist` button!
 
 You will be sent to a new page. Check the URL of that page to get the gist's ID:
 
-![GitHub gist ID](/images/blog/2022/koverbadge/github-gist-id.png)
+![GitHub gist ID](/images/blog/2022/kover-badge/github-gist-id.png)
 
 You won't need this ID for quite a few steps, but it's good to know where to find it.
 
@@ -79,15 +79,15 @@ token that can be used to authorize edit access to our gists.
 
 To start, log into GitHub and select your *Settings* page:
 
-![GitHub top level](/images/blog/2022/koverbadge/github-user-dash.png)
+![GitHub top level](/images/blog/2022/kover-badge/github-user-dash.png)
 
 Click on the *Developer settings* menu item, which is at the bottom of a long list:
 
-![GitHub user settings](/images/blog/2022/koverbadge/github-user-settings.png)
+![GitHub user settings](/images/blog/2022/kover-badge/github-user-settings.png)
 
 Once in there, click on *Personal access tokens* and then the *Generate new token* button:
 
-![GitHub user dev settings](/images/blog/2022/koverbadge/github-user-dev-settings.png)
+![GitHub user dev settings](/images/blog/2022/kover-badge/github-user-dev-settings.png)
 
 We'll create a token that can only access gists (limiting the potential damage if it ever leaks).
 
@@ -102,14 +102,14 @@ create a non-expiring token for now. You can always delete it later.
 
 Select only the *gist* permission, and then click on the *Generate token* button.
 
-![GitHub user create gist token](/images/blog/2022/koverbadge/github-user-create-gist-token.png)
+![GitHub user create gist token](/images/blog/2022/kover-badge/github-user-create-gist-token.png)
 
 Press the "copy" icon to copy the token ID that was just generated.
 
 **This copy step is very important**, because if you leave the page before you do so, the ID is lost forever.
 If that happens, you'll have to delete the token and redo this section.
 
-![GitHub user gist token generated](/images/blog/2022/koverbadge/github-user-gist-token.png)
+![GitHub user gist token generated](/images/blog/2022/kover-badge/github-user-gist-token.png)
 
 ## Create a gist secret
 
@@ -118,17 +118,17 @@ access it without us checking it in as plaintext somewhere. This is accomplished
 
 Secrets are easy to add! Visit the project you want to add the badge to, and open up its *Settings* page:
 
-![GitHub project dashboard](/images/blog/2022/koverbadge/github-project-dash.png)
+![GitHub project dashboard](/images/blog/2022/kover-badge/github-project-dash.png)
 
 Click on *Secrets* > *Actions*, then on the *New repository secret* button:
 
-![GitHub project settings](/images/blog/2022/koverbadge/github-project-settings.png)
+![GitHub project settings](/images/blog/2022/kover-badge/github-project-settings.png)
 
 Pick a name for your secret. We'll reference it later, so remember it! I used `GIST_SECRET`.
 
 Paste the token ID from your clipboard into the *Secret* textbox, then press the *Add secret* button:
 
-![GitHub project create secret](/images/blog/2022/koverbadge/github-project-create-secret.png)
+![GitHub project create secret](/images/blog/2022/kover-badge/github-project-create-secret.png)
 
 That's it for now. Let's move our attention to Gradle next.
 
@@ -332,11 +332,11 @@ for full details.*
 When your workflow is done, check it in and submit it. Go to your project's *Actions* tab and make sure that you see
 your workflow running, and that it eventually succeeds.
 
-![GitHub project actions](/images/blog/2022/koverbadge/github-project-actions.png)
+![GitHub project actions](/images/blog/2022/kover-badge/github-project-actions.png)
 
 Once you get a green checkbox, check your gist. It should be updated with real values now!
 
-![GitHub gist overwritten](/images/blog/2022/koverbadge/github-gist-overwritten.png)
+![GitHub gist overwritten](/images/blog/2022/kover-badge/github-gist-overwritten.png)
 
 ## Putting the badge in your README
 
@@ -359,7 +359,7 @@ Finally, visit your project, and take a moment to admire your new, shiny badge -
 You can see where I created a coverage badge in my [Kotter](https://github.com/varabyte/kotter) project (check the top
 of the README).
 
-![Kotter header](/images/blog/2022/koverbadge/kotter-header.png)
+![Kotter header](/images/blog/2022/kover-badge/kotter-header.png)
 
 You may want to reference my...
 * [Badge gist](https://gist.github.com/bitspittle/1fab2b6fd23489bdea3f5d1f38e4dcb2)
