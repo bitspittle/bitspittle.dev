@@ -9,7 +9,6 @@ import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import com.varabyte.kobweb.silk.theme.colors.shifted
-import com.varabyte.kobweb.silk.theme.toSilkPalette
 import org.jetbrains.compose.web.dom.*
 
 val InlineCodeStyle = ComponentStyle.base("bs-code") {
