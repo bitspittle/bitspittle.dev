@@ -4,7 +4,7 @@ title: Creating a GitHub Code Coverage Badge using Kover
 description: How to create a code coverage badge for your GitHub README using JetBrains Kover.
 author: David Herman
 date: 2022-10-12
-updated: 2023-03-16
+updated: 2024-03-20
 tags:
  - kover
  - github
@@ -263,7 +263,7 @@ jobs:
           echo "COVERAGE=$(${{github.workspace}}/gradlew -q printLineCoverage)" >> $GITHUB_ENV
 
       - name: Update dynamic badge gist
-        uses: schneegans/dynamic-badges-action@v1.5.0
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{secrets.GIST_SECRET}} # !! CONFIRM THIS !!
           gistID: d6b5fcf2e961f94780a3dbbc11be023c # !! CHANGE THIS !!
