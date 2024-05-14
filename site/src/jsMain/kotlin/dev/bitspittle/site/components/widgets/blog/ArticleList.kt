@@ -7,8 +7,12 @@ import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.base
+import com.varabyte.kobweb.silk.style.selectors.after
+import com.varabyte.kobweb.silk.style.toAttrs
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.palette.border
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import dev.bitspittle.site.components.widgets.date.DateText
@@ -18,11 +22,11 @@ import dev.bitspittle.site.components.widgets.dom.StyledSpan
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
-val ArticleListStyle = ComponentStyle.base("bs-article-list") {
+val ArticleListStyle = CssStyle.base {
     NoListIndentationModifier
 }
 
-val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {
+val ArticleSectionStyle = CssStyle.base {
     Modifier
         .fillMaxWidth()
         .margin(top = 1.5.cssRem)
@@ -31,33 +35,33 @@ val ArticleSectionStyle = ComponentStyle.base("bs-article-section") {
         .borderRadius(5.px)
 }
 
-val ArticleTitleStyle = ComponentStyle.base("bs-article-title") {
+val ArticleTitleStyle = CssStyle.base {
     Modifier.fontWeight(FontWeight.Bold)
 }
 
-val ArticleMetaStyle = ComponentStyle.base("bs-article-meta") {
+val ArticleMetaStyle = CssStyle.base {
     Modifier.opacity(0.6)
 }
 
-val ArticleAuthorStyle = ComponentStyle.base("bs-article-author") {
+val ArticleAuthorStyle = CssStyle.base {
     Modifier
 }
 
-val ArticleDateStyle by ComponentStyle {
+val ArticleDateStyle = CssStyle {
     after {
         Modifier.content(" • ")
     }
 }
 
-val ArticleNameStyle = ComponentStyle.base("bs-article-name") {
+val ArticleNameStyle = CssStyle.base {
     Modifier
 }
 
-val ArticleUpdatedStyle = ComponentStyle.base("bs-article-updated") {
+val ArticleUpdatedStyle = CssStyle.base {
     Modifier.fontStyle(FontStyle.Italic)
 }
 
-val ArticleDescStyle = ComponentStyle.base("bs-article-desc") {
+val ArticleDescStyle = CssStyle.base {
     Modifier.margin(top = 0.3.cssRem)
 }
 

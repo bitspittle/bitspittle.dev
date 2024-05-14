@@ -8,16 +8,14 @@ import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.lightened
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.styleModifier
 import com.varabyte.kobweb.silk.components.graphics.ImageStyle
-import com.varabyte.kobweb.silk.components.layout.DividerStyle
 import com.varabyte.kobweb.silk.components.layout.HorizontalDividerStyle
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.*
-import com.varabyte.kobweb.silk.theme.replaceComponentStyleBase
+import com.varabyte.kobweb.silk.theme.replaceStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
 import com.varabyte.kobweb.silk.theme.shapes.clip
 import kotlinx.browser.localStorage
@@ -87,14 +85,14 @@ fun initSilk(ctx: InitSilkContext) {
             }
         }
 
-        theme.replaceComponentStyleBase(ImageStyle) {
+        theme.replaceStyleBase(ImageStyle) {
             Modifier
                 .clip(Rect(cornerRadius = 8.px))
                 .fillMaxWidth()
                 .objectFit(ObjectFit.ScaleDown)
         }
 
-        theme.replaceComponentStyleBase(HorizontalDividerStyle) {
+        theme.replaceStyleBase(HorizontalDividerStyle) {
             Modifier
                 .margin(top = 1.5.cssRem, bottom = 0.5.cssRem)
                 .borderTop(1.px, LineStyle.Solid, colorMode.toPalette().border)

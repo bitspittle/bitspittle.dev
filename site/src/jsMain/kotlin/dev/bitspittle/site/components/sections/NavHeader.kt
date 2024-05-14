@@ -14,12 +14,14 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
 import com.varabyte.kobweb.silk.components.overlay.PopupPlacement
 import com.varabyte.kobweb.silk.components.overlay.Tooltip
-import com.varabyte.kobweb.silk.components.style.*
-import com.varabyte.kobweb.silk.components.style.common.SmoothColorStyle
 import com.varabyte.kobweb.silk.defer.deferRender
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
+import com.varabyte.kobweb.silk.style.*
+import com.varabyte.kobweb.silk.style.common.SmoothColorStyle
+import com.varabyte.kobweb.silk.style.selectors.link
+import com.varabyte.kobweb.silk.style.selectors.visited
 import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.border
 import com.varabyte.kobweb.silk.theme.colors.palette.color
@@ -41,7 +43,7 @@ fun initNavHeaderStyles(ctx: InitSilkContext) {
     }
 }
 
-val NavHeaderStyle = ComponentStyle.base("bs-nav-header", extraModifiers = { SmoothColorStyle.toModifier() }) {
+val NavHeaderStyle = CssStyle.base(extraModifier = { SmoothColorStyle.toModifier() }) {
     Modifier
         .fillMaxWidth()
         .padding(left = 1.cssRem, right = 1.cssRem, top = 1.cssRem, bottom = 1.cssRem)
@@ -53,7 +55,8 @@ val NavHeaderStyle = ComponentStyle.base("bs-nav-header", extraModifiers = { Smo
         .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toPalette().border)
 }
 
-val NavLinkStyle by ComponentStyle {
+sealed interface NavLinkKind : ComponentKind
+val NavLinkStyle = CssStyle<NavLinkKind> {
     val linkColor = colorMode.toPalette().color
 
     base { Modifier.margin(topBottom = 0.px, leftRight = 15.px) }
@@ -62,19 +65,19 @@ val NavLinkStyle by ComponentStyle {
     visited { Modifier.color(linkColor) }
 }
 
-val LogoVariant = NavLinkStyle.addVariant("logo") {
+val LogoVariant = NavLinkStyle.addVariant {
     val logoColor = colorMode.toPalette().brand
 
     link { Modifier.color(logoColor) }
     visited { Modifier.color(logoColor) }
 }
 
-val NavButtonStyle = ComponentStyle.base("bs-nav-button") {
+val NavButtonStyle = CssStyle.base {
     Modifier.margin(0.px, 10.px).backgroundColor(colorMode.toPalette().background)
 }
 
 @Composable
-private fun NavLink(path: String, text: String, linkVariant: ComponentVariant? = null) {
+private fun NavLink(path: String, text: String, linkVariant: CssStyleVariant<NavLinkKind>? = null) {
     Link(
         path,
         text,

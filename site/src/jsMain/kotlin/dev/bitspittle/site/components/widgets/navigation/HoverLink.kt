@@ -1,16 +1,20 @@
 package dev.bitspittle.site.components.widgets.navigation
 
 import androidx.compose.runtime.*
-import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.browser.dom.clearFocus
+import com.varabyte.kobweb.compose.css.CSSTransition
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.icons.fa.FaLink
 import com.varabyte.kobweb.silk.components.navigation.Link
-import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
+import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.selectors.focus
+import com.varabyte.kobweb.silk.style.selectors.link
+import com.varabyte.kobweb.silk.style.selectors.visited
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import kotlinx.browser.document
@@ -33,7 +37,7 @@ fun initHeaderLinkInteraction(ctx: InitSilkContext) {
 }
 
 
-val HoverLinkStyle by ComponentStyle {
+val HoverLinkStyle = CssStyle {
     base {
         Modifier
             .opacity(0.percent)

@@ -7,25 +7,22 @@ import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
-import com.varabyte.kobweb.compose.ui.styleModifier
-import com.varabyte.kobweb.core.isExporting
 import com.varabyte.kobweb.core.rememberPageContext
-import com.varabyte.kobweb.silk.components.style.ComponentStyle
-import com.varabyte.kobweb.silk.components.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.components.style.toModifier
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
+import com.varabyte.kobweb.silk.style.toModifier
 import dev.bitspittle.firebase.analytics.Analytics
 import dev.bitspittle.firebase.app.FirebaseApp
 import dev.bitspittle.firebase.app.FirebaseOptions
-import dev.bitspittle.firebase.database.ServerValue
 import dev.bitspittle.site.components.sections.Footer
 import dev.bitspittle.site.components.sections.NavHeader
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.*
 
-val CenterColumnStyle by ComponentStyle {
+val CenterColumnStyle = CssStyle {
     base { Modifier.fillMaxWidth(90.percent) }
     Breakpoint.MD { Modifier.fillMaxWidth(80.percent) }
 }

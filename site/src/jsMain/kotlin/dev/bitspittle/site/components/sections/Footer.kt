@@ -18,21 +18,23 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UncoloredLinkVariant
 import com.varabyte.kobweb.silk.components.overlay.PopupPlacement
 import com.varabyte.kobweb.silk.components.overlay.Tooltip
-import com.varabyte.kobweb.silk.components.style.*
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.base
+import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.palette.border
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
-val FooterStyle = ComponentStyle.base("bs-footer") {
+val FooterStyle = CssStyle.base {
     Modifier
         .margin(top = 2.cssRem)
         .borderTop(1.px, LineStyle.Solid, colorMode.toPalette().border)
         .padding(topBottom = 1.cssRem, leftRight = 4.cssRem)
 }
 
-val CopyrightStyle = ComponentStyle.base("bs-copyright") {
+val CopyrightStyle = CssStyle.base {
     Modifier.opacity(0.6).fontSize(0.8.cssRem)
 }
 
