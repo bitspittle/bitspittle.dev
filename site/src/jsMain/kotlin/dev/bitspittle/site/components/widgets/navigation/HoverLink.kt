@@ -33,7 +33,7 @@ fun initHeaderLinkInteraction(ctx: InitSilkContext) {
 }
 
 
-val HoverLinkStyle by ComponentStyle(prefix = "bs") {
+val HoverLinkStyle by ComponentStyle {
     base {
         Modifier
             .opacity(0.percent)

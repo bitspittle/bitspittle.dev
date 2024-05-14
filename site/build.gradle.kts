@@ -38,6 +38,7 @@ class BlogEntry(
 
 kobweb {
     app {
+        cssPrefix.set("bs")
         index {
             description.set("Tech chatter, tutorials, and career advice")
 

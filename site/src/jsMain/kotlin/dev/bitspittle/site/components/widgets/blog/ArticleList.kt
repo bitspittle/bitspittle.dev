@@ -43,7 +43,7 @@ val ArticleAuthorStyle = ComponentStyle.base("bs-article-author") {
     Modifier
 }
 
-val ArticleDateStyle by ComponentStyle(prefix = "bs") {
+val ArticleDateStyle by ComponentStyle {
     after {
         Modifier.content(" • ")
     }

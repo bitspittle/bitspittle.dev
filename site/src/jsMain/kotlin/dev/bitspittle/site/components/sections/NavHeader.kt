@@ -53,7 +53,7 @@ val NavHeaderStyle = ComponentStyle.base("bs-nav-header", extraModifiers = { Smo
         .borderBottom(width = 1.px, style = LineStyle.Solid, color = colorMode.toPalette().border)
 }
 
-val NavLinkStyle by ComponentStyle(prefix = "bs") {
+val NavLinkStyle by ComponentStyle {
     val linkColor = colorMode.toPalette().color
 
     base { Modifier.margin(topBottom = 0.px, leftRight = 15.px) }
