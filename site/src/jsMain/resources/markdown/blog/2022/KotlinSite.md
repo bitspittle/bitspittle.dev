@@ -4,7 +4,7 @@ title: "Kobweb: A Framework Built on Compose HTML"
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman
 date: 2022-02-07
-updated: 2024-01-15
+updated: 2024-05-17
 tags:
  - compose html
  - webdev
@@ -94,10 +94,11 @@ and navigate to that page as you'd expect.
 ## Silk
 
 Kobweb can be used on its own for its routing capabilities, but it also provides a UI library called Silk, a
-color-mode-aware (i.e. light and dark) collection of widgets as well as general theming and component styling support.
+color-mode-aware (i.e. light and dark) collection of widgets as well as general theming and CSS styling support via CSS
+style blocks.
 
-I believe component styling is one of those features that once you start using it you won't want to go back. I
-demonstrate it later in its [own subsection▼](#component-styling).
+I believe CSS style blocks are one of those features that once you start using them, you won't want to go back. I
+demonstrate it later in its [own subsection▼](#css-style-blocks).
 
 ### Color mode
 
@@ -256,15 +257,15 @@ Compose HTML allows you to
 [define this stylesheet in code](https://github.com/JetBrains/compose-jb/tree/master/tutorials/HTML/Style_Dsl#stylesheet),
 but you can still easily end up with a monolith.
 
-#### Component styling
+#### CSS style blocks
 
-Kobweb introduces component styling, which is a fancy way of saying you can define the styles you use in smaller pieces
+Kobweb introduces CSS style blocks, which is a fancy way of saying you can define the styles you use in smaller pieces
 next to the code that uses them.
 
-It's easy -- just instantiate a `ComponentStyle` (using the `by` keyword) and store the result to a `val`:
+It's easy -- just instantiate a `CssStyle` and store the result to a `val`:
 
 ```kotlin
-val SomeWidgetStyle by ComponentStyle {
+val HoverContainerStyle = CssStyle {
     base { Modifier.fontSize(32.px).padding(10.px) }
     hover {
         val highlightColor =
@@ -277,24 +278,23 @@ val SomeWidgetStyle by ComponentStyle {
 The `base` style, if defined, is special, as it will always be applied first. Any additional declarations are layered on
 top of the base if their condition is met.
 
-Component styles can be converted to `Modifier`s using the `toModifier` method and to `AttrsScope`s using the `toAttrs`
+CSS styles can be converted to `Modifier`s using the `toModifier` method and to `AttrsScope`s using the `toAttrs`
 method. This way, you can pass them into either Silk widgets *or* Compose HTML elements:
 
 ```kotlin
-val SomeWidgetStyle by ComponentStyle { /*...*/ }
+val HoverContainerStyle = CssStyle { /*...*/ }
 
-@Composable
-fun SomeWidget() {
-    // Silk widget:
-    Button(onClick = {}, SomeWidgetStyle.toModifier()) { /*...*/ }
+// Then later...
+
+// Silk widget:
+Box(HoverContainerStyle.toModifier()) { /*...*/ }
     
-    // Compose HTML element:
-    Div(attrs = SomeWidgetStyle.toAttrs()) { /*...*/ }
-}
+// Compose HTML element:
+Div(attrs = HoverContainerStyle.toAttrs()) { /*...*/ }
 ```
 
 It is way easier to read your code when your element styles live near where they are used, since you don't have to jump
-between the code and a monolothic stylesheet in a different file.
+between the code and a monolithic stylesheet in a different file.
 
 ## Markdown
 
