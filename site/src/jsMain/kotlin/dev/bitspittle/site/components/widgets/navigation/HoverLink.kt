@@ -2,7 +2,7 @@ package dev.bitspittle.site.components.widgets.navigation
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.browser.dom.clearFocus
-import com.varabyte.kobweb.compose.css.CSSTransition
+import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.components.icons.fa.FaLink
@@ -41,7 +41,7 @@ val HoverLinkStyle = CssStyle {
     base {
         Modifier
             .opacity(0.percent)
-            .transition(CSSTransition("opacity", 0.15.s))
+            .transition(Transition.of("opacity", 0.15.s))
             .fontSize(0.8.em)
             .margin(left = 0.7.em)
     }
