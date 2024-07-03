@@ -49,9 +49,6 @@ kobweb {
                 }
             }
         }
-
-        // We've migrated our redirects to the firebase.json file instead.
-        legacyRouteRedirectStrategy.set(LegacyRouteRedirectStrategy.DISALLOW)
     }
 
     markdown {
