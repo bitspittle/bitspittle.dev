@@ -4,7 +4,7 @@ title: Deploying Kobweb into the Cloud
 description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
 author: David Herman
 date: 2023-05-07
-updated: 2023-11-09
+updated: 2024-07-17
 tags:
  - compose html
  - kobweb
@@ -41,8 +41,8 @@ Static sites are always up and running non-stop (aside from occasional outages),
 be instantiated or woken up. On a free hosting tier like that provided by Render, this process can take up to 10
 seconds.
 
-Additionally, static site hosting is generally more cost-effective than general cloud hosting, as hosting servers can
-optimize for simple file delivery.
+Additionally, static site hosting is generally more cost-effective than general cloud hosting, as static hosting servers
+can optimize for simple file delivery.
 
 Surprisingly, you can create a site with a significant amount of dynamic behavior without ever writing a server. For
 example, services like Firebase can manage database, storage, and authentication features for you. In many cases, by
@@ -53,11 +53,12 @@ spent more time and money implementing a full-stack solution.
 
 Despite the above warnings, there are a few reasons you might want to write a server:
 
-* You want to write code that talks to private backend services (like a company server that stores user accounts)
+* You want to run some custom code that is only relevant for your site. For example, you might want to collect a bunch
+  of answers from a user on first login and then run some custom algorithm to generate a personalized experience.
+* You want to write code that talks to private backend services (like a company server that stores private user data)
   without a client-facing API.
 * You want to do some work on behalf of the user with an external service that requires a private API key for
-  authentication (for example, the ChatGPT API). Exposing these credentials publicly is not advisable.
-* You want to implement a custom API with shared logic across multiple clients.
+  authentication (for example, the ChatGPT API). Exposing these credentials publicly is a major security issue.
 * You expect your backend to act as a hub connecting multiple users (for example, a chat server).
 
 At this point, if you're still unsure, a client-only site is likely the better choice. I discuss this approach in more
