@@ -6,7 +6,7 @@ import kotlinx.html.script
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kobweb.application)
     alias(libs.plugins.kobwebx.markdown)
 }
@@ -23,8 +23,6 @@ repositories {
 group = "dev.bitspittle.site"
 version = "1.0-SNAPSHOT"
 
-private fun String.escapeQuotes() = this.replace("\"", "\\\"")
-
 class BlogEntry(
     val route: String,
     val author: String,
@@ -33,6 +31,7 @@ class BlogEntry(
     val desc: String,
     val tags: List<String>
 ) {
+    private fun String.escapeQuotes() = this.replace("\"", "\\\"")
     fun toArticleEntry() = """ArticleEntry("$route", "$author", "$date", "${title.escapeQuotes()}", "${desc.escapeQuotes()}")"""
 }
 
@@ -145,13 +144,13 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.runtime)
+                implementation(libs.compose.runtime)
             }
         }
 
         val jsMain by getting {
             dependencies {
-                implementation(compose.html.core)
+                implementation(libs.compose.html.core)
                 implementation(libs.kobweb.core)
                 implementation(libs.kobweb.silk)
                 implementation(libs.silk.icons.fa)
