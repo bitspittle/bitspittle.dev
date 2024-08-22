@@ -14,7 +14,7 @@ import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.navigation.UndecoratedLinkVariant
 import com.varabyte.kobweb.silk.components.overlay.PopupPlacement
 import com.varabyte.kobweb.silk.components.overlay.Tooltip
-import com.varabyte.kobweb.silk.defer.deferRender
+import com.varabyte.kobweb.silk.defer.Deferred
 import com.varabyte.kobweb.silk.init.InitSilk
 import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
@@ -88,7 +88,7 @@ private fun NavLink(path: String, text: String, linkVariant: CssStyleVariant<Nav
 
 @Composable
 fun NavHeader() {
-    deferRender {
+    Deferred {
         Row(NavHeaderStyle.toModifier()) {
             val ctx = rememberPageContext()
 
