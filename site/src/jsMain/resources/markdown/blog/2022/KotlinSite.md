@@ -385,8 +385,8 @@ list of features we provide, since if you go it alone, you may need to implement
 I mention these not (just) to humblebrag, but because I myself was surprised by what was needed to create an MVP of
 Kobweb. I vastly underestimated the scope.
 
-So, sure, I'm biased, but my opinion is that if you're going to use Compose HTML to make a website (as opposed to a web
-app), you probably want to at least give Kobweb a try.
+So, sure, I'm biased, but my opinion is that if you're going to use Compose HTML to make a website, you probably want to
+at least give Kobweb a try.
 
 ### JavaScript / TypeScript
 
@@ -436,7 +436,7 @@ set it up for you in a few seconds:
 
 ```bash
 $ kobweb create examples/jb/counter
-$ cd counter
+$ cd counter/site
 $ kobweb run
 ```
 
