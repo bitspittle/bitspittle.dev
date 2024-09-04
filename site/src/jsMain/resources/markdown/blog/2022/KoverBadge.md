@@ -111,6 +111,11 @@ If that happens, you'll have to delete the token and redo this section.
 
 ![GitHub user gist token generated](/images/blog/2022/kover-badge/github-user-gist-token.png)
 
+> [!IMPORTANT]
+> Normally, leaking secrets like this in public is not good! Of course, in this case, I have long since deleted this
+> access token, so there's no harm in exposing it, and I decided to leave it in this post for educational purposes. But
+> please treat your own token with more respect!
+
 ## Create a gist secret
 
 Now that we have our token ID copied into our clipboard, we want to put it somewhere where GitHub will be able to
@@ -137,9 +142,9 @@ That's it for now. Let's move our attention to Gradle next.
 At the beginning of this post, I mentioned that `koverReport` generates an HTML report. This is true, but it *also*
 generates an XML report. In fact, there are `koverHtmlReport` and `koverXmlReport` tasks you can run directly.
 
-The Java standard library (which Gradle provides access to) already has access to an XML parser, so what we'll do here
-is create a simple task that depends on the `koverXmlReport` task, loads the XML file it generates, parses it,
-calculates the coverage percentage that we want, and prints it to the console.
+The Java standard library (which Gradle exposes) already has access to an XML parser, so what we'll do here is create a
+simple task that depends on the `koverXmlReport` task, loads the XML file it generates, parses it, calculates the
+coverage percentage that we want, and prints it to the console.
 
 ### The Kover report
 
@@ -163,7 +168,7 @@ just going to pull out the report's "LINE" data in this tutorial.
 
 ### Gradle task to parse the Kover report
 
-In a Gradle build script (one which is using the Kover plugin), paste the following task registration somewhere in
+In a Gradle build script (the one which is using the Kover plugin), paste the following task registration somewhere in
 there:
 
 ```kotlin
@@ -286,18 +291,19 @@ APIs.
 
 Finally, be sure to update `gistID` and `filename` to your specific values.
 
-You may copy the rest of the statements as is.
+You may copy the rest of the values as is.
 
 ### Step: Generate coverage output
 
-The next step runs our custom Gradle task (`printLineCoverage`), saving its output into a variable (`COVERAGE`) that
-gets put into an environment that can be accessed by the rest of the script.
+This workflow step runs our custom Gradle task (`printLineCoverage`), saving its output into a variable (`COVERAGE`)
+that gets put into an environment that can be accessed by the rest of the script.
 
 Setting environment variables in workflows is a pretty handy trick in general. You can read more about this
 [in the official docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable).
 
-**Note:** You may need to specify the Gradle task more explicitly, e.g. `:myproject:printLineCoverage`, in case there
-are any ambiguities in your own project, such as multiple submodules using Kover.
+> [!CAUTION]
+> You may need to specify the Gradle task more explicitly, e.g. `:myproject:printLineCoverage`, in case there
+> are any ambiguities in your own project, such as multiple submodules using Kover.
 
 ### Step: Update dynamic badge gist
 
@@ -314,7 +320,7 @@ created earlier.
   users.
 
 While you can specify the color of your badge yourself, the Dynamic Badges action supports a convenient feature where,
-if you set a numeric value plus a range, it will auto set the color for you.
+if you declare a range plus a numeric value somewhere inside that range, it will auto set the color for you.
 
 If your value is at the minimum end, the badge will be red, and if at the max end, it will be green. Anywhere in the
 middle is interpolated on a gradient, so that e.g. 50% will be yellow.
@@ -324,13 +330,14 @@ middle is interpolated on a gradient, so that e.g. 50% will be yellow.
 To take advantage of this feature, we set `minColorRange` to `0`, `maxColorRange` to `100`, and `valColorRange` to the
 output from the previous step's Gradle task.
 
-*Note: Dynamic badges can be configured in other ways as well. See the [official docs](https://github.com/marketplace/actions/dynamic-badges)
-for full details.*
+> [!NOTE]
+> Dynamic badges can be configured in other ways as well. See the [official docs](https://github.com/marketplace/actions/dynamic-badges)
+> for full details.
 
 ### Test your workflow
 
 When your workflow is done, check it in and submit it. Go to your project's *Actions* tab and make sure that you see
-your workflow running, and that it eventually succeeds.
+your workflow running, and confirm that it eventually succeeds.
 
 ![GitHub project actions](/images/blog/2022/kover-badge/github-project-actions.png)
 
@@ -380,5 +387,5 @@ In addition to the official docs, I found the following sources particularly hel
 Honestly, this process was more involved than I would have expected. But having a coverage badge on your project's
 README page is totally worth it.
 
-And finally, you don't have to stop here! By combining Gradle tasks, Dynamic Badges, and GitHub Actions workflows, you
-can definitely create some amazing custom badges.
+And finally, you don't have to stop here! By combining Gradle tasks, the Dynamic Badges action, and GitHub Actions
+workflows in general, you can definitely create some amazing custom badges.
