@@ -18,7 +18,8 @@ tags:
 The pitch for Compose Multiplatform for Web is attractive: write your code once, *including UI*, and share your
 application across multiple platforms, targeting Android, iOS, desktop, and, yes, even web.
 
-***Note:** We abbreviate "Compose Multiplatform for Web" as "C4W" for the rest of the article.*
+> [!NOTE]
+> We abbreviate "Compose Multiplatform for Web" as "C4W" for the rest of the article.
 
 **If you are an Android developer**, you might think: "Wait, I can take my existing codebase and/or years of Jetpack
 Compose experience and have a working website with hardly any extra effort?? Sign me up please!"
@@ -264,7 +265,8 @@ If you try to display, say, Chinese in C4W by default, you will see missing char
 
 ![Missing Chinese characters](/images/blog/2024/c4w/missing-characters.png)
 
-***Note:** The above C4W example is failing to show "你好" and "nǐ hǎo" here.*
+> [!NOTE]
+> The above C4W example is failing to show "你好" and "nǐ hǎo" here.
 
 To fix this, you'll need to load a font file that supports the characters you want to display and [explicitly
 instantiate a `Font` value that uses it](https://developer.android.com/develop/ui/compose/text/fonts).
