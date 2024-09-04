@@ -4,7 +4,7 @@ title: Deploying Kobweb into the Cloud
 description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
 author: David Herman
 date: 2023-05-07
-updated: 2024-07-17
+updated: 2024-09-04
 tags:
  - compose html
  - kobweb
@@ -15,7 +15,8 @@ tags:
 [Compose HTML](https://github.com/JetBrains/compose-multiplatform#compose-html), a reactive web UI
 framework from JetBrains. It allows you to create web apps in Kotlin using a powerful API.
 
-*You can also read more about Kobweb in [this earlier post](../2022/KotlinSite.md).*
+> [!NOTE]
+> You can also read more about Kobweb in [this earlier post](../2022/KotlinSite.md).
 
 Kobweb provides a feature called API routes. Essentially, these are functions that get called when you fetch a certain
 URL on your site ([discussed in more detail below▼](#server-api-routes)). They can be incredibly useful, but to use
@@ -37,9 +38,9 @@ to develop and deploy.
 You can push out new iterations of your site in about 1-2 minutes (mainly limited by the time it takes to export your
 site), as opposed to the 5-10 minutes (or more!) needed to deploy a server in the cloud.
 
-Static sites are always up and running non-stop (aside from occasional outages), while cloud servers sometimes need to
-be instantiated or woken up. On a free hosting tier like that provided by Render, this process can take up to 10
-seconds.
+Static sites are always up and running non-stop (aside from occasional server outages), while cloud servers sometimes
+need to be instantiated or woken up. On a free hosting tier like that provided by Render, this process can take up to 10
+seconds (and possibly much longer).
 
 Additionally, static site hosting is generally more cost-effective than general cloud hosting, as static hosting servers
 can optimize for simple file delivery.
@@ -101,7 +102,8 @@ with this annotation, the following two conditions must be met:
 1. The function must exist somewhere under the `api` package.
 2. The function must have a single parameter of type `ApiContext`.
 
-***ASIDE**: API methods can be marked `suspend` if desired.*
+> [!TIP]
+> API methods can be marked `suspend` if desired.
 
 A complete discussion of the `ApiContext` class is beyond the scope of this post, but as demonstrated above, it includes
 two properties: `req` representing the user's request, and `res` representing the response sent back to them.
@@ -141,26 +143,26 @@ fun addUser(ctx: ApiContext) {
 }
 ```
 
-The above method is fairly self-explanatory. The parameters here ("id" and "name") come from URL query parameters.
+The above method is fairly self-explanatory. The parameters here (`"id"` and `"name"`) come from URL query parameters.
 
-***NOTE:** There is a `ctx.req.body` property which, if set, would contain the body of the request. That's another
-approach for encoding values passed from the client to the server. However, for simplicity, we're not using it in this
-example.*
-
-You could trigger the above API route by using curl with a POST request:
+In other words, you could trigger the above API route by using curl with a POST request:
 
 ```bash
 $ curl -X POST https://(yoursite.com)/api/user/add?id=123&name=Kodee
 ```
+
+> [!TIP]
+> There is a `ctx.req.body` property which, if set, would contain the body of the request. That's another approach for
+> encoding values passed from the client to the server. However, for simplicity, we're not using it in this example.
 
 #### @InitApi
 
 In the POST example above, you might have noticed the line `ctx.data.getValue<Database>()` and wondered what it is and
 where it came from.
 
-The answer is that Kobweb gives you a way to populate the `data` property with any object you'd like. Additionally, the
-framework includes an `@InitApi` annotation that you can apply to methods which will then be called whenever the server
-starts up. These startup methods are where you can initialize `data`.
+The answer is that Kobweb gives you a way to populate the `data` property with any object you'd like. The framework
+includes an `@InitApi` annotation that you can apply to methods which will then be called whenever the server starts up.
+These startup methods are where you can initialize `data`.
 
 Let's go ahead and implement our own init method that connects to a database, using a `Database` class of our own
 creation:
@@ -182,7 +184,10 @@ fun initDatabase(ctx: InitApiContext) {
 ```
 
 The `ctx.data` property holds a collection of class instances to which you can add any object and later retrieve it by
-its type. (Some astute readers might recognize this as the [Service Locator pattern](https://en.wikipedia.org/wiki/Service_locator_pattern).)
+its type.
+
+> [!NOTE]
+> Some astute readers might recognize this as the [Service Locator pattern](https://en.wikipedia.org/wiki/Service_locator_pattern).
 
 With our `Database` instance created on startup, we can now access it using `ctx.data.getValue<Database>()` within any
 of our `@Api` methods.
@@ -290,10 +295,11 @@ $ git init -b main
 $ git add . && git commit -m "Initial commit"
 ```
 
-*Optional*: To get a feel for the TODO app before you deploy it, run it locally:
+This next step is optional, but to get a feel for the TODO app before you deploy it, run it locally:
 
 ```bash
 # Inside the todo directory
+$ cd site
 $ kobweb run
 ```
 
@@ -319,8 +325,9 @@ $ git push -u origin main
 
 There are several ways to create a Render account, but for simplicity and compatibility with later steps, we'll use their GitHub sign-in flow.
 
-***NOTE**: If you already have a Render account connected to GitHub, skip this section. If you have an account but it's
-not connected to GitHub, follow [these official instructions](https://render.com/docs/github) instead.*
+> [!NOTE]
+> If you already have a Render account connected to GitHub, skip this section. If you have an account that is not
+> connected to GitHub, follow [these official instructions](https://render.com/docs/github) instead.
 
 Start by visiting [Render's sign up page](https://dashboard.render.com/register) and click the "GitHub" button.
 
@@ -349,7 +356,7 @@ We face a chicken-and-egg problem here, because we don't know the domain yet, as
 Render in a later step. It may get rejected if the name is already taken.
 
 Still, we'll do our best to configure it now. If you can't reserve the domain you wanted later, just revisit this step
-and update the configuration.
+at that time and update the configuration.
 
 Free domain names provided by Render web service hosting have the format `$(servicename).onrender.com`. For this guide,
 I'm planning to reserve `kobweb-todo.onrender.com`.
@@ -375,7 +382,8 @@ server:
   # ...
 ```
 
-***NOTE**: Specifying the schemes is optional. If you don't specify them, Kobweb defaults to "http" and "https".*
+> [!NOTE]
+> Specifying the schemes is optional. If you don't specify them, Kobweb defaults to "http" and "https".
 
 ### Add a Dockerfile
 
@@ -390,7 +398,7 @@ ARG KOBWEB_APP_ROOT="site"
 # ^ NOTE: Kobweb apps generally live in a root "site" folder in your project,
 # but you can change this in case your project has a custom layout.
 
-FROM eclipse-temurin:17 as java
+FROM eclipse-temurin:21 as java
 
 #-----------------------------------------------------------------------------
 # Create an intermediate stage which builds and exports our site. In the
@@ -398,7 +406,7 @@ FROM eclipse-temurin:17 as java
 # of space.
 FROM java as export
 
-ENV KOBWEB_CLI_VERSION=0.9.13
+ENV KOBWEB_CLI_VERSION=0.9.15
 ARG KOBWEB_APP_ROOT
 
 ENV NODE_MAJOR=20
@@ -450,15 +458,19 @@ COPY --from=export /project/${KOBWEB_APP_ROOT}/.kobweb .kobweb
 ENTRYPOINT .kobweb/server/start.sh
 ```
 
-***NOTE #1:** At the time of writing this post, Kobweb CLI v0.9.13 is the latest version, but newer versions may be
-available when you read this (although older versions should still work). See the "kobweb cli" badge at the top of the
-[Kobweb README](https://github.com/varabyte/kobweb) if you want to know the latest version.*
+> [!NOTE]
+> At the time of writing this message, Kobweb CLI v0.9.15 is the latest version, but newer versions may be available
+> when you read this (although older versions should still work). See the "kobweb cli" badge at the top of
+> the [Kobweb README](https://github.com/varabyte/kobweb) if you want to know the latest version.
 
-***NOTE #2:** Kobweb works with Java 11, but general recommendation is to use newer releases as your runtime if you can,
-as they might contain security fixes and performance improvements. We went with JDK 17 here, as that is a common choice
-at the time of writing this post, but you can use 11 or even something newer if you prefer. The `eclipse-temurin` image,
-according to its docs, was designed to be both used for running apps and also generally useful as a base foundation,
-which is perfect for our needs.*
+> [!TIP]
+> Kobweb works with Java 11, but general recommendation is to use newer releases as your runtime if you can, as they
+> might contain security fixes and performance improvements. As you can see, we went with JDK 21 here, but you can use
+> 11 or even something newer if it is available.
+>
+> The `eclipse-temurin` image, according to its docs, was designed to be both used for running apps and also generally
+> useful as a base foundation, which is perfect for our needs. There are other images out there, and you are welcome to
+> investigate further.
 
 This Dockerfile instructs Render to:
 
@@ -508,11 +520,13 @@ Click on your web service's link to see your site in action!
 
 ![Kobweb Site Deployed](/images/blog/2023/cloud-deploy/kobweb-app-deployed.png)
 
-***NOTE:** Your site might feel slow, especially during startup. That's the trade-off with a free service!*
+> [!NOTE]
+> Your site might feel slow, especially during startup. That's the trade-off with a free service!
 
 At this point, any time you push a new commit to your repo, Render will automatically rebuild and redeploy your site.
 
-#### ⚠️ The TODO demo is not production ready
+> [!WARNING]
+> The TODO demo is not production ready!
 
 Keep in mind that the TODO example is designed as a demo and is not intended for production use. In its current design:
 
