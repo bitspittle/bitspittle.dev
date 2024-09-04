@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2023-07-18
+updated: 2024-09-03
 tags:
  - compose html
  - kobweb
@@ -15,7 +15,8 @@ tags:
 [Compose HTML](https://github.com/JetBrains/compose-multiplatform#compose-html), which itself is a reactive web UI framework from
 JetBrains that allows you to create web apps in Kotlin using a powerful API.
 
-*You can also read more about Kobweb [from this earlier post](KotlinSite.md).*
+> [!NOTE]
+> You can also read more about Kobweb [from this earlier post](KotlinSite.md).
 
 In this post, we'll talk about how to use Kobweb to export your Compose HTML project into a format that can be consumed
 by various static website hosting providers. This means you can get fast and cheap (often free!) hosting for your Kotlin
@@ -33,56 +34,62 @@ However, if you're ready to get your hands dirty, [feel free to skip over themâ–
 Compose HTML is an excellent tool for building a
 [single-page application (SPA)](https://en.wikipedia.org/wiki/Single-page_application).
 
-That is, it produces a single, minimal `index.html` file plus some JavaScript and other resources that can be used to
-build your app up at runtime. Once the page is loaded by the browser and the script starts running, it continuously
-modifies the page's DOM in place to give the user the illusion that they're actually navigating around multiple pages as
-they click around on stuff.
+That is, it produces a single, minimal `index.html` file plus some JavaScript that can be used to rearrange your app at
+runtime.
+
+Once the page is loaded by the browser and its script starts running, it continuously modifies the page's DOM in place
+to give the user the illusion that they're actually navigating around multiple pages as they click around on stuff.
 
 ---
 
 Let's discuss a concrete example.
 
-Assume you already navigated onto a Compose HTML site, say by visiting `https://mysite.com` (which, pretend for this
-example is built with Compose HTML). Next, you click on a link that takes you to another page on the site,
-like `https://mysite.dev/blog/aboutme`. The site actually intercepts the navigation request and prevents the browser
-from handling it.
+Assume you already navigated onto a Compose HTML site, say `https://mysite.com`.
 
-At this point, the URL path gets parsed. Based on the result (in this case, the value `"/blog/aboutme"`), the site will
-dynamically choose to start rendering a new page associated with that path (so,
-maybe `mysite.pages.blog.AboutMePage()`).
+Next, you click on a link on the home page that takes you to another page on the site, like
+`https://mysite.dev/blog/about-me`. The site actually intercepts the navigation request and prevents the browser from
+handling it.
 
-The core of your project is essentially a giant switch statement acting on a string value. You can imagine something
-like the following pseudocode:
+At this point, the URL path gets parsed. Based on the result (in this case, the value `"/blog/about-me"`), the site will
+dynamically choose to start rendering a new page associated with that path (perhaps `mysite.pages.blog.AboutMePage()`).
+
+In other words, the core of your project is essentially a giant switch statement acting on a string value. You can
+imagine something like the following pseudocode:
 
 ```kotlin
 // Inside your main `renderComposable`
 val path = getPath() // Path updated when browser URL changes
 when (path) {
     "/" -> mysite.pages.HomePage()
-    "/blog/aboutme" -> mysite.pages.blog.AboutMePage()
-    "/blog/kobwebtutorial" -> mysite.pages.blog.KobwebTutorialPage()
+    "/blog/about-me" -> mysite.pages.blog.AboutMePage()
+    "/blog/kobweb-tutorial" -> mysite.pages.blog.KobwebTutorialPage()
     // ... etc. ...
 }
 ```
 
-Now, let's say my use-case is I want to visit `https://mysite.dev/blog/aboutme` directly. Perhaps my friend sent me that
-link on a social media post.
+Now, let's say my use-case is I want to visit `https://mysite.dev/blog/about-me` directly. Perhaps my friend sent me
+that link on a social media post.
 
 With Compose HTML, what I really want to do is visit `https://mysite.dev` and allow it to intercept the URL value and
 re-render the page with new content.
 
-But static website host providers are simple. They blindly serve static files.
+If you want your site to be served by a static website host provider, you should be aware that they are very simple.
+They blindly serve static files.
 
-So if a user makes a request to a static website host provider for the path `/blog/aboutme`, then a file called
-`blog/aboutme.html` better exist on it or else that user is getting a 404 error.
+So if a user makes a request to a static website host provider for the path `/blog/about-me`, then a file called
+`blog/about-me.html` better exist on it or else that user is getting a 404 error.
+
+> [!NOTE]
+> Some static website host providers actually allow configuring rules to allow redirecting to a fallback page, but
+> sometimes it's a hack (like creating a fake `404.html` page) while many simply do not. We'll sidestep this nuance for
+> the rest of this article, as the approach discussed below should work universally across all static hosting providers.
 
 ### Kobweb to the rescue
 
 Unlike Compose HTML, Kobweb can handle this problem because it sits one level above it. It is aware of all the pages on
-your site (since it is the one that generates the routing logic for you), and it comes with a binary that can run a
-bunch of useful, project-managing commands.
+your site (since it is the one that generates the routing logic for you).
 
-The important command in this case:
+A major part of the Kobweb experience is its CLI binary. The relevant command in this case is:
 
 ```bash
 $ kobweb export --layout static
