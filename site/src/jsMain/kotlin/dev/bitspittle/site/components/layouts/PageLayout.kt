@@ -11,7 +11,7 @@ import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
-import com.varabyte.kobweb.silk.style.toModifier
+import com.varabyte.kobweb.silk.style.toAttrs
 import dev.bitspittle.firebase.analytics.Analytics
 import dev.bitspittle.firebase.app.FirebaseApp
 import dev.bitspittle.firebase.app.FirebaseOptions
@@ -22,7 +22,7 @@ import kotlinx.browser.window
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
-val CenterColumnStyle = CssStyle {
+val CenteredSectionStyle = CssStyle {
     base { Modifier.fillMaxWidth(90.percent) }
     Breakpoint.MD { Modifier.fillMaxWidth(80.percent) }
 }
@@ -72,7 +72,7 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             NavHeader()
-            Column(CenterColumnStyle.toModifier()) {
+            Div(CenteredSectionStyle.toAttrs()) {
                 H1 { SpanText(title) }
                 content()
             }

@@ -23,8 +23,7 @@ import org.jetbrains.compose.web.css.*
 
 const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
 
-val BLOCK_MARGIN = Modifier.margin(top = 1.cssRem)
-private val HEADER_MARGIN = Modifier.margin(top = 2.cssRem)
+private val HEADER_MARGIN = Modifier.marginBlock(start = 2.cssRem)
 
 private val TEXT_FONT = Modifier.fontFamily("Ubuntu", "Roboto", "Arial", "Helvetica", "sans-serif").fontSize(18.px)
 private val CODE_FONT = Modifier.fontFamily("Ubuntu Mono", "Roboto Mono", "Lucida Console", "Courier New", "monospace")
@@ -46,10 +45,6 @@ fun initSilk(ctx: InitSilkContext) {
             }
             registerStyleBase("body") { TEXT_FONT.lineHeight(1.5) }
             registerStyleBase("code") { CODE_FONT }
-            registerStyleBase("canvas") { BLOCK_MARGIN }
-
-            registerStyleBase("p") { BLOCK_MARGIN }
-            registerStyleBase("pre") { BLOCK_MARGIN }
             registerStyleBase("h1") {
                 HEADER_MARGIN
                     .fontSize(2.5.cssRem)
@@ -88,7 +83,6 @@ fun initSilk(ctx: InitSilkContext) {
         theme.replaceStyleBase(ImageStyle) {
             Modifier
                 .clip(Rect(cornerRadius = 8.px))
-                .fillMaxWidth()
                 .objectFit(ObjectFit.ScaleDown)
         }
 
