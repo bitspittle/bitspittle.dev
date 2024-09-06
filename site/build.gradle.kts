@@ -1,5 +1,5 @@
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
-import com.varabyte.kobwebx.gradle.markdown.MarkdownHandlers
+import com.varabyte.kobwebx.gradle.markdown.handlers.MarkdownHandlers
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
 import kotlinx.html.script
 
