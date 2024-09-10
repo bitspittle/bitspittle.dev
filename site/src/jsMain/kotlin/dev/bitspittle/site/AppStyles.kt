@@ -84,6 +84,7 @@ fun initSilk(ctx: InitSilkContext) {
             Modifier
                 .clip(Rect(cornerRadius = 8.px))
                 .objectFit(ObjectFit.ScaleDown)
+                .maxWidth(100.percent)
         }
 
         theme.replaceStyleBase(HorizontalDividerStyle) {

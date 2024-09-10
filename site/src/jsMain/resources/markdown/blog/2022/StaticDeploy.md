@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2024-09-03
+updated: 2024-09-10
 tags:
  - compose html
  - kobweb
@@ -246,81 +246,195 @@ If you're still having issues, feel free to compare your project
 [go back to that section▲](#netlify).*
 
 There are a few options for configuring GitHub Pages, and discussing them all is out of scope for this post. Instead,
-we'll go with the easiest -- using a `docs/` root within your project.
+we'll go with a modern approach -- using *GitHub Actions* to automatically deploy a new site after code gets checked in.
 
 #### GitHub repo settings
 
 * Go to your repo's project on GitHub and click on the `Settings` tab
 * In the `Code and automation` section of the sidebar, click `Pages`
-* In the `Source` section, set `Branch` to `main` and the folder to `/docs`
-* Click `Save`
+* Set the `Source` pulldown to `GitHub Actions`
 
 ![GitHub Pages source](/images/blog/2022/static-deploy/ghp-source.png)
 
+You can ignore the rest of the page, where it recommends using a suggested workflow. We'll be creating our own in the
+next section.
+
+#### GitHub Actions workflow
+
+*GitHub Actions* is GitHub's approach to automating work, which is commonly used for continuous integration. A
+*workflow* is a script which defines one or more related jobs that run together in response to some event.
+
+We'll create a workflow which exports your site and deploys the result to GitHub Pages.
+
+In your project's `.github/workflows` folder (which you can create if it doesn't exist), create this YAML file (I called
+mine `export-and-deploy-site.yml` but the name doesn't really matter):
+
+```yaml
+# export-and-deploy-site.yml
+
+name: Deploy Kobweb site to Pages
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      KOBWEB_CLI_VERSION: 0.9.15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Query Browser Cache ID
+        id: browser-cache-id
+        run: echo "value=$(./gradlew -q :site:kobwebBrowserCacheId)" >> $GITHUB_OUTPUT
+
+      - name: Cache Browser Dependencies
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.browser-cache-id.outputs.value }}
+
+      - name: Fetch kobweb
+        uses: robinraju/release-downloader@v1.10
+        with:
+          repository: "varabyte/kobweb-cli"
+          tag: "v${{ env.KOBWEB_CLI_VERSION }}"
+          fileName: "kobweb-${{ env.KOBWEB_CLI_VERSION }}.zip"
+          tarBall: false
+          zipBall: false
+
+      - name: Unzip kobweb
+        run: unzip kobweb-${{ env.KOBWEB_CLI_VERSION }}.zip
+
+      - name: Run export
+        run: |
+          cd site
+          ../kobweb-${{ env.KOBWEB_CLI_VERSION }}/bin/kobweb export --notty --layout static
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site/.kobweb/site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: export
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+> [!IMPORTANT]
+> Please confirm your main branch name above, in the `on: push: branches:` section near the top. These days, `main` is
+> the standard choice, but your own project may use `master` or even some custom name.
+
+There is a lot going on in the above workflow, but the key points are:
+
+* It fetches your code.
+* It initializes Java and Gradle.
+* It manually downloads the Kobweb CLI binary from [its own repo](https://github.com/varabyte/kobweb-cli).
+* It exports your site (same as if you had run `kobweb export --layout static` locally).
+* It uploads the exported site as an artifact in a way that GitHub Pages can consume it.
+
+> [!NOTE]
+> The above script uses CLI version 0.9.15, which is the latest version at the time of writing. If a newer version is
+> available by the time you read this, you can update the `KOBWEB_CLI_VERSION` environment variable to the new version.
+> Older versions should work just fine, however.
+
 #### Configure Kobweb
 
-As you can see, we don't have a lot of control over GitHub Pages. Since we can't change GitHub, we must change ourselves
-instead.
+An interesting wrinkle is that GitHub Pages deploys your site to a subfolder. This will look something like
+`https://<user>.github.io/<project>/` (e.g. `https://bitspittle.github.io/kobweb-ghp-demo/`).
 
-An additional wrinkle is that GitHub Pages deploys your site to a subfolder. This will look something like
-`https://<user>.github.io/<project>/`. This means that if you try to navigate to the root in your Kobweb site
-(i.e. `Link("/")`), or reference resources from the resource root (e.g. `/images/example.png`), the browser will think
-you're asking to search against `https://<user>.github.io` instead of the subdirectory!
+This means that if in your code you use an absolute path somewhere (i.e. one with a leading slash, such as
+`/images/example.png`), the browser will think you're asking to search against the root domain of the site and not the
+GitHub pages subfolder.
 
-Because GitHub Pages requires you to put your files under `docs/`, and also because it serves your site under a
-subfolder instead of the root, you will need to modify two values in your `.kobweb/conf.yaml`, "routePrefix" and
-"siteRoot":
+For example, `/logo.png` would be looked for at `https://bitspittle.github.io/logo.png` and not
+`https://bitspittle.github.io/kobweb-ghp-demo/logo.png` where it actually will live.
+
+To deal with this, Kobweb lets users configure a `routePrefix` property in your `.kobweb/conf.yaml`. If present, then
+anytime Kobweb is passed an absolute path in your code, this prefix will be prepended to it.
+
+Set `routePrefix` to the name of your repo.
 
 ```yaml
 site:
-  title: "..."
   routePrefix: "<repo-project-name>"
   # i.e. the name you chose for your repo.
   # In my case, the value: "kobweb-ghp-demo"
   # but your name is probably different...
 
 server:
-  files:
-    dev:
-      contentRoot: "..."
-      script: "..."
-      api: "..."
-    prod:
-      # Kobweb content is in a subfolder. Need to export to the root, so use ".."
-      siteRoot: "../docs"
+  # ...
 ```
-
-#### Export your site
-
-```bash
-# in kobweb-ghp-demo/site/...
-$ kobweb export --layout static
-```
-
-This will run for a little while. When finished, run
-
-```bash
-$ git status
-```
-
-to verify that new files are now ready to be added.
 
 #### Push your site
 
 ```bash
-$ git add . && git commit -m "Exported site"
+$ git add . && git commit -m "Set up GitHub Pages workflow"
 $ git push
 ```
 
+#### Confirm the workflow is running
+
+After pushing your changes, go to your GitHub project and click on the `Actions` tab. If you did everything right, you
+should see a new workflow running:
+
+![GitHub Workflow running](/images/blog/2022/static-deploy/ghp-actions.png)
+
+This workflow should take a few minutes to run. Note that subsequent runs may go a bit faster as the output of some of
+the steps are cached.
+
+Before too long, the workflow should complete. If you open up its summary page, you should see a URL in the output of
+the `deploy` job:
+
+![GitHub Workflow summary](/images/blog/2022/static-deploy/ghp-workflow-summary.png)
+
 #### GitHub Pages: Finished!
 
-If everything went well, you should have a page that is either deployed or well on its way! It takes less than a minute
-once GitHub is aware of the pushed changes.
+If everything went well, you should have a page that is deployed!
 
-Once it's ready, you can visit your GitHub Pages site, which uses a URL with a format like
+Once it is ready, you can visit your GitHub Pages site, which uses a URL with a format like
 `https://<user>.github.io/<project>`.
 
-For example, my site is at https://bitspittle.github.io/kobweb-ghp-demo/.
+For example, my site lives at https://bitspittle.github.io/kobweb-ghp-demo/.
 
 Are you seeing something similar at your link? If so, congratulations! You're done. 🥳
 
