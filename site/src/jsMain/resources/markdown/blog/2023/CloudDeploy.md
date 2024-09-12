@@ -4,7 +4,7 @@ title: Deploying Kobweb into the Cloud
 description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
 author: David Herman
 date: 2023-05-07
-updated: 2024-09-04
+updated: 2024-09-12
 tags:
  - compose html
  - kobweb
@@ -406,7 +406,7 @@ FROM eclipse-temurin:21 as java
 # of space.
 FROM java as export
 
-ENV KOBWEB_CLI_VERSION=0.9.15
+ENV KOBWEB_CLI_VERSION=0.9.16
 ARG KOBWEB_APP_ROOT
 
 ENV NODE_MAJOR=20
@@ -459,7 +459,7 @@ ENTRYPOINT .kobweb/server/start.sh
 ```
 
 > [!NOTE]
-> At the time of writing this message, Kobweb CLI v0.9.15 is the latest version, but newer versions may be available
+> At the time of writing this message, Kobweb CLI v0.9.16 is the latest version, but newer versions may be available
 > when you read this (although older versions should still work). See the "kobweb cli" badge at the top of
 > the [Kobweb README](https://github.com/varabyte/kobweb) if you want to know the latest version.
 
