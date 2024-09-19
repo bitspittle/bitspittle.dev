@@ -36,12 +36,15 @@ fun initSilk(ctx: InitSilkContext) {
         }
 
         stylesheet.apply {
-            registerStyleBase("html") {
+            registerStyle("html") {
                 // Always show a vertical scroller, or else our page content shifts when switching from one page that
                 // can scroll to one that can't
-                Modifier
-                    .scrollBehavior(ScrollBehavior.Smooth)
-                    .overflow { y(Overflow.Scroll) }
+                base {
+                    Modifier.overflow { y(Overflow.Scroll) }
+                }
+                cssRule(CSSMediaQuery.MediaFeature("prefers-reduced-motion", StylePropertyValue("no-preference"))) {
+                    Modifier.scrollBehavior(ScrollBehavior.Smooth)
+                }
             }
             registerStyleBase("body") { TEXT_FONT.lineHeight(1.5) }
             registerStyleBase("code") { CODE_FONT }
