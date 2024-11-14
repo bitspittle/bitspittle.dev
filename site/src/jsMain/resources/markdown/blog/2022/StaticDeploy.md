@@ -389,14 +389,14 @@ GitHub pages subfolder.
 For example, `/logo.png` would be looked for at `https://bitspittle.github.io/logo.png` and not
 `https://bitspittle.github.io/kobweb-ghp-demo/logo.png` where it actually will live.
 
-To deal with this, Kobweb lets users configure a `routePrefix` property in your `.kobweb/conf.yaml`. If present, then
+To deal with this, Kobweb lets users configure a `basePath` property in your `.kobweb/conf.yaml`. If present, then
 anytime Kobweb is passed an absolute path in your code, this prefix will be prepended to it.
 
-Set `routePrefix` to the name of your repo.
+Set `basePath` to the name of your repo.
 
 ```yaml
 site:
-  routePrefix: "<repo-project-name>"
+  basePath: "<repo-project-name>"
   # i.e. the name you chose for your repo.
   # In my case, the value: "kobweb-ghp-demo"
   # but your name is probably different...
