@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2024-09-12
+updated: 2024-11-15
 tags:
  - compose html
  - kobweb
@@ -377,7 +377,7 @@ There is a lot going on in the above workflow, but the key points are:
 > version is available by the time you read this, you can update the `KOBWEB_CLI_VERSION` environment variable to the
 > new version. Older versions should work just fine, however.
 
-#### Configure Kobweb
+#### Base path
 
 An interesting wrinkle is that GitHub Pages deploys your site to a subfolder. This will look something like
 `https://<user>.github.io/<project>/` (e.g. `https://bitspittle.github.io/kobweb-ghp-demo/`).
@@ -389,14 +389,14 @@ GitHub pages subfolder.
 For example, `/logo.png` would be looked for at `https://bitspittle.github.io/logo.png` and not
 `https://bitspittle.github.io/kobweb-ghp-demo/logo.png` where it actually will live.
 
-To deal with this, Kobweb lets users configure a `routePrefix` property in your `.kobweb/conf.yaml`. If present, then
+To deal with this, Kobweb lets users configure a `basePath` property in your `.kobweb/conf.yaml`. If present, then
 anytime Kobweb is passed an absolute path in your code, this prefix will be prepended to it.
 
-Set `routePrefix` to the name of your repo.
+Set `basePath` to the name of your repo.
 
 ```yaml
 site:
-  routePrefix: "<repo-project-name>"
+  basePath: "<repo-project-name>"
   # i.e. the name you chose for your repo.
   # In my case, the value: "kobweb-ghp-demo"
   # but your name is probably different...
