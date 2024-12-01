@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive # Get firebase-bindings
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -42,6 +44,10 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+
+      - name: Publish firebase-bindings to maven local
+        working-directory: firebase-bindings
+        run: ../gradlew publishToMavenLocal
 
       - name: Query Browser Cache ID
         id: browser-cache-id
