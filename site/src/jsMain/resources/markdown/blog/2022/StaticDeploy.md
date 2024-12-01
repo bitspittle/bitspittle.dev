@@ -4,7 +4,7 @@ title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman
 date: 2022-02-11
-updated: 2024-11-15
+updated: 2024-12-01
 tags:
  - compose html
  - kobweb
@@ -300,7 +300,7 @@ jobs:
         shell: bash
 
     env:
-      KOBWEB_CLI_VERSION: 0.9.16
+      KOBWEB_CLI_VERSION: 0.9.18
 
     steps:
       - name: Checkout
@@ -373,7 +373,7 @@ There is a lot going on in the above workflow, but the key points are:
 * It uploads the exported site as an artifact in a way that GitHub Pages can consume it.
 
 > [!NOTE]
-> The above script uses CLI version 0.9.16, which is the latest version at the time of writing this note. If a newer
+> The above script uses CLI version 0.9.18, which is the latest version at the time of writing this note. If a newer
 > version is available by the time you read this, you can update the `KOBWEB_CLI_VERSION` environment variable to the
 > new version. Older versions should work just fine, however.
 
