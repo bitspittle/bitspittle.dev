@@ -1,5 +1,7 @@
 package dev.bitspittle.site
 
+import com.varabyte.kobweb.browser.storage.createStorageKey
+import com.varabyte.kobweb.browser.storage.getItem
 import com.varabyte.kobweb.compose.css.ObjectFit
 import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.ScrollBehavior
@@ -21,7 +23,7 @@ import com.varabyte.kobweb.silk.theme.shapes.clip
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.*
 
-const val COLOR_MODE_KEY = "bitspittledev:app:colorMode"
+val COLOR_MODE_KEY = ColorMode.entries.createStorageKey("playground:app:colorMode")
 
 private val HEADER_MARGIN = Modifier.marginBlock(start = 2.cssRem)
 
@@ -32,7 +34,7 @@ private val CODE_FONT = Modifier.fontFamily("Ubuntu Mono", "Roboto Mono", "Lucid
 fun initSilk(ctx: InitSilkContext) {
     ctx.apply {
         config.apply {
-            initialColorMode = localStorage.getItem(COLOR_MODE_KEY)?.let { ColorMode.valueOf(it) } ?: ColorMode.DARK
+            initialColorMode = localStorage.getItem(COLOR_MODE_KEY) ?: ColorMode.DARK
         }
 
         stylesheet.apply {

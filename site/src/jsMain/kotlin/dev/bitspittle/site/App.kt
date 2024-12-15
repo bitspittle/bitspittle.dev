@@ -1,6 +1,7 @@
 package dev.bitspittle.site
 
 import androidx.compose.runtime.*
+import com.varabyte.kobweb.browser.storage.setItem
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.silk.SilkApp
@@ -17,7 +18,7 @@ fun MyApp(content: @Composable () -> Unit) {
     SilkApp {
         val colorMode = ColorMode.current
         LaunchedEffect(colorMode) {
-            localStorage.setItem(COLOR_MODE_KEY, colorMode.name)
+            localStorage.setItem(COLOR_MODE_KEY, colorMode)
         }
 
         Surface(SmoothColorStyle.toModifier().minHeight(100.vh)) {
