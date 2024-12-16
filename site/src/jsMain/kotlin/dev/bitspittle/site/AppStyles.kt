@@ -17,6 +17,7 @@ import com.varabyte.kobweb.silk.init.InitSilkContext
 import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.palette.*
+import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import com.varabyte.kobweb.silk.theme.replaceStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
 import com.varabyte.kobweb.silk.theme.shapes.clip
@@ -34,7 +35,7 @@ private val CODE_FONT = Modifier.fontFamily("Ubuntu Mono", "Roboto Mono", "Lucid
 fun initSilk(ctx: InitSilkContext) {
     ctx.apply {
         config.apply {
-            initialColorMode = localStorage.getItem(COLOR_MODE_KEY) ?: ColorMode.DARK
+            initialColorMode = localStorage.getItem(COLOR_MODE_KEY) ?: ColorMode.systemPreference
         }
 
         stylesheet.apply {
