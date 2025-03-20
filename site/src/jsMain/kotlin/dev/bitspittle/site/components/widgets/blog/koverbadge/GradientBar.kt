@@ -15,6 +15,6 @@ fun GradientBar() {
         .fillMaxWidth()
         .height(20.px)
         .margin(topBottom = 1.cssRem, leftRight = 0.px)
-        .backgroundImage(linearGradient(LinearGradient.Direction.ToRight, Colors.Red, Colors.Green))
+        .backgroundImage(linearGradient(Colors.Red, Colors.Green, LinearGradient.Direction.ToRight))
     )
 }
