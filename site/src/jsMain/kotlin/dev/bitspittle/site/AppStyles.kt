@@ -10,6 +10,8 @@ import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.graphics.lightened
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.core.AppGlobals
+import com.varabyte.kobweb.core.isExporting
 import com.varabyte.kobweb.silk.components.graphics.ImageStyle
 import com.varabyte.kobweb.silk.components.layout.HorizontalDividerStyle
 import com.varabyte.kobweb.silk.init.InitSilk
@@ -21,6 +23,7 @@ import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import com.varabyte.kobweb.silk.theme.replaceStyleBase
 import com.varabyte.kobweb.silk.theme.shapes.Rect
 import com.varabyte.kobweb.silk.theme.shapes.clip
+import kotlinx.browser.document
 import kotlinx.browser.localStorage
 import org.jetbrains.compose.web.css.*
 
@@ -36,6 +39,24 @@ fun initSilk(ctx: InitSilkContext) {
     ctx.apply {
         config.apply {
             initialColorMode = localStorage.getItem(COLOR_MODE_KEY) ?: ColorMode.systemPreference
+            // Script which runs at load time that needs to be kept in sync with `initialColorMode` above. This code checks
+            // if the user's local color mode preference is different from what was exported by Kobweb, replacing it if
+            // different to prevent a flash of color after the page loads.
+            if (AppGlobals.isExporting) {
+                document.head!!.appendChild(
+                    document.createElement("script").apply {
+                        textContent = """
+                        {
+                            const storedColor = localStorage.getItem('${COLOR_MODE_KEY.name}'); // 'LIGHT', 'DARK', or null
+                            const desiredColor = storedColor
+                                ? `silk-${'$'}{storedColor.toLowerCase()}`
+                                : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'silk-dark' : 'silk-light');
+                            const oppositeColor = desiredColor === 'silk-dark' ? 'silk-light' : 'silk-dark';
+                            document.documentElement.classList.replace(oppositeColor, desiredColor);
+                        }
+                        """.trimIndent()
+                    })
+            }
         }
 
         stylesheet.apply {
