@@ -1,16 +1,16 @@
 ---
-root: .components.layouts.BlogLayout
-title: Creating a GitHub Code Coverage Badge using Kover
-description: How to create a code coverage badge for your GitHub README using JetBrains Kover.
-author: David Herman
-date: 2022-10-12
-updated: 2024-03-20
+data:
+  title: Creating a GitHub Code Coverage Badge using Kover
+  description: How to create a code coverage badge for your GitHub README using JetBrains Kover.
+  toc-max: 2
+  author: David Herman
+  date: 2022-10-12
+  updated: 2024-03-20
 tags:
  - kover
  - github
  - coverage
  - badge
-toc-max: 2
 ---
 
 The [JetBrains Kover Gradle plugin](https://github.com/Kotlin/kotlinx-kover) is a minimal-fuss code coverage solution

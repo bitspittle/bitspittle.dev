@@ -3,10 +3,10 @@ package dev.bitspittle.site.components.layouts
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.core.PageContext
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
@@ -28,7 +28,7 @@ val CenteredSectionStyle = CssStyle {
 }
 
 @Composable
-fun PageLayout(title: String, description: String = "Tech chatter, tutorials, and career advice", content: @Composable ColumnScope.() -> Unit) {
+fun PageLayout(ctx: PageContext, content: @Composable () -> Unit) {
     val app = remember {
         FirebaseApp.initialize(
             FirebaseOptions(
@@ -45,7 +45,9 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
     }
     val analytics = remember { app.getAnalytics() }
 
+    val title = ctx.data["title"] as? String ?: ""
     LaunchedEffect(title) {
+        val description = ctx.data["description"] as? String ?: "Tech chatter, tutorials, and career advice"
         document.title = "$title - Bitspittle.dev"
         document.querySelector("""meta[name="description"]""")!!.setAttribute("content", description)
     }

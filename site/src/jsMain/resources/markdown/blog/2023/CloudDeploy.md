@@ -1,10 +1,10 @@
 ---
-root: .components.layouts.BlogLayout
-title: Deploying Kobweb into the Cloud
-description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
-author: David Herman
-date: 2023-05-07
-updated: 2024-11-20
+data:
+  title: Deploying Kobweb into the Cloud
+  description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
+  author: David Herman
+  date: 2023-05-07
+  updated: 2024-11-20
 tags:
  - compose html
  - kobweb

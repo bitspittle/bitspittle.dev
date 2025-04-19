@@ -9,11 +9,11 @@ import org.jetbrains.compose.web.css.*
 
 @Composable
 fun ArticleMetadata() {
-    val mdCtx = rememberPageContext().markdown!!
+    val ctx = rememberPageContext()
     AuthorDate(
-        mdCtx.frontMatter.getValue("author").single(),
-        mdCtx.frontMatter.getValue("date").single(),
-        mdCtx.frontMatter["updated"]?.singleOrNull(),
+        (ctx.data["author"] as? String).orEmpty(),
+        (ctx.data["date"] as? String).orEmpty(),
+        ctx.data["updated"] as? String,
         Modifier.margin(top = 0.8.cssRem, bottom = 1.cssRem)
     )
 }

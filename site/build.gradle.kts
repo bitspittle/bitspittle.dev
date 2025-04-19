@@ -81,7 +81,7 @@ kobweb {
         }
 
         process.set { markdownEntries ->
-            val requiredFields = listOf("title", "description", "author", "date")
+            val requiredFields = listOf("title", "description", "author", "date").map { "data.$it" }
             val blogEntries = markdownEntries.mapNotNull { markdownEntry ->
                 val fm = markdownEntry.frontMatter
                 val (title, desc, author, date) = requiredFields
@@ -108,27 +108,29 @@ kobweb {
 
                     import androidx.compose.runtime.*
                     import com.varabyte.kobweb.core.Page
+                    import com.varabyte.kobweb.core.PageContext
+                    import com.varabyte.kobweb.core.layout.Layout
                     import dev.bitspittle.site.components.layouts.PageLayout
                     import dev.bitspittle.site.components.widgets.blog.ArticleEntry
                     import dev.bitspittle.site.components.widgets.blog.ArticleList
 
                     @Page
                     @Composable
-                    fun BlogListingsPage() {
-                      PageLayout("Blog Posts") {
-                        val entries = listOf(
+                    @Layout(".components.layouts.PageLayout")
+                    fun BlogListingsPage(ctx: PageContext) {
+                      key(Unit) { ctx.data["title"] = "Blog Posts" }
+                      val entries = listOf(
                     """.trimIndent()
                 )
 
                 blogEntries.sortedByDescending { it.date }.forEach { entry ->
-                    appendLine("      ${entry.toArticleEntry()},")
+                    appendLine("    ${entry.toArticleEntry()},")
                 }
 
                 appendLine(
                     """
-                        )
-                        ArticleList(entries)
-                      }
+                      )
+                      ArticleList(entries)
                     }
                     """.trimIndent()
                 )

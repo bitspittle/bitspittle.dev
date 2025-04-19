@@ -1,10 +1,10 @@
 ---
-root: .components.layouts.BlogLayout
-title: "Kobweb: A Framework Built on Compose HTML"
-description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
-author: David Herman
-date: 2022-02-07
-updated: 2024-05-17
+data:
+  title: "Kobweb: A Framework Built on Compose HTML"
+  description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
+  author: David Herman
+  date: 2022-02-07
+  updated: 2024-05-17
 tags:
  - compose html
  - webdev
