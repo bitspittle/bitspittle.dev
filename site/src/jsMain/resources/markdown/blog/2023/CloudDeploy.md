@@ -1,5 +1,4 @@
 ---
-root: .components.layouts.BlogLayout
 title: Deploying Kobweb into the Cloud
 description: How to use Kobweb to build a Compose HTML site that can be served by a Kobweb server living in the Cloud
 author: David Herman

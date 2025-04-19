@@ -1,5 +1,4 @@
 ---
-root: .components.layouts.BlogLayout
 title: Static Site Generation and Deployment with Kobweb
 description: How to use Kobweb to build a Compose HTML site that can be served by static site hosting providers for cheap (or free)!
 author: David Herman

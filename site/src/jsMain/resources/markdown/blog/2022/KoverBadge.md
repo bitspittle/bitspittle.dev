@@ -1,5 +1,4 @@
 ---
-root: .components.layouts.BlogLayout
 title: Creating a GitHub Code Coverage Badge using Kover
 description: How to create a code coverage badge for your GitHub README using JetBrains Kover.
 author: David Herman
