@@ -1,5 +1,4 @@
 ---
-root: .components.layouts.BlogLayout
 title: "Compose Multiplatform for Web: An Amazing Framework That Maybe You Shouldn't Use"
 description: Compose Multiplatform is a powerful framework for building apps in Kotlin using a shared codebase
   that can target multiple platforms, including Android, iOS, Desktop, and web. But you should think twice

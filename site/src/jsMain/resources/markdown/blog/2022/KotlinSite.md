@@ -1,5 +1,4 @@
 ---
-root: .components.layouts.BlogLayout
 title: "Kobweb: A Framework Built on Compose HTML"
 description: An intro to Kobweb, a Kotlin web framework I wrote and used to build this website.
 author: David Herman

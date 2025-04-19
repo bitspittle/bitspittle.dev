@@ -3,15 +3,23 @@ package dev.bitspittle.site.components.layouts
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.ColumnScope
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.core.PageContext
+import com.varabyte.kobweb.core.data.add
+import com.varabyte.kobweb.core.data.addIfAbsent
+import com.varabyte.kobweb.core.data.getValue
+import com.varabyte.kobweb.core.init.InitRoute
+import com.varabyte.kobweb.core.init.InitRouteContext
+import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.toAttrs
+import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.firebase.analytics.Analytics
 import dev.bitspittle.firebase.app.FirebaseApp
 import dev.bitspittle.firebase.app.FirebaseOptions
@@ -27,8 +35,22 @@ val CenteredSectionStyle = CssStyle {
     Breakpoint.MD { Modifier.fillMaxWidth(80.percent) }
 }
 
+class PageLayoutData(
+    val title: String,
+    val desc: String? = null,
+)
+
+@InitRoute
+fun initPageLayout(ctx: InitRouteContext) {
+    val fm = ctx.markdown?.frontMatter
+    ctx.data.addIfAbsent {
+        PageLayoutData(fm?.get("title")?.singleOrNull() ?: "Bitspittle.dev")
+    }
+}
+
 @Composable
-fun PageLayout(title: String, description: String = "Tech chatter, tutorials, and career advice", content: @Composable ColumnScope.() -> Unit) {
+@Layout
+fun PageLayout(ctx: PageContext, content: @Composable () -> Unit) {
     val app = remember {
         FirebaseApp.initialize(
             FirebaseOptions(
@@ -45,7 +67,10 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
     }
     val analytics = remember { app.getAnalytics() }
 
+    val layoutData = ctx.data.getValue<PageLayoutData>()
+    val title = layoutData.title
     LaunchedEffect(title) {
+        val description = layoutData.desc ?: "Tech chatter, tutorials, and career advice"
         document.title = "$title - Bitspittle.dev"
         document.querySelector("""meta[name="description"]""")!!.setAttribute("content", description)
     }

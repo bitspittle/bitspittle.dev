@@ -108,27 +108,37 @@ kobweb {
 
                     import androidx.compose.runtime.*
                     import com.varabyte.kobweb.core.Page
+                    import com.varabyte.kobweb.core.PageContext
+                    import com.varabyte.kobweb.core.data.*
+                    import com.varabyte.kobweb.core.init.InitRoute
+                    import com.varabyte.kobweb.core.init.InitRouteContext
+                    import com.varabyte.kobweb.core.layout.Layout
                     import dev.bitspittle.site.components.layouts.PageLayout
+                    import dev.bitspittle.site.components.layouts.PageLayoutData
                     import dev.bitspittle.site.components.widgets.blog.ArticleEntry
                     import dev.bitspittle.site.components.widgets.blog.ArticleList
 
+                    @InitRoute
+                    fun initBlogListingsPage(ctx: InitRouteContext) {
+                      ctx.data.add(PageLayoutData("Blog Posts"))
+                    }
+
                     @Page
                     @Composable
-                    fun BlogListingsPage() {
-                      PageLayout("Blog Posts") {
-                        val entries = listOf(
+                    @Layout(".components.layouts.PageLayout")
+                    fun BlogListingsPage(ctx: PageContext) {
+                      val entries = listOf(
                     """.trimIndent()
                 )
 
                 blogEntries.sortedByDescending { it.date }.forEach { entry ->
-                    appendLine("      ${entry.toArticleEntry()},")
+                    appendLine("    ${entry.toArticleEntry()},")
                 }
 
                 appendLine(
                     """
-                        )
-                        ArticleList(entries)
-                      }
+                      )
+                      ArticleList(entries)
                     }
                     """.trimIndent()
                 )
