@@ -2,6 +2,7 @@ package dev.bitspittle.site
 
 import androidx.compose.runtime.*
 import com.varabyte.kobweb.browser.storage.setItem
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.core.App
 import com.varabyte.kobweb.silk.SilkApp
@@ -21,7 +22,7 @@ fun AppEntry(content: @Composable () -> Unit) {
             localStorage.setItem(COLOR_MODE_KEY, colorMode)
         }
 
-        Surface(SmoothColorStyle.toModifier().minHeight(100.vh)) {
+        Surface(SmoothColorStyle.toModifier()) {
             content()
         }
     }

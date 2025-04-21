@@ -59,7 +59,7 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
 
     Box(Modifier
         .fillMaxWidth()
-        .minHeight(100.percent)
+        .minHeight(100.vh)
         // Create a box with two rows: the main content (fills as much space as it can) and the footer (which reserves
         // space at the bottom). "auto" means the use the height of the row. "1fr" means give the rest of the space to
         // that row. Since this container is set to *at least* 100%, the footer will always appear at least on the
