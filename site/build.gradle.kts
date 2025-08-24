@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kobweb.application)
     alias(libs.plugins.kobwebx.markdown)
+    alias(libs.plugins.vite.kotlin)
 }
 
 repositories {
@@ -45,8 +46,11 @@ kobweb {
                 script {
                     // Needed by components/layouts/BlogLayout.kt
                     src = "/highlight.js/highlight.min.js"
+                    type = "module"
                 }
             }
+
+            scriptAttributes.put("type", "module")
         }
     }
 
@@ -171,6 +175,21 @@ kotlin {
                 implementation(libs.kobwebx.markdown)
                 implementation(libs.firebase.kotlin.bindings)
             }
+        }
+    }
+}
+
+// Vite requires the static files (index.html…) to be in the same directory as the JS files.
+// This flattens the 'public' subdirectory when building with Vite.
+for (task in listOf(tasks.viteCompileKotlinDev, tasks.viteCompileKotlinProd)) {
+    task {
+        eachFile {
+            relativePath = RelativePath(
+                /* endsWithFile = */ relativeSourcePath.isFile,
+                *relativeSourcePath.segments
+                    .filter { it != "public" }
+                    .toTypedArray()
+            )
         }
     }
 }
