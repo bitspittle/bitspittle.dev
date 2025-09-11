@@ -2,10 +2,10 @@
 firebase-web = "9.15.0" # from https://www.npmjs.com/package/firebase
 firebase-bindings = "+" # TODO: lock down a real version when this library gets more mature
 jetbrains-compose = "1.8.0"
-kobweb = "0.23.1-SNAPSHOT"
-kotlin = "2.2.10"
-kotlinx-coroutines = "1.6.0"
-kotlinx-html = "0.7.3"
+kobweb = "0.23.3"
+kotlin = "2.2.20"
+kotlinx-coroutines = "1.10.2"
+kotlinx-html = "0.12.0"
 
 [libraries]
 compose-html-core = { module = "org.jetbrains.compose.html:html-core", version.ref = "jetbrains-compose" }
