@@ -66,7 +66,7 @@ fun Footer(modifier: Modifier = Modifier) {
         }
 
         Row {
-            SpanText("© 2025, David Herman", CopyrightStyle.toModifier())
+            SpanText("© 2026, David Herman", CopyrightStyle.toModifier())
         }
     }
 }
