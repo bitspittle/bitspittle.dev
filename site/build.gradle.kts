@@ -156,21 +156,17 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.compose.runtime)
-            }
+        commonMain.dependencies {
+            implementation(libs.compose.runtime)
         }
 
-        val jsMain by getting {
-            dependencies {
-                implementation(libs.compose.html.core)
-                implementation(libs.kobweb.core)
-                implementation(libs.kobweb.silk)
-                implementation(libs.silk.icons.fa)
-                implementation(libs.kobwebx.markdown)
-                implementation(libs.firebase.kotlin.bindings)
-            }
+        jsMain.dependencies {
+            implementation(libs.compose.html.core)
+            implementation(libs.kobweb.core)
+            implementation(libs.kobweb.silk)
+            implementation(libs.silk.icons.fa)
+            implementation(libs.kobwebx.markdown)
+            implementation(libs.firebase.kotlin.bindings)
         }
     }
 }
