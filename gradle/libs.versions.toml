@@ -2,9 +2,9 @@
 firebase-web = "9.15.0" # from https://www.npmjs.com/package/firebase
 firebase-bindings = "+" # TODO: lock down a real version when this library gets more mature
 compose-html = "1.11.1"
-compose-runtime = "1.11.2"
-kobweb = "0.25.0-SNAPSHOT"
-kotlin = "2.4.0"
+compose-runtime = "1.12.0"
+kobweb = "0.25.1"
+kotlin = "2.4.10"
 kotlinx-coroutines = "1.11.0"
 kotlinx-html = "0.12.0"
 
