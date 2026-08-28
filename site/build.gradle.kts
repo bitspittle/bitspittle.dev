@@ -51,6 +51,10 @@ kobweb {
     }
 
     markdown {
+        imports.addAll(
+            "com.varabyte.kobweb.silk.components.icons.fa.*"
+        )
+
         handlers {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
 
