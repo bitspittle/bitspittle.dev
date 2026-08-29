@@ -112,6 +112,10 @@ fun initSilk(ctx: InitSilkContext) {
                 .clip(Rect(cornerRadius = 8.px))
                 .objectFit(ObjectFit.ScaleDown)
                 .maxWidth(100.percent)
+                // Set a border that guarantees visual separation from the background (if image background happens to
+                // match or nearly match)
+                .borderRadius(10.px)
+                .border(2.px, LineStyle.Solid, colorMode.opposite.toPalette().background.toRgb().copyf(alpha = 0.1f))
         }
 
         theme.replaceStyleBase(HorizontalDividerStyle) {
