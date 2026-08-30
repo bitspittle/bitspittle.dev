@@ -1,6 +1,7 @@
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.handlers.MarkdownHandlers
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
+import kotlinx.html.link
 import kotlinx.html.script
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
@@ -42,9 +43,13 @@ kobweb {
             description.set("Tech chatter, tutorials, and career advice")
 
             head.add {
+                // Prism is activated in components/layouts/BlogLayout.kt
+                link {
+                    rel = "stylesheet"
+                    href = "/prism/prism.css"
+                }
                 script {
-                    // Needed by components/layouts/BlogLayout.kt
-                    src = "/highlight.js/highlight.min.js"
+                    src = "/prism/prism.js"
                 }
             }
         }

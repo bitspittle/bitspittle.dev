@@ -11,20 +11,10 @@ import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.components.document.Toc
 import com.varabyte.kobweb.silk.components.document.TocBorderedVariant
-import com.varabyte.kobweb.silk.init.InitSilk
-import com.varabyte.kobweb.silk.init.InitSilkContext
-import com.varabyte.kobweb.silk.init.registerStyleBase
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.blog.ArticleMetadata
 import kotlinx.browser.document
-import org.jetbrains.compose.web.css.*
-
-@InitSilk
-fun initHighlightJs(ctx: InitSilkContext) {
-    // Tweaks to make output from highlight.js look softer / better
-    ctx.stylesheet.registerStyleBase("code.hljs") { Modifier.borderRadius(8.px) }
-}
 
 class BlogData(
     val author: String,
@@ -75,12 +65,11 @@ fun BlogLayout(ctx: PageContext, content: @Composable () -> Unit) {
                 setAttribute("title", "hljs-style")
             }.also { document.head!!.appendChild(it) }
         }
-        styleElement.setAttribute("href", "/highlight.js/styles/a11y-${colorMode.name.lowercase()}.min.css")
     }
 
     LaunchedEffect(ctx.route.path) {
-        // See kobweb config in build.gradle.kts which sets up highlight.js
-        js("hljs.highlightAll()")
+        // See kobweb config in build.gradle.kts which sets up Prism
+        js("Prism.highlightAll()")
     }
 
     ArticleMetadata()
