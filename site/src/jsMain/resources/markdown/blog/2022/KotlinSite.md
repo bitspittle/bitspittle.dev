@@ -199,7 +199,7 @@ the same one. Still, it should look familiar enough to people who write Jetpack 
 
 The above Compose HTML `AttrsScope` would be represented by the following `Modifier`:
 
-```kotlin
+```kotlin "Source Modifier"
 private val EXAMPLE_MODIFIER = Modifier
     .id("example")
     .width(50.px).height(25.px)
@@ -208,7 +208,7 @@ private val EXAMPLE_MODIFIER = Modifier
 
 Silk widgets take modifiers directly:
 
-```kotlin
+```kotlin "Silk widget"
 Button(
     onClick = { /*...*/ },
     modifier = EXAMPLE_MODIFIER
@@ -218,7 +218,7 @@ Button(
 But for interoperability with Compose HTML elements, it is easy to convert a `Modifier` into an `AttrsScope` on the fly,
 using the `toAttrs` method:
 
-```kotlin
+```kotlin "Compose HTML element"
 Div(attrs = EXAMPLE_MODIFIER.toAttrs())
 ```
 
