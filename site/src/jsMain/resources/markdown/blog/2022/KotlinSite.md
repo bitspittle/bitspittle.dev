@@ -36,8 +36,7 @@ create the page `https://example.com/hello`.
 
 With Kobweb, this couldn't be easier -- just annotate a composable method with the `@Page` annotation, and you're done:
 
-```kotlin
-// src/jsMain/kotlin/com/example/pages/Hello.kt
+```kotlin "src/jsMain/kotlin/com/example/pages/Hello.kt"
 package com.example.pages
 
 @Page
@@ -59,8 +58,7 @@ instantly, without needing to fetch additional information from the server.
 
 In other words, if we add this "goodbye" page:
 
-```kotlin
-// src/jsMain/kotlin/com/example/pages/Goodbye.kt
+```kotlin "src/jsMain/kotlin/com/example/pages/Goodbye.kt"
 package com.example.pages
 
 @Page
@@ -72,8 +70,7 @@ fun GoodbyePage() {
 
 we can then modify our "hello" page example to add a link to it:
 
-```kotlin
-// src/jsMain/kotlin/com/example/pages/Hello.kt
+```kotlin 7 "src/jsMain/kotlin/com/example/pages/Hello.kt"
 package com.example.pages
 
 @Page
@@ -263,7 +260,7 @@ next to the code that uses them.
 
 It's easy -- just instantiate a `CssStyle` and store the result to a `val`:
 
-```kotlin
+```kotlin 1
 val HoverContainerStyle = CssStyle {
     base { Modifier.fontSize(32.px).padding(10.px) }
     hover {
@@ -280,15 +277,13 @@ top of the base if their condition is met.
 CSS styles can be converted to `Modifier`s using the `toModifier` method and to `AttrsScope`s using the `toAttrs`
 method. This way, you can pass them into either Silk widgets *or* Compose HTML elements:
 
-```kotlin
+```kotlin "Source CssStyle"
 val HoverContainerStyle = CssStyle { /*...*/ }
-
-// Then later...
-
-// Silk widget:
+```
+```kotlin "Silk widget"
 Box(HoverContainerStyle.toModifier()) { /*...*/ }
-    
-// Compose HTML element:
+```
+```kotlin "Compose HTML element"    
 Div(attrs = HoverContainerStyle.toAttrs()) { /*...*/ }
 ```
 

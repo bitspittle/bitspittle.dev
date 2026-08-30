@@ -84,8 +84,7 @@ Below, we'll explore endpoints that could be used in a simple TODO app.
 First, let's start with declaring a simple GET query. Here's an API route that generates a unique ID, which the
 client can request and then use to uniquely identify themselves as a specific user moving forward:
 
-```kotlin
-// src/jvmMain/kotlin/api/Id.kt
+```kotlin "src/jvmMain/kotlin/api/Id.kt"
 package api
 
 @Api
@@ -122,8 +121,7 @@ $ curl https://(yoursite.com)/api/id
 
 Next, let's look at an example of a POST query:
 
-```kotlin
-// src/jvmMain/kotlin/api/user/Add.kt
+```kotlin "src/jvmMain/kotlin/api/user/Add.kt"
 package api
 
 @Api
@@ -168,8 +166,7 @@ provides access to a mutable instance of `data`.
 Let's go ahead and implement our own init method that creates a datastore class (in production, this would be backed by
 a database, for example). Then, we just need to register an instance of it with the `data` object:
 
-```kotlin
-// src/jvmMain/todo/model/datastore/TodoDataStore.kt
+```kotlin 1,12 "src/jvmMain/todo/model/datastore/TodoDataStore.kt"
 class TodoDataStore {
     suspend fun add(ownerId: String, todo: String) {
       /* ... */
@@ -305,8 +302,7 @@ while following along, we suggest getting the demo _todo_ app for this guide.
 
 In a terminal, navigate to a folder on your computer where you store projects and execute the following commands:
 
-```bash
-# e.g. in ~/projects
+```bash "e.g. in ~/projects"
 $ kobweb create examples/todo
 # Kobweb asks a few questions, but defaults should be fine
 $ cd todo
@@ -321,8 +317,7 @@ $ git add . && git commit -m "Initial commit"
 
 This next step is optional, but to get a feel for the app before you deploy it, run it locally!
 
-```bash
-# Inside the todo directory
+```bash "e.g. in ~/projects/todo"
 $ cd site
 $ kobweb run
 ```
@@ -510,7 +505,7 @@ Hit **Add secret** and you're done!
 
 Copy the following workflow as-is into your project at `.github/workflows/export-and-deploy-site.yml`:
 
-```yaml
+```yaml ".github/workflows/export-and-deploy-site.yml"
 name: Export and deploy site
 
 on:
@@ -605,7 +600,7 @@ Create a file called `Dockerfile` in the root of your project and populate it wi
 > You must update the `REPO_OWNER` and `REPO_NAME` arguments to valid values or your deployment will fail! Furthermore,
 > if you named your **Secret File** something besides `GH_TOKEN`, be sure to update the name below as well.
 
-```dockerfile
+```dockerfile "Dockerfile"
 # Variables declared before stages can be re-used; they will need to be
 # redeclared explicitly, but the value only needs to be specified once.
 ARG KOBWEB_APP_ROOT="site"
@@ -712,10 +707,10 @@ Render will be able to find this file and execute it when a deployment is reques
 The above script looks for an artifact associated with the most recent git commit and downloads it. There is some extra
 complexity to support searching multiple times with exponential backoff in case the artifact is not found yet.
 
-If you review your render logs, you should see information that looks like the following (with real values instead of
+If you review your Render logs, you should see information that looks like the following (with real values instead of
 asterisks):
 
-```
+``` "Render logs"
 #11 0.063 ==> [1/4] Starting artifact download process...
 #11 0.063     Target Commit: ****************************************
 #11 0.064 ==> [2/4] Searching GitHub API for matching artifact (with retry/backoff)...
@@ -751,7 +746,7 @@ the name I chose reserved `kobweb-todo.onrender.com`.
 Open and edit `.kobweb/conf.yaml`, then add a CORS entry to it, replacing the host name below with what _your_ site will
 be:
 
-```yaml
+```yaml ".kobweb/conf.yaml"
 site:
   title: "Todo"
 
@@ -776,14 +771,22 @@ server:
 To test that you did this correctly, run your app (`cd site && kobweb run`) and open up the log file at
 `.kobweb/server/logs/kobweb-server.log`. Look for the line near the top that should say your host is registered:
 
-```
+``` 3 ".kobweb/server/logs/kobweb-server.log"
+INFO  kobweb.system - Initializing server engine for Kobweb project "Todo"
+INFO  kobweb.system - No API jar file specified in conf.yaml. Server API routes will not be available.
 INFO  kobweb.system - CORS: Registered host(s): kobweb-todo.onrender.com
+INFO  io.ktor.server.Application - Application started in 0.167 seconds.
+INFO  io.ktor.server.Application - Responding at http://0.0.0.0:8080
 ```
 
 If the conf file was set up incorrectly (perhaps the indentation is off), you'll instead see:
 
-```
+``` 3 ".kobweb/server/logs/kobweb-server.log"
+INFO  kobweb.system - Initializing server engine for Kobweb project "Todo"
+INFO  kobweb.system - No API jar file specified in conf.yaml. Server API routes will not be available.
 INFO  kobweb.system - CORS: No hosts registered.
+INFO  io.ktor.server.Application - Application started in 0.167 seconds.
+INFO  io.ktor.server.Application - Responding at http://0.0.0.0:8080
 ```
 
 ### Deploy your site
@@ -848,7 +851,8 @@ client-only static site instead of a full stack product.
 
 Congratulations! Your Kobweb server should now be online!
 
-*If you're having trouble, you can compare your own project [with mine](https://github.com/bitspittle/kobweb-todo-on-render).*
+> [!TIP]
+> If you're having trouble, you can compare your own project [with mine](https://github.com/bitspittle/kobweb-todo-on-render).
 
 This post covered the essentials for getting a Kobweb server running in the cloud.
 

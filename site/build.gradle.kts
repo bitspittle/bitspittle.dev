@@ -1,3 +1,4 @@
+import com.varabyte.kobweb.common.text.isSurrounded
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 import com.varabyte.kobwebx.gradle.markdown.handlers.MarkdownHandlers
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
@@ -64,9 +65,47 @@ kobweb {
             val BS_WGT = "dev.bitspittle.site.components.widgets"
 
             code.set { code ->
-                "$BS_WGT.code.CodeBlock(\"\"\"${code.literal.escapeTripleQuotedText()}\"\"\", lang = ${
-                    code.info.takeIf { it.isNotBlank() }?.let { "\"$it\"" }
-                })"
+                var lang: String? = null
+                var lines: String? = null
+                var label: String? = null
+                var editingLabel = false
+
+                code.info.split(" ").filter { it.isNotBlank() }.forEach { infoPart ->
+                    if (editingLabel) {
+                        label += " "
+                        if (infoPart.endsWith("\"")) {
+                            label += infoPart.removeSuffix("\"")
+                            editingLabel = false
+                        } else {
+                            label += infoPart
+                        }
+                    } else {
+                        if (infoPart.isSurrounded("\"")) {
+                            label = infoPart.removeSurrounding("\"")
+                        } else if (infoPart.startsWith("\"")) {
+                            label = infoPart.removePrefix("\"")
+                            editingLabel = true
+                        } else if (infoPart.first().isDigit()) {
+                            lines = infoPart
+                        } else {
+                            lang = infoPart
+                        }
+                    }
+                }
+
+                buildString {
+                    append("$BS_WGT.code.CodeBlock(\"\"\"${code.literal.escapeTripleQuotedText()}\"\"\"")
+                    if (lang != null) {
+                        append(", lang = \"$lang\"")
+                    }
+                    if (lines != null) {
+                        append(", highlightLines = \"$lines\"")
+                    }
+                    if (label != null) {
+                        append(", label = \"$label\"")
+                    }
+                    append(")")
+                }
             }
 
             inlineCode.set { code ->

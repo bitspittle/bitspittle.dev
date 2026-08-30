@@ -185,9 +185,7 @@ However, for simplicity with Netlify's workflow, we're going to commit our expor
 
 Open up the `.gitignore` file in your project's `site/` folder and add the line `!.kobweb/site` to the bottom:
 
-```text
-...
-
+```text 4 "site/.gitignore"
 # Kobweb ignores
 .kobweb/*
 !.kobweb/conf.yaml
@@ -196,8 +194,7 @@ Open up the `.gitignore` file in your project's `site/` folder and add the line 
 
 #### Export your site
 
-```bash
-# in kobweb-netlify-demo/site/...
+```bash "In the site/ folder..."
 $ kobweb export --layout static
 ```
 
@@ -236,8 +233,8 @@ If you click on the link, you should see a site that looks [like this](https://p
 
 If so, congratulations! You're done. 🎉
 
-If you're still having issues, feel free to compare your project
-[with mine](https://github.com/bitspittle/kobweb-netlify-demo).
+> [!TIP]
+> If you're having trouble, you can compare your own project [with mine](https://github.com/bitspittle/kobweb-netlify-demo).
 
 ### GitHub Pages
 
@@ -268,9 +265,7 @@ We'll create a workflow which exports your site and deploys the result to GitHub
 In your project's `.github/workflows` folder (which you can create if it doesn't exist), create this YAML file (I called
 mine `export-and-deploy-site.yml` but the name doesn't really matter):
 
-```yaml
-# export-and-deploy-site.yml
-
+```yaml ".github/workflows/export-and-deploy-site.yml"
 name: Deploy Kobweb site to Pages
 
 on:
@@ -393,7 +388,7 @@ anytime Kobweb is passed an absolute path in your code, this prefix will be prep
 
 Set `basePath` to the name of your repo.
 
-```yaml
+```yaml ".kobweb/conf.yaml"
 site:
   basePath: "<repo-project-name>"
   # i.e. the name you chose for your repo.
@@ -437,8 +432,8 @@ For example, my site lives at https://bitspittle.github.io/kobweb-ghp-demo/.
 
 Are you seeing something similar at your link? If so, congratulations! You're done. 🥳
 
-If you're still having issues, feel free to compare your project
-[with mine](https://github.com/bitspittle/kobweb-ghp-demo).
+> [!TIP]
+> If you're having trouble, you can compare your own project [with mine](https://github.com/bitspittle/kobweb-ghp-demo).
 
 ## Conclusion
 

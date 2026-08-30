@@ -240,9 +240,7 @@ We'll create a workflow which updates our badge data every time new code is push
 In your project's `.github/workflows` folder (which you can create if it doesn't exist), create a YAML file (I called
 mine `coverage-badge.yml`):
 
-```yaml
-# coverage-badge.yml
-
+```yaml ".github/workflows/coverage-badge.yml"
 name: Create coverage badge
 
 on:
