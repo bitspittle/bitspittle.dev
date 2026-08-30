@@ -241,8 +241,9 @@ developers just getting started with frontend development.
 Most frontend projects have a single, giant, terrifying stylesheet (or, worse, several giant, terrifying stylesheets)
 driving the look and feel of their site.
 
-***Aside:** If you don't know what a stylesheet is, it's a collection of CSS rules that target various elements on your
-page, specifying their style using a declarative format.*
+> [!NOTE]
+> If you don't know what a stylesheet is, it's a collection of CSS rules that target various elements on your page,
+> specifying their style using a declarative format.
 
 For example, at one point while working on Kobweb, I used a todo app to learn from, and at least half of the time I
 spent was crawling over
