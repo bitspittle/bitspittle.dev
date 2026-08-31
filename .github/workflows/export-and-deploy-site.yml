@@ -37,6 +37,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
+          fetch-depth: 0 # Full history, which is used for getting the blog post's "updated" dates
           submodules: recursive # Get firebase-bindings
 
       - name: Set up Java
