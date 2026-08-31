@@ -55,13 +55,13 @@ fun initBlogLayout(ctx: InitRouteContext) {
 fun BlogLayout(ctx: PageContext, content: @Composable () -> Unit) {
     val colorMode by ColorMode.currentState
     LaunchedEffect(colorMode) {
-        var styleElement = document.querySelector("""link[title="hljs-style"]""")
-        if (styleElement == null) {
-            styleElement = document.createElement("link").apply {
+        if (document.querySelector("""link[title="hljs-style"]""") == null) {
+            val styleElement = document.createElement("link").apply {
                 setAttribute("type", "text/css")
                 setAttribute("rel", "stylesheet")
                 setAttribute("title", "hljs-style")
-            }.also { document.head!!.appendChild(it) }
+            }
+            document.head!!.appendChild(styleElement)
         }
     }
 
