@@ -286,6 +286,15 @@ never know it unless a user happens to report it.
 In contrast, Compose HTML (well, the web, really) defaults to using system fonts provided by the OS. Without any extra
 downloads or special work on your end, international text tends to just work out of the box.
 
+> [!NOTE]
+> Starting in 1.12, C4W will begin downloading fonts automatically to fix missing
+> characters ([release notes](https://kotlinlang.org/docs/multiplatform/whats-new-compose-112.html#automatic-font-fallback)).
+> This is a clever approach to addressing the issue discussed in this section!
+>
+> It still might not be a perfect solution, as it might result in large downloads, it could possibly stall on a slow
+> network connection, and it always uses Noto fonts, which misses symbols and uses an aesthetic that some users may not
+> prefer.
+
 ## Conclusion
 
 For the reasons outlined above -- particularly SEO / indexing, download size, and access to the wider JS ecosystem -- I
