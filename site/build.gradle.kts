@@ -13,15 +13,6 @@ plugins {
     alias(libs.plugins.kobwebx.markdown)
 }
 
-repositories {
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    mavenLocal {
-        content {
-            includeGroup("dev.bitspittle")
-        }
-    }
-}
-
 group = "dev.bitspittle.site"
 version = "1.0-SNAPSHOT"
 
