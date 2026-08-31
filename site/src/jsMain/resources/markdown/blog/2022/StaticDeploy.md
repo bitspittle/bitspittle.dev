@@ -293,28 +293,31 @@ jobs:
       run:
         shell: bash
 
-    env:
-      KOBWEB_CLI_VERSION: 0.9.21
-
     steps:
+      # Will fetch latest CLI version and store it in KOBWEB_CLI_VERSION env var
+      - name: Fetch latest Kobweb CLI version
+        run: |
+          VERSION=$(curl -sSL https://raw.githubusercontent.com/varabyte/data/refs/heads/main/kobweb/cli-version.txt | xargs)
+          echo "KOBWEB_CLI_VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 17
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Query Browser Cache ID
         id: browser-cache-id
         run: echo "value=$(./gradlew -q :site:kobwebBrowserCacheId)" >> $GITHUB_OUTPUT
 
       - name: Cache Browser Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
@@ -338,7 +341,7 @@ jobs:
           ../kobweb-${{ env.KOBWEB_CLI_VERSION }}/bin/kobweb export --notty --layout static
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./site/.kobweb/site
 
@@ -351,7 +354,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 ```
 
 > [!IMPORTANT]
@@ -365,11 +368,6 @@ There is a lot going on in the above workflow, but the key points are:
 * It manually downloads the Kobweb CLI binary from [its own repo](https://github.com/varabyte/kobweb-cli).
 * It exports your site (same as if you had run `kobweb export --layout static` locally).
 * It uploads the exported site as an artifact in a way that GitHub Pages can consume it.
-
-> [!NOTE]
-> The above script uses CLI version 0.9.21, which is the latest version at the time of writing this note. If a newer
-> version is available by the time you read this, you can update the `KOBWEB_CLI_VERSION` environment variable to the
-> new version. Older versions should work just fine, however.
 
 #### Base path
 
