@@ -6,6 +6,8 @@ import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.core.rememberPageContext
+import com.varabyte.kobweb.silk.components.icons.fa.FaTimeline
 import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
@@ -15,6 +17,7 @@ import com.varabyte.kobweb.silk.style.toAttrs
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.palette.border
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
+import com.varabyte.kobwebx.markdown.markdown
 import dev.bitspittle.site.components.widgets.date.DateText
 import dev.bitspittle.site.components.widgets.dom.NoListIndentationModifier
 import dev.bitspittle.site.components.widgets.dom.StyledDiv
@@ -79,17 +82,27 @@ fun ArticleList(entries: List<ArticleEntry>) {
 }
 
 @Composable
-fun AuthorDate(author: String, date: String, updated: String? = null, modifier: Modifier = Modifier) {
+fun AuthorDate(author: String, date: String, modifier: Modifier = Modifier) {
     Div(attrs = ArticleMetaStyle.toModifier().then(modifier).toAttrs()) {
         StyledSpan(ArticleDateStyle) {
             DateText(date)
         }
         StyledSpan(ArticleAuthorStyle) { SpanText(author) }
-        if (updated != null) {
-            StyledSpan(ArticleUpdatedStyle) {
-                Br()
-                SpanText("Updated ")
-                DateText(updated)
+
+        val ctx = rememberPageContext()
+        val md = ctx.markdown
+        if (md != null) {
+            // If here, we're on a blog page directly, so let's show more metadata about the page itself
+            val blogHistory = BLOG_HISTORIES[md.path]
+            if (blogHistory != null) {
+                StyledSpan(ArticleUpdatedStyle) {
+                    Br()
+                    Link(blogHistory.toUrl()) {
+                        FaTimeline()
+                    }
+                    Text(" Updated ")
+                    DateText(blogHistory.mostRecentDate)
+                }
             }
         }
     }

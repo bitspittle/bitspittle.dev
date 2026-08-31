@@ -19,7 +19,6 @@ import kotlinx.browser.document
 class BlogData(
     val author: String,
     val date: String,
-    val updated: String?,
 )
 
 // What heading level to start and stop showing
@@ -41,7 +40,6 @@ fun initBlogLayout(ctx: InitRouteContext) {
         BlogData(
             fm["author"]?.singleOrNull() ?: error("Blog should specify 'author'"),
             fm["date"]?.singleOrNull() ?: error("Blog should specify 'date'"),
-            fm["updated"]?.singleOrNull(),
         )
     )
     ctx.data.add(
